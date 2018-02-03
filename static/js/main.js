@@ -85,7 +85,7 @@
             var id = $(this).val();
             if (confirm('Jesteś pewien, że chcesz tą usunać kategorię z bazy?')) {
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/api/category/' + id + '/',
+                    url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/category/' + id + '/',
                     type: 'DELETE',
                     contentType: 'application/json',
                     dataType: 'json',
@@ -105,7 +105,7 @@
             var id = data['id'];
             data = JSON.stringify(data);
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/category/' + id + '/',
+                url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/category/' + id + '/',
                 type: 'PUT',
                 contentType: 'application/json',
                 data: data,
@@ -170,7 +170,7 @@
             var id = data['id'];
             data = JSON.stringify(data);
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/products/' + id + '/',
+                url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/products/' + id + '/',
                 type: 'PUT',
                 contentType: 'application/json',
                 data: data,
@@ -198,7 +198,7 @@
             var id = data['id'];
             if (confirm('Jesteś pewien, że chcesz usunać product: ' + data['name'] + ' z bazy?')) {
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/api/products/' + id + '/',
+                    url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/products/' + id + '/',
                     type: 'DELETE',
                     contentType: 'application/json',
                     data: data,
@@ -228,7 +228,7 @@
             
 			data['position'] = $(this).find('select').val();
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/resemployees/' + id + '/',
+                url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/resemployees/' + id + '/',
                     type: 'PUT',
                     contentType: 'application/json',
                     data: data,
@@ -248,7 +248,7 @@
             var id = data['id'];
             if (confirm('Jesteś pewien, że chcesz usunać pracownika ' + data['name'] + ' ' + data['surname'] + ' z bazy?')) {
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/api/resemployees/' + id + '/',
+                    url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/resemployees/' + id + '/',
                     type: 'DELETE',
                     contentType: 'application/json',
                     data: data,
@@ -325,7 +325,7 @@
             var id = data['id'];
             if (confirm('Jesteś pewien, że chcesz usunać pracownika ' + data['name'] + ' ' + data['surname'] + ' z bazy?')) {
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/api/resdishes/' + id + '/',
+                    url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/resdishes/' + id + '/',
                     type: 'DELETE',
                     contentType: 'application/json',
                     data: data,

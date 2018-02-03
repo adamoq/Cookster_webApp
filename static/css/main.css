@@ -1,4 +1,8 @@
 @font-face {
+    font-family: Barber;
+    src: url(/static/fonts/Barber_Street.ttf);
+}
+@font-face {
     font-family: Futura;
     src: url(/static/fonts/FuturaPTLight.woff);
 }
@@ -12,6 +16,9 @@ a:visited,
 a:active,
 a:hover{
     text-decoration: none!important;
+}
+.cookster {
+	font-family: 'Barber', sans-serif;
 }
 .fade.in{
 	display: block;

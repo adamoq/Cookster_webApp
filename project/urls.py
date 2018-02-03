@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
+from . import settings
 from cook.views import main, products, administration, employers, menu, orders, login_user, category, dish, orders_waiter
 from cook.views import signup
 from django.contrib import admin
@@ -51,3 +52,9 @@ urlpatterns = [
 	url(r'^api/', include(category_resource.urls)),
 	url(r'^api/', include(order_resource.urls)),
 ]
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]

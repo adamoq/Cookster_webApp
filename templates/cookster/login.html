@@ -8,12 +8,12 @@
 <div class = "login-wrapper">
 
 <form method="post">
-<img src = "https://furtaev.ru/preview/key_label_small.png" style = "margin-bottom:30">
-
+<h1 class="cookster" style="margin-bottom: 40px;font-size: 96px;"> CookSter </h1>
 {% csrf_token %}
     {{ form.as_p }}
 <br>
-<div>
+<div>	
+	
   <input type="submit" value="Log in" />
   <input type="hidden" name="next" value="{{ next }}" />
 </div>

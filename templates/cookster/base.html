@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <html>
 <head>
-<title>LIMO - Administracja</title>
+<title>Cookster - A.F.</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Didact+Gothic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -30,8 +30,8 @@
 <body>
 <div class = "nav-bar left">
 <div class = "nav-logo">
-<h1>cookster</h1>
-<p> CRM SYSTEM </p>
+<h1>CS</h1>
+<p class="cookster"> CookSter </p>
 </div> 
 	<ul>
 		<a href="{% url 'menu' %}"><li><img src="{% static 'img/menu-icon.png' %}"><p>Dania</p></li></a>
@@ -39,19 +39,15 @@
 		<a href="{% url 'products' %}"><li><img src="{% static 'img/products-icon.png' %}"><p>Produkty</p></li></a>
 		<a href="{% url 'administration' %}"><li><img src="{% static 'img/administration-icon.png' %}"><p>Administracja</p></li></a>
 		<a href="{% url 'orders' %}"><li><img src="{% static 'img/orders-icon.png' %}"><p>Zamówienia</p></li></a>
-		<!--<a href="/logout"><li><img src="{% static 'img/orders-icon.png' %}"><p>Wyloguj się</p></li></a>-->
+		
 	</ul>
+	<a href="/logout" class="logout"><p><img src="{% static 'img/logout-icon.png' %}">Wyloguj się</p></a>
 </div>
 <div class = "content">
 <div class = "overlay">
 	<div class="loader">COOKSTER</div>
 </div>
-<script>
-(function() {
-        $(".overlay").css('display', 'block');
-        $(".loader").css('display', 'block');
-	})(jQuery)
-</script>
+
 {% block content %}
 
 {% endblock %}
@@ -93,8 +89,7 @@
 </body>
 <script> 
 (function() {
-    $(".overlay").css('display', 'none');
-     $(".loader").css('display', 'none');
+    $(".overlay").toggleClass('hidden');
 })(jQuery)
 </script>
 </html>
