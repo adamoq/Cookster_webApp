@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<script>
+(function($){
+	$('.nav-bar.left a:nth-child(1) li').addClass('active');
+   })(jQuery); 
+</script>
+{% csrf_token %}
+<h1 style="margin-left: 15px;">Kategorie potraw</h1>
+<p style="margin-left: 15px;">Edytuj swoje kategorie, dodawaj nowe, oraz sprawdź jakie dania do nich należą.</p>
+<span id="dishes-flag" style="display: none;" ></span>  
+<div class="category-container">
+  {% if categoryList %}
+  
+	
+	{% for category in categoryList %}
+	
+		<div class = "col-md-4 category">
+		<a href = "/category/?c={{category.id}}"><h2>{{category.name}}</h2></a>
+		<form class="category-form">{% csrf_token %}
+		<input type = "text" name = "id" class = "form-control not-active hidden" value = "{{category.id}}">
+		<input type = "text" name = "name" class = "form-control not-active hidden" value = "{{category.name}}" disabled >
+		<p class = "category-edit"> Edytuj kategorię <img src ="{% static 'img/edit-icon.png' %}"></p>
+		 <input type = "image" name = "submit" class = "submit-icon hidden" src = "{% static 'img/accept-icon.png'%}">
+		</form>
+		<input type = "image" class = "category-remove" src = "{% static 'img/rubbish-icon-white.png' %}" value = "{{ category.id }}">
+		
+		</div>
+	</a>
+	{%endfor%}
+	{%endif%}
+</div>
+<div class = "float-button add-product" data-toggle="modal" data-target="#cookmodal"> </div>
+
+{% endblock %}

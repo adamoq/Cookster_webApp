@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<script>
+(function($){
+	$('.nav-bar.left a:nth-child(4) li').addClass('active');
+   })(jQuery); 
+</script>
+<span id="administration-flag" style="display: none;" ></span>  
+<div class="administration-container">
+<h2>Panel administracyjny</h2>
+<div class="container--left col-sm-6"> 
+
+<h3>Generowanie raportów</h3>
+
+
+<div class="col-sm-4 box">
+<img src="{% static 'img/menu-icon.png' %}">
+Raport dań
+</div>
+<div class="col-sm-4 box">
+<img src="{% static 'img/waiter-icon.png' %}">
+Raport pracowników
+</div>
+<div class="col-sm-4 box">
+<img src="{% static 'img/products-icon.png' %}">
+Raport produktów
+</div>
+
+<h3>
+Generuj raport okresowy
+</h3>
+
+<div class = "col-sm-6 raport">
+
+<label>Data rozpoczecia</label>
+<input id="date" type="date">
+<label>Data zakończenia</label>
+<input id="date" type="date">
+</div>
+<div class = "col-sm-6 raport">
+<label>Pracownik</label>
+{% if employesList %}
+<select>
+	{% for employee in employesList %}
+	<option value="{{employee.id}}">{{employee.name}} {{employee.surname}} </>
+	{%endfor%}
+</select>
+{%endif%}
+</div>
+
+</div>
+<div class="container--right col-sm-6">
+
+<h3>Wybór szablonu </h3>
+<div class="changeColor palette1" id = "0">
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+</div>
+<div class="changeColor palette2" id = "1">
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+</div>
+<div class="changeColor palette3" id = "2">
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+</div>
+<div class="changeColor palette4" id = "3">
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+</div>
+<a href="/admin">
+	<div class="col-sm-12 box admin-box">
+	<img src="{% static 'img/admin-icon.png' %}">
+	Przejdź do panelu administracyjnego
+		<p class="admin-desc">
+			Zmienione tam dane mogą zaburzyć działanie systemu oraz są nieodwracalne.
+		</p>
+	</div>
+</a>
+</div>
+
+
+</div>
+
+
+{% endblock %}

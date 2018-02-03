@@ -1,0 +1,39 @@
+{% load staticfiles %}
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div class = "login-wrapper">
+
+<form method="post">
+<img src = "https://furtaev.ru/preview/key_label_small.png" style = "margin-bottom:30">
+
+{% csrf_token %}
+    {{ form.as_p }}
+<br>
+<div>
+  <input type="submit" value="Log in" />
+  <input type="hidden" name="next" value="{{ next }}" />
+</div>
+</form>
+{% if form.errors %}
+<div class="login-wrapper-info"> 
+
+<p>Twoje dane nie są poprawne. Spróbuj ponownie.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Nie masz dostępu do tej części serwisu.</p>
+    {% else %}
+    <p>Zaloguj się.</p>
+    {% endif %}
+
+</div>
+{% endif %}
+
+</div>
+</body>
+</html>

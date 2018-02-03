@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<script>
+(function($){
+	$('.nav-bar.left a:nth-child(1) li').addClass('active');
+   })(jQuery); 
+</script>
+{% csrf_token %}
+<span id="dish-flag" style="display: none;" ></span>  
+<div class="dish-container">
+ <h1>Edycja dania</h1>
+ <p>Składniki, z których składają się Twoje dania.</p>    
+ <p>Mozesz dodawać nowe elementy oraz je modyfikować.</p>   
+ <br><br>
+ {% if dish %}
+  <form class="dish-form" alt="Użyj przycisku CTRL" method="POST">{% csrf_token %}
+        {{ dish.as_p }}
+		<input type="text" class="hidden" name = "id" value = "{{dishId}}" >
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endif %}
+
+
+
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<script>
+(function($){
+	$('.nav-bar.left a:nth-child(5) li').addClass('active');
+   })(jQuery); 
+</script>
+{% csrf_token %}
+<script> 
+
+	function allowDrop(ev) {
+		ev.preventDefault();
+	}
+
+	function drag(ev) {
+		ev.dataTransfer.setData("text", ev.target.id);
+	}
+
+	function drop(ev) {
+		ev.preventDefault();
+		var text = ev.dataTransfer.getData("text");
+		var data = new Object();
+		
+		data.state = text.slice(text.indexOf('.')+1);
+      
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/waitertasks/' + text.slice(0,text.indexOf('.')),
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: data,
+                    dataType: 'json',
+                    processData: false,
+                });
+		ev.target.appendChild(document.getElementById(data));
+	}
+
+</script>
+<span id="orders-waiter-flag" style="display: none;"></span>  
+<div class="orders-container">
+<h2> Zamówienia kucharzy </h2>
+{% if tasks %}
+<div class = "col-md-4">
+<div id="stage--step1" class="stage" ondrop="drop(event)" ondragover="allowDrop(event)">
+	{%for task in tasks%}
+	<div class="col-md-6 orderdrag" id = "{{task.id}}.{{task.state}}" draggable="true" ondragstart="drag(event)" >
+	  <div class="order" id = {{task.id}} > 
+		<p> Zamówienie {{task.id}} </p>
+		<p> Stół: {{task.table}} </p>
+		<p> Kelner: {{task.waiter.name}} {{task.waiter.surname}}</p>
+		
+	  </div>
+	</div>
+	
+	{%endfor%}
+  </div>
+</div>
+
+<div class = "col-md-4">
+<div id="stage--step2" class="stage" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+</div>
+<div class = "col-md-4">
+<div id="stage--step3" class="stage" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+</div>
+{% endif %}
+{%if tasks%}
+{%for task in tasks%}
+ <div class="modal fade ordermodal ordermodal{{task.id}}" id="" role="dialog">
+    <div class="modal-dialog">
+		      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close modal-close" id = {{task.id}}>&times;</button>
+          <h4 class="modal-title">Zamówienie #{{ task.id }}</h4>
+        </div>
+	
+        <div class="modal-body">
+                  
+		<p><label> Kelner: </label> {{task.waiter.name}} {{task.waiter.surname}} </p>
+		<p><label> Data utworzenia: </label> {{task.created_at}} </p>
+		<p><label> Data zmiany statusu: </label> {{task.updated_at}} </p>
+		<p><label> Stół: </label> {{task.table}} </p>
+		<p><label> Status: </label> {{task.state}} </p>
+		<p style = "display: inline-block;float: left;"><label> Dania: </label></p> <p class="dishes-string">{% for dish in task.dishes.all%}{{dish.name}}, {%endfor%}</p>
+		<p style = "display: inline-block;float: left;"><label> Komentarz: </label> </p><p class="dishes-string"> {{task.comment}} </p>
+		        
+   
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default modal-close" id = {{task.id}}>Wróć</button>
+		  <button type="button" class="btn btn-default button-remove" id = {{task.id}}>Usuń</button>
+        </div>
+	
+      </div>
+      
+    </div>
+  </div>
+ {%endfor%}
+   {%endif%}
+</div>
+
+{% endblock %}

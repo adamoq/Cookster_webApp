@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<script>
+(function($){
+	$('.nav-bar.left a:nth-child(5) li').addClass('active');
+   })(jQuery); 
+</script>
+
+<div class="orders-container">
+<h2> Wybierz rodzaj zamówień </h2>
+<a href="">
+<div class="block block--delivery">
+<img src="{% static 'img/delivery-icon.png' %}">
+<p>Zasobowe</p>
+</div>
+</a>
+<a href="/orders-waiter">
+<div class="block block--orders">
+<p>Kelnerskie</p>
+<img src="{% static 'img/waiter-icon.png' %}">
+
+</div>
+</a>
+</div>
+{% endblock %}
