@@ -313,6 +313,9 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 	color: #fff;
 	font-size: 18px;
 }
+.category-container .category h2{
+	font-size: 44px;
+}
 .category-container .category::before{
 	content: '';
 	top: 0;
@@ -452,6 +455,14 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 	font-size: 50px;
 	margin-top: 40px;
 	margin-bottom: 80px;
+}
+.orders-container h3 {
+	width: 33.3%;
+    padding: 0;
+    margin: 20px 0 50px 0;
+    display: inline-block;
+    z-index: 9999;
+    position: relative;
 }
 .orders-container .block{
 	width: 80%;

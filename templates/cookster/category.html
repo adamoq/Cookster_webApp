@@ -8,10 +8,10 @@
 </script>
 {% csrf_token %}
 <span id="category-flag" style="display: none;" ></span>  
-<div class="category-container">
-  <h1 style="width: 100%; margin-left: 15px;">Dania z kategorii {{ categoryName }}</h1>
- <p style="width: 100%; margin-left: 15px;">Składniki, z których składają się Twoje dania.</p>    
- <p style="width: 100%; margin-left: 15px;">Mozesz dodawać nowe elementy oraz je modyfikować.</p>   
+<div class="results-container">
+  <h1>Dania z kategorii {{ categoryName }}</h1>
+ <p>Składniki, z których składają się Twoje dania.</p>    
+ <p>Mozesz dodawać nowe elementy oraz je modyfikować.</p>   
  <br><br>
  <table class="table table-striped">
     <thead>
@@ -32,15 +32,15 @@
 		<form class = "product-form"> {% csrf_token %}
       <td width="50%">
 			<div class="form-group">
-				<input type = "text" name = "id" class = "form-control not-active" value = "{{ dish.id }}" disabled>
+				<input type = "text" name = "id" class = "form-control not-active" value = "{{ dish.id }}" style="padding: 0!important;"disabled>
 			</div>
-			<div class="form-group">
+			<div class="form-group" style = "width: 35%;">
 			<a href = "/dish/?d={{ dish.id }}">
 				<input type = "text" name = "name" class = "form-control not-active" value = "{{ dish.name }}">
 				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			</a>
 			</div>
-			<div class="form-group">
+			<div class="form-group" style = "display:inline;width: 35%;">
 				
 				<input type="radio" id="radio-{{ dish.id }}-1" name="radio-{{ dish.id }}-set" class="radio-av" {%if dish.av == '0' %}  checked {% endif %} value = "0"/><label for="radio-{{ product.id }}-1"></label>
 				<input type="radio" id="radio-{{ dish.id }}-2" name="radio-{{ dish.id }}-set" class="radio-av" {%if dish.av == '1' %}  checked {% endif %} value = "1"/><label for="radio-{{ product.id }}-2"></label>

@@ -351,8 +351,8 @@
 			var str = $(this).attr('id');
 			var pos = str.indexOf('.');
 			var state = str.slice(pos+1);
-			if (state == 1 ) $('#stage--step2').append($(this));
-			if (state == 2 ) $('#stage--step3').append($(this));
+			if (state == 1 ) $('#stage--step1').append($(this));
+			if (state == 2 ) $('#stage--step2').append($(this));
 		});
 		
 		//drag and drop

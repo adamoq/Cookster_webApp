@@ -22,17 +22,20 @@
 		var text = ev.dataTransfer.getData("text");
 		var data = new Object();
 		
-		data.state = text.slice(text.indexOf('.')+1);
-      
+		data.state = ev.target.id.slice(-1);
+		var id = text.slice(0,text.indexOf('.'));
+		data.id = id;
+		data = JSON.stringify(data);
+		
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/waitertasks/' + text.slice(0,text.indexOf('.')),
+                url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/waitertasks/' + id+'/',
                     type: 'PUT',
                     contentType: 'application/json',
                     data: data,
                     dataType: 'json',
                     processData: false,
                 });
-		ev.target.appendChild(document.getElementById(data));
+		ev.target.appendChild(document.getElementById(text));
 	}
 
 </script>
@@ -40,8 +43,9 @@
 <div class="orders-container">
 <h2> Zamówienia kucharzy </h2>
 {% if tasks %}
+<h3> Założone </h3><h3> Gotowe </h3><h3> Zrealizowane</h3>
 <div class = "col-md-4">
-<div id="stage--step1" class="stage" ondrop="drop(event)" ondragover="allowDrop(event)">
+<div id="stage--step0" class="stage" ondrop="drop(event)" ondragover="allowDrop(event)">
 	{%for task in tasks%}
 	<div class="col-md-6 orderdrag" id = "{{task.id}}.{{task.state}}" draggable="true" ondragstart="drag(event)" >
 	  <div class="order" id = {{task.id}} > 
@@ -57,10 +61,11 @@
 </div>
 
 <div class = "col-md-4">
-<div id="stage--step2" class="stage" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<div id="stage--step1" class="stage" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 </div>
+
 <div class = "col-md-4">
-<div id="stage--step3" class="stage" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<div id="stage--step2" class="stage" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 </div>
 {% endif %}
 {%if tasks%}
