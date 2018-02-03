@@ -81,6 +81,7 @@
     if ($("#dishes-flag").length > 0) {
         //usuniecie kategorii z bazy
         $('.category-remove').on('click', function(e) { //usunięcie obiektu
+			
             e.preventDefault();
             var id = $(this).val();
             if (confirm('Jesteś pewien, że chcesz tą usunać kategorię z bazy?')) {
@@ -101,6 +102,7 @@
         //update kategorii
         $(document).on('submit', 'form.category-form', function() {
             event.preventDefault();
+			 $("#overlay").toggleClass('hidden');
             var data = objectifyForm(this);
             var id = data['id'];
             data = JSON.stringify(data);
@@ -111,6 +113,9 @@
                 data: data,
                 dataType: 'json',
                 processData: false,
+				success: function() {
+                        $("#overlay").toggleClass('hidden');
+                    }
             })
         });
         $('.category-edit').on('click', function() {
@@ -166,6 +171,7 @@
         //update produktu
         $(document).on('submit', 'form.product-form', function() {
             event.preventDefault();
+			$("#overlay").toggleClass('hidden');
             var data = objectifyForm(this);
             var id = data['id'];
             data = JSON.stringify(data);
@@ -176,6 +182,9 @@
                 data: data,
                 dataType: 'json',
                 processData: false,
+				success: function() {
+                        $("#overlay").toggleClass('hidden');
+                    }
             })
 
 
@@ -221,6 +230,7 @@
 
         $(document).on('submit', 'form.emplyee-form', function() {
             event.preventDefault();
+			$("#overlay").toggleClass('hidden');
             var data = objectifyForm(this);
              //aktualizowanie obiektu
 			 var id = data['id'];
@@ -234,6 +244,9 @@
                     data: data,
                     dataType: 'json',
                     processData: false,
+					success: function() {
+                        $("#overlay").toggleClass('hidden');
+                    }
                 })
 
             

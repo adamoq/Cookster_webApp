@@ -140,7 +140,15 @@ table input {
     margin-right: 5px;
 }
 }
-.overlay{
+
+#overlay.hidden{
+   background:rgba(0,0,0,0.0);
+   display:none;
+}
+#overlay.hidden .loader{
+   display:none;
+}
+#overlay  {
 	position:fixed;
     top:0;
     left:0;
@@ -150,13 +158,6 @@ table input {
     height:100%;
     display:block;
 	transition: background 2s;
-}
-.overlay.hidden{
-   background:rgba(0,0,0,0.0);
-   display:none;
-}
-.overlay.hidden .loader{
-   display:none;
 }
 .loader {
     border-top: 16px solid blue;

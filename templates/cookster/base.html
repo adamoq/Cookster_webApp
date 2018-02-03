@@ -44,7 +44,7 @@
 	<a href="/logout" class="logout"><p><img src="{% static 'img/logout-icon.png' %}">Wyloguj się</p></a>
 </div>
 <div class = "content">
-<div class = "overlay">
+<div id = "overlay">
 	<div class="loader">COOKSTER</div>
 </div>
 
@@ -89,7 +89,7 @@
 </body>
 <script> 
 (function() {
-    $(".overlay").toggleClass('hidden');
+    $("#overlay").toggleClass('hidden');
 })(jQuery)
 </script>
 </html>
