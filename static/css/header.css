@@ -45,9 +45,9 @@ h1, p {
 	cursor: default;
 }
 .nav-bar.left .nav-logo p{
-	font-size: 29px;
-    margin: -40px 0 0 0;
-    color: whitesmoke;
+	font-size: 37px;
+    margin: -45px 0 0 0;
+    color: #ff9900;
 }
 .nav-bar.left ul{	
 	padding: 0;

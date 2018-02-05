@@ -10,22 +10,13 @@ from django.shortcuts import render_to_response
 from django import forms
 from .forms import ProductForm, CategoryForm, DishForm, EmployeeForm
 from django.views.decorators.csrf import csrf_exempt
+from django.core import serializers
 def main(request):
-    return render(request, 'index.html')
-	
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('home')
-    else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
+	if request.user.is_authenticated():	
+		redirect(products)
+	else:
+		return render(request, 'index.html')
+
 @login_required
 @csrf_exempt
 def products(request):
@@ -153,10 +144,12 @@ def dish(request):
 		}
 	
 	return HttpResponse(template.render(context, request))
-	
+@login_required
+@csrf_exempt		
 def orders(request):
     return render(request, 'orders.html')
-	
+@login_required
+@csrf_exempt		
 def orders_waiter(request):
 	template = loader.get_template('orders-waiter.html')
 	tasks = WaiterTask.objects.all()
@@ -164,10 +157,12 @@ def orders_waiter(request):
 		'tasks': tasks,
 	}
 	return HttpResponse(template.render(context, request))
-	
+@csrf_exempt	
 def login_user(request):
     logout(request)
     username = password = ''
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/products/')
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
@@ -180,3 +175,10 @@ def login_user(request):
 def showError(request, errorText):
 	template = loader.get_template('error.html')
 	HttpResponse(template.render({'errorText':errorText}, request))
+def login_mobile(request):
+	if request.method == 'GET':
+		login = request.GET.get('login')
+		password = request.GET.get('password')
+		user = Employee.objects.all().filter(login = login)
+		if user[0].password == password: return HttpResponse(serializers.serialize("json", user))
+	return HttpResponse("False")
