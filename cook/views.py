@@ -179,12 +179,7 @@ def login_mobile(request):
 	if request.method == 'GET':
 		login = request.GET.get('login')
 		password = request.GET.get('password')
-<<<<<<< HEAD
 		if login and password :
 			user = Employee.objects.all().filter(login = login)
-			if user[0].password == password: return HttpResponse(serializers.serialize("json", user[0]))
-=======
-		user = Employee.objects.all().filter(login = login)
-		if user[0].password == password: return HttpResponse(serializers.serialize("json", user))
->>>>>>> parent of b1680ce... rest api fix for login
+			if user[0].password == password: return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
