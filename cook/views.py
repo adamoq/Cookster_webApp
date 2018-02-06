@@ -181,5 +181,5 @@ def login_mobile(request):
 		password = request.GET.get('password')
 		if login and password :
 			user = Employee.objects.all().filter(login = login)
-			if user[0].password == password: return HttpResponse(serializers.serialize("json", user))
+			if user and user[0].password == password: return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
