@@ -183,3 +183,25 @@ def login_mobile(request):
 			user = Employee.objects.all().filter(login = login)
 			if user is not None and user[0].password == password: return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
+def changepassword(request):
+	if request.method == 'GET':
+		login = request.GET.get('login')
+		password = request.GET.get('passwordOld')
+		npassword = request.GET.get('passwordNew')
+		if login and password and npassword:
+			user = Employee.objects.all().filter(login = login)
+			if user is not None and user[0].password == password: 
+				user[0].password = npassword
+				return HttpResponse(serializers.serialize("json", user))
+	return HttpResponse("False")
+def changephone(request):
+	if request.method == 'GET':
+		login = request.GET.get('login')
+		password = request.GET.get('password')
+		phonenumber = request.GET.get('phonenumber')
+		if login and password and phonenumber:
+			user = Employee.objects.all().filter(login = login)
+			if user is not None and user[0].password == password: 
+				user[0].phonenumber = phonenumber
+				return HttpResponse(serializers.serialize("json", user))
+	return HttpResponse("False")

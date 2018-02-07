@@ -17,8 +17,9 @@ class Employee(models.Model):
 	name = models.CharField(max_length=50)
 	surname = models.CharField(max_length=50)
 	position = models.CharField(max_length=1, choices=POSITIONS)
-	login = models.CharField(max_length=50)
+	login = models.CharField(max_length=50, unique = True)
 	password = models.CharField(max_length=50, default = "password")
+	phonenumber = models.CharField(max_length=12, blank = True)
 		
 class Product(models.Model):
 	avs = (
@@ -26,7 +27,7 @@ class Product(models.Model):
 		('1', 'medium'),
 		('2', 'large'),
 	)
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50, unique = True)
 	av = models.CharField(max_length=2, choices=avs)
 	
 
@@ -36,7 +37,7 @@ class Dish(models.Model):
 		('0', 'available'),
 		('1', 'not available'),
 	)
-	name = models.CharField(max_length=50)
+	name = models.CharField(max_length=50, unique = True)
 	av = models.CharField(max_length=1, choices=STATES)
 	products = models.ManyToManyField(Product)
 	
