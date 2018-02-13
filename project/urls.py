@@ -45,8 +45,8 @@ urlpatterns = [
 	url(r'^api/', include(category_resource.urls)),
 	url(r'^api/', include(order_resource.urls)),
 	url(r'^mobileapi/$', login_mobile),
-	url(r'^mobilereset/$', changepassword),
-	url(r'^mobilephone/$', changephone),
+	url(r'^mobilereset/password/$', changepassword),
+	url(r'^mobilereset/phone/$', changephone),
 ]
 if settings.DEBUG:
     import debug_toolbar
