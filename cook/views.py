@@ -190,9 +190,10 @@ def changepassword(request):
 		npassword = request.GET.get('passwordNew')
 		if login and password and npassword:
 			user = Employee.objects.all().filter(login = login)
-			if user is not None and user[0].password == password: 
-				user[0].password = npassword
-				return HttpResponse(serializers.serialize("json", user))
+			if user is not None: 
+				if user[0].password == password:				
+					user.update(password=npassword)				
+					return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
 def changephone(request):
 	if request.method == 'GET':
@@ -201,7 +202,8 @@ def changephone(request):
 		phonenumber = request.GET.get('phonenumber')
 		if login and password and phonenumber:
 			user = Employee.objects.all().filter(login = login)
-			if user is not None and user[0].password == password: 
-				user[0].phonenumber = phonenumber
-				return HttpResponse(serializers.serialize("json", user))
+			if user is not None: 
+				if user[0].password == password:
+					user.update(phonenumber=phonenumber)
+					return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")

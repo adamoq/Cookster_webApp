@@ -19,7 +19,7 @@ class Employee(models.Model):
 	position = models.CharField(max_length=1, choices=POSITIONS)
 	login = models.CharField(max_length=50, unique = True)
 	password = models.CharField(max_length=50, default = "password")
-	phonenumber = models.CharField(max_length=12, blank = True)
+	phonenumber = models.CharField(max_length=12)
 		
 class Product(models.Model):
 	avs = (
