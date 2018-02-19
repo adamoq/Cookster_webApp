@@ -17,13 +17,10 @@ from django.conf.urls import include, url
 from . import settings
 from cook.views import main, products, administration, employers, menu, orders, login_user, category, dish, orders_waiter, login_mobile, changepassword,changephone
 from django.contrib import admin
-from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource
+from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource
 from django.contrib.auth import views as auth_views
-category_resource = CategoryResource()
-product_resource = ProductResource()
-employee_resource = EmployeeResource()
-dish_resource = DishResource()
-order_resource =OrderResource()
+
+
 admin.autodiscover()
 
 urlpatterns = [
@@ -39,11 +36,12 @@ urlpatterns = [
 	url(r'^orders/$', orders, name = 'orders'),
 	url(r'^category/$', category),
 	url(r'^dish/$', dish),
-	url(r'^api/', include(product_resource.urls)),
-	url(r'^api/', include(employee_resource.urls)),
-	url(r'^api/', include(dish_resource.urls)),
-	url(r'^api/', include(category_resource.urls)),
-	url(r'^api/', include(order_resource.urls)),
+	url(r'^api/', include(ProductResource().urls)),
+	url(r'^api/', include(EmployeeResource().urls)),
+	url(r'^api/', include(DishResource().urls)),
+	url(r'^api/', include(CategoryResource().urls)),
+	url(r'^api/', include(OrderResource().urls)),
+	url(r'^api/', include(OrderCookResource().urls)),
 	url(r'^mobileapi/$', login_mobile),
 	url(r'^mobilereset/password/$', changepassword),
 	url(r'^mobilereset/phone/$', changephone),

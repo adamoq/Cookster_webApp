@@ -54,7 +54,6 @@ class WaiterTask(models.Model):
 	state = models.CharField(max_length=1, choices=STATES, default = '0')
 	comment = models.CharField(max_length=200, default = ' ')
 	created_at = models.DateTimeField(auto_now_add=True)
-	updated_at = models.DateTimeField(auto_now=True)
 	
 class CookTask(models.Model):
 	PRIORITIES = (
@@ -62,9 +61,14 @@ class CookTask(models.Model):
 		('1', 'important'),
 		('2', 'for yesterday'),
 	)
+	STATES = (
+		('0', 'started'),
+		('1', 'ready'),
+		('2', 'done'),
+	)
+	state = models.CharField(max_length=1, choices=STATES, default = '0')
 	provider = models.ForeignKey(Employee, on_delete=models.CASCADE)
 	products = models.CharField(max_length=300, default = ' ')
 	priority = models.CharField(max_length=1, choices=PRIORITIES, default = '0')
-	comment = models.CharField(max_length=200, default = ' ')
+	comment = models.CharField(max_length=300, default = ' ')
 	created_at = models.DateTimeField(auto_now_add=True)
-	updated_at = models.DateTimeField(auto_now=True)
