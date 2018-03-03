@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from . import settings
-from cook.views import main, products, administration, employers, menu, orders, login_user, category, dish, orders_waiter, login_mobile, changepassword,changephone
+from cook.views import main, products, administration, employers, menu, orders, login_user, category, dish, orders_waiter, login_mobile, changepassword,changephone, changeproduct
 from django.contrib import admin
-from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource
+from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, DishOrderResource
 from django.contrib.auth import views as auth_views
 
 
@@ -42,9 +42,11 @@ urlpatterns = [
 	url(r'^api/', include(CategoryResource().urls)),
 	url(r'^api/', include(OrderResource().urls)),
 	url(r'^api/', include(OrderCookResource().urls)),
+	url(r'^api/', include(DishOrderResource().urls)),
 	url(r'^mobileapi/$', login_mobile),
 	url(r'^mobilereset/password/$', changepassword),
 	url(r'^mobilereset/phone/$', changephone),
+	url(r'^mobilereset/product/$', changeproduct),
 ]
 if settings.DEBUG:
     import debug_toolbar

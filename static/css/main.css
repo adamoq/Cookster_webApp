@@ -105,7 +105,7 @@ table tbody tr .form-group{
 	display: inline-block;
 	}
 table tbody tr .form-group:first-of-type{
-	width: 3%;
+	width: 4.5%;
 	}
 table input[type="image"]{
 	height: 20px;
@@ -236,7 +236,7 @@ table input[type="image"]{
     display: inline-block;
     position: relative;
     width: 64px;
-	margin: 0 13% 0 0;
+	margin: 0 8% 0 0;
     height: 24px;
 }
 
@@ -301,9 +301,10 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 
 }
 .category-container .category{
-	min-height:200px;
+	min-height:50px;
+	height: 31%;
 	border: 1px solid #ddd;
-	padding-top:50px;
+	padding-top:3%;
 	text-align:center;
 	background: linear-gradient(45deg, rgba(153,0,0,0) 0%, rgba(0,0,0,.4) 100%);
 	-webkit-transition: background .5s ease-out;
@@ -461,7 +462,7 @@ table tbody tr .product-form .form-group:nth-of-type(4){
     padding: 0;
     margin: 20px 0 50px 0;
     display: inline-block;
-    z-index: 9999;
+    z-index: 999;
     position: relative;
 }
 .orders-container .block{
@@ -703,6 +704,7 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 }
 .modal-dialog {
 	margin-top: 120px!important;
+	z-index: 1000;
 }
 .modal-body p input,
 .modal-body p select{
@@ -728,9 +730,19 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 	outline: none;
 }
 .modal-footer button.save{
-	background-color: #c4ff4d;
+	background-color: #228B22;
+	color: #fff;
 }
 form{
 	margin: 0;
 	font-size: 16px;
+}
+@media screen and (max-width: 1300px) {
+.orders-container .block img{
+	height: 200px;
+}
+.category-container .category h2 {
+    font-size: 38px;
+}
+
 }

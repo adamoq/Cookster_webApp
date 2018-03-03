@@ -41,6 +41,9 @@ class Dish(models.Model):
 	av = models.CharField(max_length=1, choices=STATES)
 	products = models.ManyToManyField(Product)
 	
+class DishOrder(models.Model):
+	dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
+	count = models.IntegerField()	
 		
 class WaiterTask(models.Model):
 	STATES = (
@@ -49,11 +52,13 @@ class WaiterTask(models.Model):
 		('2', 'done'),
 	)
 	waiter = models.ForeignKey(Employee, on_delete=models.CASCADE )
-	dishes = models.ManyToManyField(Dish)
+	dishes = models.ManyToManyField(DishOrder)
 	table = models.IntegerField()
 	state = models.CharField(max_length=1, choices=STATES, default = '0')
 	comment = models.CharField(max_length=200, default = ' ')
 	created_at = models.DateTimeField(auto_now_add=True)
+	
+
 	
 class CookTask(models.Model):
 	PRIORITIES = (

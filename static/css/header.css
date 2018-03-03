@@ -180,3 +180,43 @@ table input {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+@media screen and (max-width: 1300px) {
+	.content {
+
+    padding-left: 81px;
+	}
+.nav-bar.left{
+	width: 80px;
+}
+    .nav-bar.left .nav-logo {
+	padding-top: 0;
+    height: 80px;
+
+}
+.nav-bar.left .nav-logo h1 {
+    font-size: 50px;
+}
+.nav-bar.left li {
+    height: 80px;
+}
+.nav-bar.left li img {
+	height: 50px!important;
+    margin: 8px 15px 0 15px!important;
+}
+.nav-bar.left li.active img {
+    height: 64px!important;
+    margin: 5px 8px 0px 8px!important;
+}
+.nav-bar.left li p {
+    font-size: 12px;
+	    line-height: 12px;
+}
+.nav-bar.left .nav-logo p {
+    font-size: 24px;
+    margin: -20px 0 0 0;
+}
+.logout{
+	font-size: 11px;
+}
+}

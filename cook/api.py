@@ -1,5 +1,5 @@
 from tastypie.resources import ModelResource
-from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask
+from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, DishOrder
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
@@ -20,6 +20,7 @@ class ProductResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
+
 		
 		
 class DishResource(ModelResource):
@@ -30,7 +31,17 @@ class DishResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
-		
+		filtering = {
+            'position': ALL_WITH_RELATIONS,    
+        }
+
+class DishOrderResource(ModelResource):
+	class Meta:
+		queryset = DishOrder.objects.all()
+		resource_name = 'dishorder'
+		authentication = Authentication()
+		authorization = Authorization()
+		allowed_methods = ['get','put', 'post', 'delete']		
 		
 class EmployeeResource(ModelResource):
 	class Meta:
@@ -38,9 +49,12 @@ class EmployeeResource(ModelResource):
 		resource_name = 'resemployees'
 		authentication = Authentication()
 		authorization = Authorization()
+		filtering = {
+            'position': ALL,    
+        }
 		
 class OrderResource(ModelResource):
-	provider = fields.ForeignKey(EmployeeResource, 'provider',full=True)
+	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)
 	class Meta:
 		queryset = WaiterTask.objects.all()
 		resource_name = 'waitertasks'
