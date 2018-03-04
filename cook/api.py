@@ -36,6 +36,7 @@ class DishResource(ModelResource):
         }
 
 class DishOrderResource(ModelResource):
+	dish = fields.ForeignKey(Dish, 'dish',full=True)
 	class Meta:
 		queryset = DishOrder.objects.all()
 		resource_name = 'dishorder'
