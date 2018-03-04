@@ -218,11 +218,15 @@ def changeproduct(request):
 			if product is not None: 
 				dishes = Dish.objects.all().filter(products = product)
 				if dishes[0]:
-					#user.update(phonenumber=phonenumber)
-					for i in range(len(dishes)):
-						if state == "0":
-							dishes.update(av='0')
-						elif state == "1" or state == "2":
-							dishes.update(av='1')
+					if state == "0":			
+						dishes.update(av='0')
+					elif state == "1" or state == "2":
+						dishes.update(av='0')
+						for i in range(len(dishes)):	
+							for product in dishes[i].products.all():
+								if product.av == '0':
+									dishes[i].av='0'
+									break
+						dishes.update(av='1')
 					return HttpResponse(serializers.serialize("json", dishes))
 	return HttpResponse("False")

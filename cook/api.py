@@ -24,7 +24,8 @@ class ProductResource(ModelResource):
 		
 		
 class DishResource(ModelResource):
-	category = fields.ForeignKey(CategoryResource, 'category')
+	category = fields.ForeignKey(CategoryResource, 'category',full=True)
+	products = fields.ManyToManyField(ProductResource, 'products',full=True)
 	class Meta:
 		queryset = Dish.objects.all()
 		resource_name = 'resdishes'
@@ -32,7 +33,7 @@ class DishResource(ModelResource):
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
 		filtering = {
-            'position': ALL_WITH_RELATIONS,    
+            'av': ALL_WITH_RELATIONS,    
         }
 
 class DishOrderResource(ModelResource):
@@ -43,6 +44,7 @@ class DishOrderResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']		
+		always_return_data = True
 		
 class EmployeeResource(ModelResource):
 	class Meta:
