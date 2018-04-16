@@ -32,12 +32,10 @@ def products(request):
 				showError(request,'Dane produktu są niepoprawane.')
 			else:
 				form.save()       
-		productsList = Product.objects.all()
 		template = loader.get_template('products.html')
-		form = ProductForm()
 		context = {
-			'productsList': productsList,
-			'form':form,
+			'productsList': Product.objects.all(),
+			'form':ProductForm(),
 			'formText': 'Dodaj produkt'
 		}
 		return HttpResponse(template.render(context, request))
@@ -55,7 +53,6 @@ def administration(request):
 @login_required
 @csrf_exempt	
 def employers(request):
-	employesList = Employee.objects.all()
 	template = loader.get_template('employers.html')
 	if request.method == 'POST':
 		form = EmployeeForm(request.POST)
@@ -64,7 +61,7 @@ def employers(request):
 		else:
 			form.save()   
 	context = {
-		'employesList': employesList,
+		'employesList': Employee.objects.all(),
 		'form': EmployeeForm(),
 		'formText': 'Dodaj pracownika'
 	}
@@ -84,12 +81,10 @@ def menu(request):
 			showError(request,'Dane kategorii są niepoprawane.')
 		else:
 			Category.objects.create(name=categoryform.cleaned_data['name'])    
-	categoryList = Category.objects.all()
 	template = loader.get_template('menu.html')
-	categoryform = CategoryForm()
 	context = {
-		'categoryList': categoryList,
-		'form':categoryform,
+		'categoryList': Category.objects.all(),
+		'form':CategoryForm(),
 		'formText': 'Dodaj kategorię'
 	}
 	return HttpResponse(template.render(context, request))
@@ -109,11 +104,10 @@ def category(request):
 			'formText': 'Dodaj danie'
 		}
 	if request.method == 'GET':
-		dishForm = DishForm()
 		context = {
 			'categoryName': category.name,
 			'dishesList' : dishes,
-			'form':dishForm,
+			'form':DishForm(),
 			'formText': 'Dodaj danie'
 		}
 	else:
@@ -137,9 +131,8 @@ def dish(request):
 	
 	elif request.method == 'GET':
 		dish = Dish.objects.get(pk = request.GET.get('d'))
-		dishForm = DishForm( instance = dish)
 		context = {
-			'dish':dishForm,
+			'dish':DishForm( instance = dish),
 			'dishId':dish.id
 		}
 	
@@ -167,10 +160,9 @@ def login_user(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/products/')
+        if user is not None and user.is_active:
+            login(request, user)
+            return HttpResponseRedirect('/products/')
     return render_to_response('login.html')
 def showError(request, errorText):
 	template = loader.get_template('error.html')
@@ -190,8 +182,7 @@ def changepassword(request):
 		npassword = request.GET.get('passwordNew')
 		if login and password and npassword:
 			user = Employee.objects.all().filter(login = login)
-			if user is not None: 
-				if user[0].password == password:				
+			if user is not None and user[0].password == password: 		
 					user.update(password=npassword)				
 					return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
@@ -202,10 +193,9 @@ def changephone(request):
 		phonenumber = request.GET.get('phonenumber')
 		if login and password and phonenumber:
 			user = Employee.objects.all().filter(login = login)
-			if user is not None: 
-				if user[0].password == password:
-					user.update(phonenumber=phonenumber)
-					return HttpResponse(serializers.serialize("json", user))
+			if user is not None and user[0].password == password: 
+				user.update(phonenumber=phonenumber)
+				return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
 
 def changeproduct(request):
