@@ -15,7 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGIN_REDIRECT_URL = 'menu'
-
+REPOSITORY_ROOT = os.path.dirname(BASE_DIR)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -142,5 +142,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-STATIC_URL = '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL  = '/media/'
+MEDIA_ROOT  = os.path.join(REPOSITORY_ROOT, 'media/')
