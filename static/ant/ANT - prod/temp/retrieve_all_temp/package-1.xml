@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+  <types>
+    <members>Custom_delete_page</members>
+    <members>Fix</members>
+    <name>ApexPage</name>
+  </types>
+  <types>
+    <members>Lead.Lead Test Process</members>
+    <name>BusinessProcess</name>
+  </types>
+  <types>
+    <members>standard__Chatter</members>
+    <members>standard__Community</members>
+    <members>standard__LightningSalesConsole</members>
+    <members>standard__LightningService</members>
+    <members>standard__Marketing</members>
+    <members>standard__Platform</members>
+    <members>standard__Sales</members>
+    <members>standard__Service</members>
+    <members>standard__ServiceConsole</members>
+    <name>CustomApplication</name>
+  </types>
+  <types>
+    <members>Candidate__c.Batch_Load_Item__c</members>
+    <members>Candidate__c.City__c</members>
+    <members>Candidate__c.Country__c</members>
+    <members>Candidate__c.Current_Employer__c</members>
+    <members>Candidate__c.Currently_Employed__c</members>
+    <members>Candidate__c.Education__c</members>
+    <members>Candidate__c.Email__c</members>
+    <members>Candidate__c.Fax__c</members>
+    <members>Candidate__c.First_Name__c</members>
+    <members>Candidate__c.Gender__c</members>
+    <members>Candidate__c.Last_Name__c</members>
+    <members>Candidate__c.Legacy_Candidate_Number__c</members>
+    <members>Candidate__c.Mobile__c</members>
+    <members>Candidate__c.Phone__c</members>
+    <members>Candidate__c.Social_Security_Number__c</members>
+    <members>Candidate__c.State_Province__c</members>
+    <members>Candidate__c.Street_Address_1__c</members>
+    <members>Candidate__c.Street_Address_2__c</members>
+    <members>Candidate__c.US_Citizen__c</members>
+    <members>Candidate__c.Visa_Required__c</members>
+    <members>Candidate__c.Years_of_Experience__c</members>
+    <members>Candidate__c.Zip_Postal_Code__c</members>
+    <members>Car__c.Car_Engine__c</members>
+    <members>Car__c.car_mark__c</members>
+    <members>Competitor__c.Account__c</members>
+    <members>Competitor__c.Lead__c</members>
+    <members>Interviewer__c.Employee__c</members>
+    <members>Interviewer__c.Legacy_Interviewer_Number__c</members>
+    <members>Interviewer__c.Position__c</members>
+    <members>Interviewer__c.Role__c</members>
+    <members>Job_Application__c.Average_Review_Score__c</members>
+    <members>Job_Application__c.Candidate__c</members>
+    <members>Job_Application__c.Email__c</members>
+    <members>Job_Application__c.Legacy_Application_Number__c</members>
+    <members>Job_Application__c.Name__c</members>
+    <members>Job_Application__c.Phone__c</members>
+    <members>Job_Application__c.Position__c</members>
+    <members>Job_Application__c.Stage__c</members>
+    <members>Job_Application__c.Status__c</members>
+    <members>Job_Application__c.Total_Review_Score__c</members>
+    <members>Job_Application__c.Total_Reviews__c</members>
+    <members>Job_Posting__c.Job_Posting_Site__c</members>
+    <members>Job_Posting__c.Position__c</members>
+    <members>Job_Posting_Site__c.Description__c</members>
+    <members>Job_Posting_Site__c.Job_Site_Name__c</members>
+    <members>Job_Posting_Site__c.Status__c</members>
+    <members>Job_Posting_Site__c.Technical_Site__c</members>
+    <members>Lead.Global_Picklis__c</members>
+    <members>Lead.Target__c</members>
+    <members>Lead.Type__c</members>
+    <members>Offer__c.Actual_Salary__c</members>
+    <members>Offer__c.Additional_Instructions__c</members>
+    <members>Offer__c.Bonus_Percentage__c</members>
+    <members>Offer__c.Candidate_Name__c</members>
+    <members>Offer__c.Job_Application__c</members>
+    <members>Offer__c.Offer_Date__c</members>
+    <members>Offer__c.Offer_Expiration_Date__c</members>
+    <members>Offer__c.Position_Title__c</members>
+    <members>Offer__c.Status__c</members>
+    <members>Offer__c.Stock_Options__c</members>
+    <members>Position__c.Car__c</members>
+    <members>Position__c.Data_Closed__c</members>
+    <members>Position__c.Data_Opened__c</members>
+    <members>Position__c.Department__c</members>
+    <members>Position__c.Duration__c</members>
+    <members>Position__c.Education__c</members>
+    <members>Position__c.Hiring_Manager__c</members>
+    <members>Position__c.Job_Description__c</members>
+    <members>Position__c.Legacy_Position_Number__c</members>
+    <members>Position__c.Location__c</members>
+    <members>Position__c.Max_Pay__c</members>
+    <members>Position__c.Min_Pay__c</members>
+    <members>Position__c.Number_of_Interviewers__c</members>
+    <members>Position__c.Operating_Systems__c</members>
+    <members>Position__c.Pay_Grade__c</members>
+    <members>Position__c.Priority__c</members>
+    <members>Position__c.Programming_languages__c</members>
+    <members>Position__c.Responsibilities__c</members>
+    <members>Position__c.Skills_Required__c</members>
+    <members>Position__c.Start_Date__c</members>
+    <members>Position__c.Status__c</members>
+    <members>Position__c.Sub_Status__c</members>
+    <members>Position__c.Type__c</members>
+    <members>Review__c.Alternate_Position__c</members>
+    <members>Review__c.Cultural_Comments__c</members>
+    <members>Review__c.Cultural_Fit__c</members>
+    <members>Review__c.Experience__c</members>
+    <members>Review__c.Experience_Comments__c</members>
+    <members>Review__c.Interviewer__c</members>
+    <members>Review__c.Job_Application__c</members>
+    <members>Review__c.Leadership_Comments__c</members>
+    <members>Review__c.Leadership_Skills__c</members>
+    <members>Review__c.Legacy_Review_Number__c</members>
+    <members>Review__c.Overall_Score__c</members>
+    <members>Review__c.Reason_Recommended__c</members>
+    <members>Review__c.Recommend_for_Hire__c</members>
+    <members>User.Interview_Dept__c</members>
+    <members>User.Legacy_Employee_Num__c</members>
+    <members>User.People_Manager__c</members>
+    <name>CustomField</name>
+  </types>
+  <types>
+    <members>Account</members>
+    <members>AccountContactRole</members>
+    <members>Activity</members>
+    <members>Asset</members>
+    <members>AssetRelationship</members>
+    <members>AssistantProgress</members>
+    <members>Campaign</members>
+    <members>CampaignMember</members>
+    <members>Candidate__c</members>
+    <members>Car__c</members>
+    <members>Case</members>
+    <members>CaseContactRole</members>
+    <members>CollaborationGroup</members>
+    <members>CollaborationGroupMember</members>
+    <members>Competitor__c</members>
+    <members>Contact</members>
+    <members>ContentVersion</members>
+    <members>Contract</members>
+    <members>ContractContactRole</members>
+    <members>DuplicateRecordItem</members>
+    <members>DuplicateRecordSet</members>
+    <members>EmailMessage</members>
+    <members>Event</members>
+    <members>ExchangeUserMapping</members>
+    <members>FeedItem</members>
+    <members>ForecastingCategoryMapping</members>
+    <members>Idea</members>
+    <members>Interviewer__c</members>
+    <members>Job_Application__c</members>
+    <members>Job_Posting__c</members>
+    <members>Job_Posting_Site__c</members>
+    <members>Lead</members>
+    <members>Macro</members>
+    <members>MacroAction</members>
+    <members>MacroInstruction</members>
+    <members>Offer__c</members>
+    <members>Opportunity</members>
+    <members>OpportunityCompetitor</members>
+    <members>OpportunityContactRole</members>
+    <members>OpportunityLineItem</members>
+    <members>Order</members>
+    <members>OrderItem</members>
+    <members>PartnerRole</members>
+    <members>Position__c</members>
+    <members>Pricebook2</members>
+    <members>PricebookEntry</members>
+    <members>Product2</members>
+    <members>QuickText</members>
+    <members>Review__c</members>
+    <members>Scorecard</members>
+    <members>ScorecardAssociation</members>
+    <members>ScorecardMetric</members>
+    <members>Site</members>
+    <members>SocialPost</members>
+    <members>Solution</members>
+    <members>StreamingChannel</members>
+    <members>Task</members>
+    <members>Topic</members>
+    <members>TopicAssignment</members>
+    <members>User</members>
+    <name>CustomObject</name>
+  </types>
+  <types>
+    <members>Candidate__c</members>
+    <members>Interviewer__c</members>
+    <members>Job_Application__c</members>
+    <members>Job_Posting_Site__c</members>
+    <members>Offer__c</members>
+    <members>Position__c</members>
+    <members>Review__c</members>
+    <name>CustomTab</name>
+  </types>
+  <types>
+    <members>Account-Account Layout</members>
+    <members>Asset-Asset Layout</members>
+    <members>AssetRelationship-Asset Relationship Layout</members>
+    <members>Campaign-Campaign Layout</members>
+    <members>CampaignMember-Campaign Member Page Layout</members>
+    <members>Candidate__c-Candidate Layout</members>
+    <members>Car__c-Car Layout</members>
+    <members>Case-Case Layout</members>
+    <members>CaseClose-Close Case Layout</members>
+    <members>CaseInteraction-Case Feed Layout</members>
+    <members>Competitor__c-Competitor Layout</members>
+    <members>Contact-Contact Layout</members>
+    <members>Contract-Contract Layout</members>
+    <members>DuplicateRecordSet-Duplicate Record Set Layout</members>
+    <members>Event-Event Layout</members>
+    <members>FeedItem-Feed Item Layout</members>
+    <members>Global-Global Layout</members>
+    <members>Idea-Idea Layout</members>
+    <members>Interviewer__c-Interviewer Layout</members>
+    <members>Job_Application__c-Job Application Layout</members>
+    <members>Job_Posting__c-Job Posting Layout</members>
+    <members>Job_Posting_Site__c-Job Posting Site Layout</members>
+    <members>Lead-Lead Layout</members>
+    <members>Macro-Macro Layout</members>
+    <members>Offer__c-Offer Layout</members>
+    <members>Opportunity-Opportunity Layout</members>
+    <members>OpportunityLineItem-Opportunity Product Layout</members>
+    <members>Order-Order Layout</members>
+    <members>OrderItem-Order Product Layout</members>
+    <members>Position__c-Approved Position Layout</members>
+    <members>Position__c-Position Layout</members>
+    <members>Position__c-Technical Position Layout</members>
+    <members>Pricebook2-Price Book Layout</members>
+    <members>PricebookEntry-Price Book Entry Layout</members>
+    <members>Product2-Product Layout</members>
+    <members>QuickText-Quick Text Layout</members>
+    <members>Review__c-Review Layout</members>
+    <members>Scorecard-Scorecard Layout</members>
+    <members>ScorecardAssociation-Scorecard Association Layout</members>
+    <members>ScorecardMetric-Scorecard Metric Layout</members>
+    <members>Solution-Solution Layout</members>
+    <members>Task-Task Layout</members>
+    <members>User-User Layout</members>
+    <name>Layout</name>
+  </types>
+  <types>
+    <members>Account.AllAccounts</members>
+    <members>Account.MyAccounts</members>
+    <members>Account.NewThisWeek</members>
+    <members>Activity.MyActivities</members>
+    <members>Activity.MyDelegatedActivities</members>
+    <members>Activity.MyTeamsActivities</members>
+    <members>Activity.TodaysTasks</members>
+    <members>Activity.UpcomingEvents</members>
+    <members>Asset.AllAssets</members>
+    <members>Campaign.AllActiveCampaigns</members>
+    <members>Campaign.MyActiveCampaigns</members>
+    <members>Candidate__c.All</members>
+    <members>Candidate__c.Recruiter_Queue_Candidate</members>
+    <members>Car__c.All</members>
+    <members>Case.AllOpenCases</members>
+    <members>Case.MyCases</members>
+    <members>Case.MyOpenCases</members>
+    <members>CollaborationGroup.All_ChatterGroups</members>
+    <members>Contact.AllContacts</members>
+    <members>Contact.BirthdaysThisMonth</members>
+    <members>Contact.NewThisWeek</members>
+    <members>Contract.AllActivatedContracts</members>
+    <members>Contract.AllContracts</members>
+    <members>Contract.AllDraftContracts</members>
+    <members>Contract.AllInApprovalContracts</members>
+    <members>Contract.MyActivatedContracts</members>
+    <members>Contract.MyDraftContracts</members>
+    <members>Contract.MyInApprovalContracts</members>
+    <members>Idea.Ideas_Last_7_Days</members>
+    <members>Interviewer__c.All</members>
+    <members>Job_Application__c.All</members>
+    <members>Job_Posting_Site__c.All</members>
+    <members>Lead.AllOpenLeads</members>
+    <members>Lead.MyUnreadLeads</members>
+    <members>Lead.TodaysLeads</members>
+    <members>Offer__c.All</members>
+    <members>Opportunity.AllOpportunities</members>
+    <members>Opportunity.ClosingNextMonth</members>
+    <members>Opportunity.ClosingThisMonth</members>
+    <members>Opportunity.MyOpportunities</members>
+    <members>Opportunity.NewThisWeek</members>
+    <members>Opportunity.Won</members>
+    <members>Order.AllActivatedOrders</members>
+    <members>Order.AllDraftOrders</members>
+    <members>Order.AllOrders</members>
+    <members>Position__c.All</members>
+    <members>Position__c.Recruiter_Queue_Position</members>
+    <members>Product2.AllProducts</members>
+    <members>Review__c.All</members>
+    <members>Scorecard.AllScorecards</members>
+    <members>Scorecard.MyScorecards</members>
+    <members>Solution.AllReviewedSolutions</members>
+    <members>Solution.AllUnreviewedSolutions</members>
+    <members>User.ActiveUsers</members>
+    <members>User.AdminUsers</members>
+    <members>User.AllUsers</members>
+    <name>ListView</name>
+  </types>
+  <types>
+    <members>Admin</members>
+    <members>Chatter External User</members>
+    <members>Chatter Free User</members>
+    <members>Chatter Moderator User</members>
+    <members>ContractManager</members>
+    <members>Custom - Recruiter</members>
+    <members>Custom-Engineering</members>
+    <members>Custom-Executive</members>
+    <members>Custom-HR</members>
+    <members>Guest License User</members>
+    <members>MarketingProfile</members>
+    <members>ReadOnly</members>
+    <members>SolutionManager</members>
+    <members>Standard</members>
+    <members>Standard Platform Light User</members>
+    <members>StandardAul</members>
+    <name>Profile</name>
+  </types>
+  <types>
+    <members>Lead.Prospect</members>
+    <members>Lead.Unknown_Customer</members>
+    <members>Position__c.Approved_Position</members>
+    <members>Position__c.Non_technical_Position</members>
+    <members>Position__c.Technical_Position</members>
+    <name>RecordType</name>
+  </types>
+  <types>
+    <members>Candidate__c.Zip_code_must_be_Valid_US_Postal_Code</members>
+    <members>Position__c.Every_Position_Must_Have_a_Hiring_Mgr</members>
+    <members>Position__c.Temp_Position_Validation</members>
+    <name>ValidationRule</name>
+  </types>
+  <types>
+    <members>Account.AltavistaNews</members>
+    <members>Account.GoogleMaps</members>
+    <members>Account.GoogleNews</members>
+    <members>Account.GoogleSearch</members>
+    <members>Account.HooversProfile</members>
+    <members>Account.YahooMaps</members>
+    <members>Campaign.ViewAllCampaignMembers</members>
+    <members>Campaign.ViewCampaignInfluenceReport</members>
+    <members>Contact.GoogleMaps</members>
+    <members>Contact.GoogleSearch</members>
+    <members>Contact.SendGmail</members>
+    <members>Contact.YahooMaps</members>
+    <members>Contact.YahooWeather</members>
+    <members>Lead.AltavistaNews</members>
+    <members>Lead.GoogleMaps</members>
+    <members>Lead.GoogleNews</members>
+    <members>Lead.GoogleSearch</members>
+    <members>Lead.HooversProfile</members>
+    <members>Lead.SendGmail</members>
+    <members>Lead.YahooMaps</members>
+    <members>Opportunity.Delete_Oppurtinity</members>
+    <name>WebLink</name>
+  </types>
+  <version>41.0</version>
+</Package>

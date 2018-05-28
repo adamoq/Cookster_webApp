@@ -1,0 +1,854 @@
+<project name="Salesforce tasks" 
+         default="default" 
+         basedir="." 
+         xmlns:sf="antlib:com.salesforce">
+    <!--See also https://github.com/FrancisVarga/ant-git-macros/blob/master/git-ant.xml-->
+    <description>
+        This build script provides tasks to deal with Salesforce metadata.
+    </description>
+
+    <!--Define Ant contrib tasks-->
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="bin/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <!--Define groovy tasks-->
+    <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy">
+        <classpath>
+            <!--pathelement location="bin/groovy-all-2.2.1.jar" /-->        	
+            <fileset dir="bin">
+                <include name="*.jar"/>
+            </fileset>
+        </classpath>
+    </taskdef>
+
+    <!--Define salesforce tasks-->
+    <taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce">
+        <classpath>
+            <pathelement location="bin/ant-salesforce.jar" />        	
+        </classpath>
+    </taskdef>
+    
+    <!--Import Salesforce Ant macros and scripts-->
+    <import file="tools-properties.xml"/>
+    <import file="tools-git.xml"/>
+    <import file="tools-filesystem.xml"/>
+    <import file="tools-sonarqube.xml"/>
+
+    <!--Retrieve all metadata of an organization-->
+    <target name="retrieve.all.test"
+            depends="properties.general,
+                     properties.proxy,
+                     properties.component,
+                     properties.org.general,
+                     properties.org.sf,
+                     properties.force.general">
+        <echo message="Retrieve all metadata of all types of ${component.name} from ${sf.serverurl} as ${sf.username} into ${component.retrieve_all}"/>
+
+        <condition property="retrieve.all.patch.general.required">
+            <available file="build-patch.xml"/>
+        </condition>        
+        <condition property="retrieve.all.patch.org.required">
+            <available file="../build/build-patch-${org.name}.xml"/>
+        </condition>        
+    </target>
+    <target name="retrieve.all.package.exec" 
+            depends="retrieve.all.test">
+        <property name="component.retrieve.target"
+                  value="${component.retrieve_all}"/>
+        <property name="component.retrieve.temp"
+                  value="${component.temp_dir}/retrieve_all_temp"/>
+
+        <delete dir="${component.retrieve.target}"
+                quiet="true"/>
+        <delete dir="${component.retrieve.temp}"
+                quiet="true"/>
+        <mkdir dir="${component.temp_dir}"/>
+        <mkdir dir="${component.retrieve.target}"/>
+        <mkdir dir="${component.retrieve.temp}"/>
+        <groovy src="${basedir}/groovy/src/main/GenerateRetrieveDescriptor.groovy">
+            <classpath>
+                <dirset dir="${basedir}/groovy"/>
+            </classpath>
+        </groovy>
+    </target>
+    <target name="retrieve.all.package.patch.general"
+            depends="retrieve.all.package.exec"
+            if="retrieve.all.patch.general.required">
+        <ant antfile="build-patch.xml" target="retrieve.all.package.patch"/>
+	</target>
+    <target name="retrieve.all.package.patch.org"
+            depends="retrieve.all.package.exec"
+            if="retrieve.all.patch.org.required">
+        <ant antfile="../build/build-patch-${org.name}.xml" target="retrieve.all.package.patch"/>        
+	</target>
+    <target name="retrieve.all.package"
+            depends="retrieve.all.package.patch.general,
+                     retrieve.all.package.patch.org">
+	</target>
+    <target name="retrieve.all.components.exec"
+            depends="retrieve.all.package">
+        <for param="packageXMLFile">
+            <path>
+                <fileset dir="${component.retrieve.temp}" includes="package-*.xml"/>
+            </path>
+            <sequential>
+            <echo message="Retrieving metadata using package descriptor @{packageXMLFile}"/>
+                <sf:retrieve username="${sf.username}"
+                             password="${sf.password}"
+                             serverurl="${sf.serverurl}"
+                             unpackaged="@{packageXMLFile}"
+                             retrieveTarget="${component.retrieve.target}"
+                             unzip="true"/>
+            </sequential>
+        </for>
+    </target>
+    <target name="retrieve.all.components.patch.general"
+            depends="retrieve.all.components.exec"
+            if="retrieve.all.patch.general.required">
+        <ant antfile="build-patch.xml" target="retrieve.all.components.patch"/>
+	</target>
+    <target name="retrieve.all.components.patch.org"
+            depends="retrieve.all.components.exec"
+            if="retrieve.all.patch.org.required">
+        <ant antfile="../build/build-patch-${org.name}.xml" target="retrieve.all.components.patch"/>        
+	</target>
+    <target name="retrieve.all.components"
+            depends="retrieve.all.components.patch.general,
+                     retrieve.all.components.patch.org">
+	</target>
+    <target name="retrieve.all"
+            description="Retrieves all metadata of all types of ${component.name} from ${sf.serverurl} as ${sf.username} into ${component.retrieve_all}"
+            depends="retrieve.all.components">
+	</target>
+    
+    <!--Retrieve all metadata mentioned in retrieve.xml-->
+    <target name="retrieve.test"
+            depends="properties.general,
+                     properties.proxy,
+                     properties.component,
+                     properties.org.general,
+                     properties.org.sf">
+        <fail message="Please specify a ${component.root}/build/package-${org.name}.xml file that contains metadata types to retrieve.">
+            <condition>
+                <not>
+                    <available file="${component.root}/build/package-${org.name}.xml"/>
+                </not>
+            </condition>        
+        </fail>
+    </target>
+    <target name="retrieve"
+            depends="retrieve.test"
+            description="Retrieves metadata specified in ${component.root}/build/package-${org.name}.xml">
+        <echo message="Retrieve metadata specified in ${component.root}/build/package-${org.name}.xml from ${sf.serverurl} as ${sf.username} into ${component.src}"/>
+        <mkdir dir="${component.retrieve}"/>
+        <copy file="${component.root}/build/package-${org.name}.xml" 
+              tofile="${component.retrieve}/package.xml"/>
+        <replaceregexp file="${component.retrieve}/package.xml"
+                       byline="true">
+            <regexp pattern="&lt;version&gt;&lt;/version&gt;"/>
+            <substitution expression="&lt;version&gt;${sf.apiversion}&lt;/version&gt;"/>
+        </replaceregexp>              
+        <sf:retrieve username="${sf.username}"
+                     password="${sf.password}" 
+                     serverurl="${sf.serverurl}" 
+                     retrieveTarget="${component.retrieve}" 
+                     unpackaged="${component.retrieve}/package.xml"/>
+    </target>
+
+    <!--Retrieve metadata specified in a package or change set-->
+    <target name="retrieve.package.test"
+            depends="properties.general,
+                     properties.proxy,
+                     properties.component,
+                     properties.org.general,
+                     properties.org.sf">
+        <fail message="Please specify a sf.packageName parameter, which is required to determine the package or change set to retrieve.">
+            <condition>
+                <or>
+                    <not>
+                        <isset property="sf.packageName"/>
+                    </not>
+                    <equals arg1="${sf.packageName}" arg2="" trim="true"/>
+                </or>
+            </condition>        
+        </fail>
+    </target>
+    <target name="retrieve.package"
+            depends="retrieve.package.test"
+            description="Retrieves metadata specified in package or change set ${sf.packageName}">
+        <echo message="Retrieve metadata specified in package or change set ${sf.packageName} from ${sf.serverurl} as ${sf.username} into ${component.retrieve_package}"/>
+        <mkdir dir="${component.retrieve_package}"/>
+        <sf:retrieve username="${sf.username}"
+                     password="${sf.password}" 
+                     serverurl="${sf.serverurl}" 
+                     retrieveTarget="${component.retrieve_package}" 
+                     packageNames="${sf.packageName}"/>
+    </target>
+
+    <!--Creates a deployment package that contains the delta created by analyzing the Git history-->
+    <target name="delta.package.create.test"
+            depends="properties.general,
+                     properties.component,
+                     properties.org.general,
+                     properties.org.sf,
+                     properties.git.general,
+                     properties.git.delta_package">
+        <echo message="Create delta package of ${component.name} from ${component.src} into ${component.deploy_delta} for versions ${git.versions}"/>
+        
+        <condition property="delta.package.create.patch.general.required">
+            <available file="build-patch.xml"/>
+        </condition>        
+        <condition property="delta.package.create.patch.org.required">
+            <available file="../build/build-patch-${org.name}.xml"/>
+        </condition>        
+    </target>
+    <target name="delta.package.create.components.exec" 
+            depends="delta.package.create.test">
+        <delete dir="${component.deploy_delta}"
+                quiet="true"/>
+        <delete dir="${component.temp_dir}/deploy_delta_DummyFlows"
+                quiet="true"/>
+        <delete dir="${component.temp_dir}/deploy_delta_OrgFlowDefinitionsAndFlows"
+                quiet="true"/>
+        <groovy src="${basedir}/groovy/src/main/GenerateDeltaPackage.groovy">
+            <classpath>
+                <dirset dir="${basedir}/groovy"/>
+            </classpath>
+        </groovy>
+        <echo file="${component.deploy_delta}/package.xml" append="false">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Package xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
+    &lt;version>${sf.apiversion}&lt;/version&gt;
+&lt;/Package&gt;
+        </echo>
+        <copy todir="${component.deploy_delta}">
+            <fileset dir="${component.root}/build">
+                <include name="destructiveChanges-${org.name}.xml"/>
+                <include name="destructiveChangesPre-${org.name}.xml"/>
+                <include name="destructiveChangesPost-${org.name}.xml"/>
+            </fileset>
+            <regexpmapper from="^(.*)-.*?(\.xml)$" to="\1\2"/>
+        </copy>
+    </target>
+    <target name="delta.package.create.components.patch.general"
+            depends="delta.package.create.components.exec"
+            if="delta.package.create.patch.general.required">
+        <ant antfile="build-patch.xml" target="delta.package.components.patch"/>
+    </target>
+    <target name="delta.package.create.components.patch.org"
+            depends="delta.package.create.components.exec"
+            if="delta.package.create.patch.org.required">
+        <ant antfile="../build/build-patch-${org.name}.xml" target="delta.package.components.patch"/>        
+    </target>
+    <target name="delta.package.create.components"
+            depends="delta.package.create.components.patch.general,
+                     delta.package.create.components.patch.org">
+	</target>
+    <target name="delta.package.create"
+            description="Creates a deployment package that contains the delta created by analyzing the Git history"
+            depends="delta.package.create.components">
+    </target>
+    
+    <!--Executes static code anaylsis of the delta deployment package-->
+    <target name="delta.package.analyze.sonarqube"
+            description="Executes static code analysis (SonarQube/Codescan) of ${component.name} in ${component.src}"
+            depends="properties.general,
+                     properties.component">
+        <echo message="Executes static code analysis (SonarQube/Codescan) of the delta package in ${component.deploy_delta} against ${sonar.host.url} connected as ${sonar.login}"/>
+        <fail unless="sonar.host.url"
+              message="Please specifiy a parameter sonar.host.url in build/local.properties"/>
+        <fail unless="sonar.login"
+              message="Please specifiy a parameter sonar.login in build/local.properties"/>
+        <fail unless="sonar.password"
+              message="Please specifiy a parameter sonar.password in build/local.properties"/>
+        <tstamp>
+            <format property="TODAY" pattern="yyyyMMdd" locale="en,US"/>
+        </tstamp>
+        <condition property="sonar.projectKey"
+                   value="SFDC">
+            <not>
+                <isset property="sonar.projectKey"/>
+            </not>
+        </condition>
+        <condition property="sonar.projectName"
+                   value="${sonar.projectKey}">
+            <not>
+                <isset property="sonar.projectName"/>
+            </not>
+        </condition>
+        <condition property="sonar.branch"
+                   value="NOBRANCH">
+            <not>
+                <isset property="sonar.branch"/>
+            </not>
+        </condition>
+        <condition property="sonar.projectVersion"
+                   value="${TODAY}">
+            <not>
+                <isset property="sonar.projectVersion"/>
+            </not>
+        </condition>
+        <sonarqube.codescan buildtools.dir="${basedir}"
+                            source.dir="${component.deploy_delta}"
+                            temp.dir="${component.temp_dir}/sonarqube"
+                            sonar.host.url="${sonar.host.url}"
+                            sonar.login="${sonar.login}"
+                            sonar.password="${sonar.password}"
+                            sonar.projectKey="${sonar.projectKey}"
+                            sonar.projectName="${sonar.projectName}"
+                            sonar.projectVersion="${sonar.projectVersion}"
+                            sonar.branch="${sonar.branch}"
+                            result.propertyname="analyze.result"/>
+        <sonarqube.archiveoutput buildtools.dir="${basedir}"
+                                 source.dir="${component.deploy_delta}"
+                                 temp.dir="${component.temp_dir}/sonarqube"
+                                 archivename="${component.temp_dir}/sonarqube/analyze.sonarqube.zip"/>
+        <fail if="analyze.result"
+              message="Found problems. Please check analyze result."/>
+    </target>
+    
+    <!--Validates a previously created delta deployment package-->
+    <target name="delta.package.validate.test"
+            depends="properties.general,
+                     properties.proxy,
+                     properties.component,
+                     properties.org.general,
+                     properties.org.sf">
+        <resourcecount property="delta.package.validate.size">
+            <fileset dir="${component.deploy_delta}">
+                <include name="**/*.*"/>
+                <exclude name="package.xml"/>
+            </fileset>
+        </resourcecount>
+        <condition property="delta.package.validate.required"
+                   value="true">
+            <not>
+                <equals arg1="${delta.package.validate.size}" arg2="0" trim="true"/>
+            </not>
+        </condition>
+        <echo message="There are ${delta.package.validate.size} files in ${component.deploy_delta}"
+              level="verbose"/>
+        <condition property="delta.package.validate.predeployrequired"
+                   value="true">
+            <available file="${component.deploy_delta}/preDeployment.zip"/>
+        </condition>
+    </target>
+    <target name="delta.package.validate.predeployment"
+            depends="delta.package.validate.test"
+            if="delta.package.validate.predeployrequired">
+        <echo message="Deploy previously created pre-deployment delta package in ${component.deploy_delta} against ${sf.serverurl} as ${sf.username} while running those tests which are default depending on org type"/>
+        <sf:deploy username="${sf.username}" 
+                   password="${sf.password}" 
+		           serverurl="${sf.serverurl}" 
+		           maxpoll="${sf.maxpoll}"
+		           zipFile="${component.deploy_delta}/preDeployment.zip"
+                   autoUpdatePackage="false"
+		           checkOnly="false"
+		           pollWaitMillis="10000"/>
+    </target>
+    <target name="delta.package.validate.exec"
+            depends="delta.package.validate.predeployment"
+            if="delta.package.validate.required">
+        <resourcecount property="delta.package.validate.exec.countmetadatatypesthatrequiretests">
+            <fileset dir="${component.deploy_delta}">
+                <include name="**/*.*"/>
+                <exclude name="layouts/**/*.*"/>
+                <exclude name="aura/**/*.*"/>
+                <exclude name="pages/**/*.*"/>
+                <exclude name="staticresources/DTE_Tasks_Backend.resource"/><!--Requested by Oliver-->
+                <exclude name="staticresources/DTE_Tasks_Backend.resource-meta.xml"/><!--Requested by Oliver-->
+                <exclude name="package.xml"/>
+            </fileset>
+        </resourcecount>
+        <condition property="sf.testlevel"
+                   value="RunLocalTests">
+            <and>
+                <not>
+                    <isset property="sf.testlevel"/>
+                </not>
+                <not>
+                    <equals arg1="${delta.package.validate.exec.countmetadatatypesthatrequiretests}" arg2="0" trim="true"/>
+                </not>
+            </and>
+        </condition>
+        <condition property="sf.testlevel"
+                   value="NoTestRun">
+            <and>
+                <not>
+                    <isset property="sf.testlevel"/>
+                </not>
+                <equals arg1="${delta.package.validate.exec.countmetadatatypesthatrequiretests}" arg2="0" trim="true"/>
+            </and>
+        </condition>
+        <condition property="sf.ignorewarnings"
+                   value="false">
+            <not>
+                <isset property="sf.ignorewarnings"/>
+            </not>
+        </condition>
+        <condition property="sf.purgeOnDelete"
+                   value="false">
+            <not>
+                <isset property="sf.purgeOnDelete"/>
+            </not>
+        </condition>
+        <echo message="Validate previously created delta package of ${component.name} in ${component.deploy_delta} against ${sf.serverurl} as ${sf.username} with test level ${sf.testlevel}"/>
+        <sf:deploy username="${sf.username}" 
+                   password="${sf.password}" 
+		           serverurl="${sf.serverurl}" 
+		           maxpoll="${sf.maxpoll}"
+		           deployRoot="${component.deploy_delta}"
+                   autoUpdatePackage="true"
+		           checkOnly="true"
+		           pollWaitMillis="10000"
+		           testLevel="${sf.testlevel}"
+                   ignoreWarnings="${sf.ignorewarnings}"
+                   purgeOnDelete="${sf.purgeOnDelete}"/>
+    </target>
+    <target name="delta.package.validate.skip"
+            depends="delta.package.validate.test"
+            unless="delta.package.validate.required">
+        <echo message="Skip delta package validation as the delta package is empty."/>
+    </target>
+    <target name="delta.package.validate"
+            description="Validates a previously created delta deployment package"
+            depends="delta.package.validate.exec,
+                     delta.package.validate.skip">
+    </target>
+    
+    <!--Deploys a previously created delta deployment package-->
+    <target name="delta.package.deploy.test"
+            depends="properties.general,
+                     properties.proxy,
+                     properties.component,
+                     properties.org.general,
+                     properties.org.sf">
+        <resourcecount property="delta.package.deploy.size">
+            <fileset dir="${component.deploy_delta}">
+                <include name="**/*.*"/>
+                <exclude name="package.xml"/>
+            </fileset>
+        </resourcecount>
+        <condition property="delta.package.deploy.required"
+                   value="true">
+            <not>
+                <equals arg1="${delta.package.deploy.size}" arg2="0" trim="true"/>
+            </not>
+        </condition>
+        <echo message="There are ${delta.package.deploy.size} files in ${component.deploy_delta}"
+              level="verbose"/>
+        <condition property="delta.package.deploy.predeployrequired"
+                   value="true">
+            <available file="${component.deploy_delta}/preDeployment.zip"/>
+        </condition>
+    </target>
+    <target name="delta.package.deploy.predeployment"
+            depends="delta.package.deploy.test"
+            if="delta.package.deploy.predeployrequired">
+        <echo message="Deploy previously created delta pre-deployment package in ${component.deploy_delta} against ${sf.serverurl} as ${sf.username} while running those tests which are default depending on org type"/>
+        <sf:deploy username="${sf.username}" 
+                   password="${sf.password}" 
+		           serverurl="${sf.serverurl}" 
+		           maxpoll="${sf.maxpoll}"
+		           zipFile="${component.deploy_delta}/preDeployment.zip"
+                   autoUpdatePackage="false"
+		           checkOnly="false"
+		           pollWaitMillis="10000"/>
+    </target>
+    <target name="delta.package.deploy.exec"
+            depends="delta.package.deploy.predeployment"
+            if="delta.package.deploy.required">
+        <resourcecount property="delta.package.deploy.exec.countmetadatatypesthatrequiretests">
+            <fileset dir="${component.deploy_delta}">
+                <include name="**/*.*"/>
+                <exclude name="layouts/**/*.*"/>
+                <exclude name="aura/**/*.*"/>
+                <exclude name="pages/**/*.*"/>
+                <exclude name="staticresources/DTE_Tasks_Backend.resource"/><!--Requested by Oliver-->
+                <exclude name="staticresources/DTE_Tasks_Backend.resource-meta.xml"/><!--Requested by Oliver-->
+                <exclude name="package.xml"/>
+            </fileset>
+        </resourcecount>
+        <condition property="sf.testlevel"
+                   value="RunLocalTests">
+            <and>
+                <not>
+                    <isset property="sf.testlevel"/>
+                </not>
+                <not>
+                    <equals arg1="${delta.package.deploy.exec.countmetadatatypesthatrequiretests}" arg2="0" trim="true"/>
+                </not>
+            </and>
+        </condition>
+        <condition property="sf.testlevel"
+                   value="NoTestRun">
+            <and>
+                <not>
+                    <isset property="sf.testlevel"/>
+                </not>
+                <equals arg1="${delta.package.deploy.exec.countmetadatatypesthatrequiretests}" arg2="0" trim="true"/>
+            </and>
+        </condition>
+        <condition property="sf.exportApexCodeCoverage"
+                   value="true">
+            <not>
+                <equals arg1="sf.testlevel" arg2="NoTestRun" trim="true"/>
+            </not>
+        </condition>
+        <condition property="sf.ignorewarnings"
+                   value="false">
+            <not>
+                <isset property="sf.ignorewarnings"/>
+            </not>
+        </condition>
+        <condition property="sf.purgeOnDelete"
+                   value="false">
+            <not>
+                <isset property="sf.purgeOnDelete"/>
+            </not>
+        </condition>
+        <echo message="Deploy previously created delta package of ${component.name} in ${component.deploy_delta} as ${sf.username} with test level ${sf.testlevel}"/>
+        <sf:deploy username="${sf.username}" 
+                   password="${sf.password}" 
+		           serverurl="${sf.serverurl}" 
+		           maxpoll="${sf.maxpoll}"
+		           deployRoot="${component.deploy_delta}"
+                   autoUpdatePackage="true"
+		           checkOnly="false"
+		           pollWaitMillis="10000"
+		           testLevel="${sf.testlevel}"
+                   ignoreWarnings="${sf.ignorewarnings}"
+                   purgeOnDelete="${sf.purgeOnDelete}"/>
+    </target>
+    <target name="delta.package.deploy.exportApexCodeCoverage"
+            depends="delta.package.deploy.test"
+            if="sf.exportApexCodeCoverage">
+        <property name="component.apexcodecoverage.filename" 
+                  value="${component.temp_dir}/apexcodecoverage.csv"/>
+        <echo message="Export test coverage to ${component.apexcodecoverage.filename}"/>
+        <groovy src="${basedir}/groovy/src/main/ExportApexTestCoverage.groovy">
+            <classpath>
+                <dirset dir="${basedir}/groovy"/>
+            </classpath>
+        </groovy>
+    </target>
+    <target name="delta.package.deploy.skip"
+            depends="delta.package.deploy.test"
+            unless="delta.package.deploy.required">
+        <echo message="Skip delta package deployment as the delta package is empty."/>
+    </target>
+    <target name="delta.package.deploy"
+            description="Deploys a previously created delta deployment package"
+            depends="delta.package.deploy.exec,
+                     delta.package.deploy.exportApexCodeCoverage,
+                     delta.package.deploy.skip">
+    </target>
+
+    <!--Backups all metadata of an organization-->
+    <!--Can be executed from command line or from Jenkins (with parameter git.skip.checkout)-->
+    <target name="backup.test"
+            depends="properties.general,
+                     properties.component,
+                     properties.org.general,
+                     properties.org.sf,
+                     properties.force.general,
+                     properties.git.general,
+                     properties.git.backup">
+        <echo message="Retrieve all metadata of all types from ${sf.serverurl} as ${sf.username} into ${component.root}/${git.backup.folder} and push them into Git as ${git.backup.username} (branch ${git.backup.branch})"/>
+        <condition property="backup.patch.general.required">
+            <available file="build-patch.xml"/>
+        </condition>        
+        <condition property="backup.patch.org.required">
+            <available file="../build/build-patch-${org.name}.xml"/>
+        </condition>        
+    </target>
+    <target name="backup.package.exec"
+            depends="backup.test">
+        <delete dir="${component.root}/${git.backup.folder}"
+                quiet="true"/>
+        <mkdir dir="${component.root}/${git.backup.folder}"/>
+        
+        <condition property="backup.script"
+                   value="${basedir}/groovy/src/main/GenerateBackupDescriptor.groovy"
+                   else="${basedir}/groovy/src/main/GenerateBackupDescriptor-InstalledPackage.groovy">
+            <not>
+                <isset property="sf.backup.installedpackage"/>
+            </not>
+        </condition>
+        <echo message="Retrieve all metadata of all types from ${sf.serverurl} as ${sf.username} into ${git.backup.folder} with API version ${sf.apiversion} using script ${backup.script}"/>
+        <property name="component.backup.temp"
+                  value="${component.temp_dir}/${org}_backup_temp"/>
+        <delete dir="${component.backup.temp}"
+                quiet="true"/>
+        <mkdir dir="${component.backup.temp}"/>
+        <groovy src="${backup.script}">
+            <classpath>
+                <dirset dir="${basedir}/groovy"/>
+            </classpath>
+        </groovy>
+        <!--Don't know who is creating this directory-->
+        <!--Seems to be related to flow version number patching-->
+        <delete dir="${component.root}/buildtools/null"
+                quiet="true"/>
+    </target>
+    <target name="backup.package.patch.general"
+            depends="backup.package.exec"
+            if="backup.patch.general.required">
+        <ant antfile="build-patch.xml" target="backup.package.patch"/>
+	</target>
+    <target name="backup.package.patch.org"
+            depends="backup.package.exec"
+            if="backup.patch.org.required">
+        <ant antfile="../build/build-patch-${org.name}.xml" target="backup.package.patch"/>        
+	</target>
+    <target name="backup.package"
+            depends="backup.package.patch.general,
+                     backup.package.patch.org">
+	</target>
+    <target name="backup.components.exec" 
+            depends="backup.package">
+        <for param="packageXMLFile">
+            <path>
+                <fileset dir="${component.backup.temp}" includes="package-*.xml"/>
+            </path>
+            <sequential>
+                <echo message="Retrieving metadata using package descriptor @{packageXMLFile}"/>
+                <sf:retrieve username="${sf.username}"
+                             password="${sf.password}"
+                             serverurl="${sf.serverurl}"
+                             unpackaged="@{packageXMLFile}"
+                             retrieveTarget="${component.root}/${git.backup.folder}"
+                             unzip="true"/>
+            </sequential>
+        </for>
+    </target>
+    <target name="backup.components.patch.general"
+            depends="backup.components.exec"
+            if="backup.patch.general.required">
+        <ant antfile="build-patch.xml" target="backup.components.patch"/>
+	</target>
+    <target name="backup.components.patch.org"
+            depends="backup.components.exec"
+            if="backup.patch.org.required">
+        <ant antfile="../build/build-patch-${org.name}.xml" target="backup.components.patch"/>        
+	</target>
+    <target name="backup.components.patch.audittrail"
+            depends="backup.components.exec">
+        <delete file="${component.root}/${git.backup.folder}/audittrail.csv"/>
+        <tstamp>
+            <format property="TODAY-7DAYS" 
+                    pattern="yyyy-MM-dd'T'HH:mm:ss.000Z" 
+                    offset="-7" 
+                    unit="day"/>
+        </tstamp>        
+        <exec executable="${force.executable}">
+            <arg value="login"/>
+            <arg value="-i"/>
+            <arg value="${sf.serverurl}"/>
+            <arg value="-u"/>
+            <arg value="${sf.username}"/>
+            <arg value="-p"/>
+            <arg value="${sf.password}"/>
+        </exec>
+        <exec executable="${force.executable}">
+            <arg value="apiversion"/>
+            <arg value="${sf.apiversion}"/>
+        </exec>
+        <exec executable="${force.executable}"
+              output="${component.root}/${git.backup.folder}/audittrail.csv">
+            <arg value="query"/>
+            <arg value="SELECT Action,CreatedById,CreatedDate,DelegateUser,Display,Id,ResponsibleNamespacePrefix,Section FROM SetupAuditTrail ORDER BY CreatedDate DESC NULLS FIRST"/>
+        </exec>
+        <exec executable="${force.executable}"
+              output="${component.root}/${git.backup.folder}/loginhistory.csv">
+            <arg value="query"/>
+            <arg value="SELECT LoginTime,UserId from LoginHistory WHERE LoginTime>${TODAY-7DAYS} ORDER BY LoginTime DESC"/>
+        </exec>
+	</target>
+    <target name="backup.components"
+            depends="backup.components.patch.general,
+                     backup.components.patch.org,
+                     backup.components.patch.audittrail">
+	</target>
+    <target name="backup"
+            description="Backup all metadata of an organization"
+            depends="backup.components">
+	</target>
+
+    <!--Compares metadata retrieved from an org with according branch content-->
+    <target name="compare.orgwithbranch.test"
+            depends="properties.general,
+                     properties.proxy,
+                     properties.component,
+                     properties.org.general,
+                     properties.org.sf">
+        <echo message="Compare metadata retrieved from org ${org} with content of ${component.src}"/>
+
+        <condition property="compare.orgwithbranch.patch.general.required">
+            <available file="build-patch.xml"/>
+        </condition>        
+        <condition property="compare.orgwithbranch.patch.org.required">
+            <available file="../build/build-patch-${org.name}.xml"/>
+        </condition>        
+    </target>
+    <target name="compare.orgwithbranch.copyandretrieve"
+            depends="compare.orgwithbranch.test">
+
+        <property name="component.newlimit" value="0"/>
+        <property name="component.deletedlimit" value="0"/>
+        <property name="component.changedlimit" value="0"/>
+        
+        <!--Retrieve data from org and copy sources so they can be patched-->
+        <delete dir="${component.compare}"
+                quiet="true"/>
+        <copy todir="${component.compare}/src">
+            <fileset dir="${component.src}"
+                     excludes="package.xml"/>
+        </copy>
+        <fixcrlf srcdir="${component.compare}/src"/>
+        <antcall target="retrieve.all">
+            <param  name="component.retrieve.target" value="${component.compare}/target"/>
+            <param  name="component.retrieve.temp"   value="${component.compare}/retrieve_all_temp"/>
+        </antcall>
+        <delete file="${component.compare}/target/package.xml"
+                quiet="true"/>
+        <fixcrlf srcdir="${component.compare}/target"/>
+    </target>
+    <target name="compare.orgwithbranch.patch.general"
+            depends="compare.orgwithbranch.copyandretrieve"
+            if="compare.orgwithbranch.patch.general.required">
+        <ant antfile="build-patch.xml" target="compare.orgwithbranch.components.patch">
+            <property name="source" value="${component.compare}/src"/>
+        </ant>
+        <ant antfile="build-patch.xml" target="compare.orgwithbranch.components.patch">
+            <property name="source" value="${component.compare}/target"/>
+        </ant>
+    </target>
+    <target name="compare.orgwithbranch.patch.org"
+            depends="compare.orgwithbranch.copyandretrieve"
+            if="compare.orgwithbranch.patch.org.required">
+        <ant antfile="../build/build-patch-${org.name}.xml" target="compare.orgwithbranch.components.patch">
+            <property name="source" value="${component.compare}/src"/>
+        </ant>
+        <ant antfile="../build/build-patch-${org.name}.xml" target="compare.orgwithbranch.components.patch">
+            <property name="source" value="${component.compare}/target"/>
+        </ant>
+    </target>
+    <target name="compare.orgwithbranch.patch"
+            depends="compare.orgwithbranch.patch.general,
+                     compare.orgwithbranch.patch.org">
+    </target>
+    <target name="compare.orgwithbranch.compare"
+            depends="compare.orgwithbranch.patch">
+        <folderdiff.find source="${component.compare}/src" 
+                         target="${component.compare}/target"
+                         newlimit="${component.newlimit}"
+                         deletedlimit="${component.deletedlimit}"
+                         changedlimit="${component.changedlimit}"
+                         newfiles="component.newfiles"
+                         deletedfiles="component.deletedfiles"
+                         changedfiles="component.changedfiles"/>
+        <folderdiff.exportresults source="${component.compare}/src" 
+                                  target="${component.compare}/target"
+                                  newlimit="${component.newlimit}"
+                                  deletedlimit="${component.deletedlimit}"
+                                  changedlimit="${component.changedlimit}"
+                                  newfiles="component.newfiles"
+                                  deletedfiles="component.deletedfiles"
+                                  changedfiles="component.changedfiles"
+                                  folder="${component.compare}"/>
+        <condition property="folderdiff.different">
+            <or>
+                <equals arg1="${component.newfiles.toomuch}"
+                        arg2="true"
+                        casesensitive="false"
+                        trim="true"/>
+                <equals arg1="${component.deletedfiles.toomuch}"
+                        arg2="true"
+                        casesensitive="false"
+                        trim="true"/>
+                <equals arg1="${component.changedfiles.toomuch}"
+                        arg2="true"
+                        casesensitive="false"
+                        trim="true"/>
+            </or>
+        </condition>
+    </target>    
+    <target name="compare.orgwithbranch"
+            depends="properties.general,
+                     properties.proxy,
+                     properties.component,
+                     properties.org.general,
+                     properties.org.sf,
+                     compare.orgwithbranch.compare"
+            if="folderdiff.different"
+            description="Compare metadata retrieved from an org with according branch content">
+        <!--Inform users about result in case there are too many differences-->
+        <echo message="Inform team about broken folder diff limits"/>
+    </target>    
+    
+    <!--Executes static code anaylsis-->
+    <target name="analyze.sonarqube"
+            description="Executes static code analysis (SonarQube/Codescan)"
+            depends="properties.general,
+                     properties.component">
+        <echo message="Executes static code analysis (SonarQube codescan) of ${component.name} in ${component.src} against ${sonar.host.url} connected as ${sonar.login}"/>
+        <fail unless="sonar.host.url"
+              message="Please specifiy a parameter sonar.host.url in build/local.properties"/>
+        <fail unless="sonar.login"
+              message="Please specifiy a parameter sonar.login in build/local.properties"/>
+        <fail unless="sonar.password"
+              message="Please specifiy a parameter sonar.password in build/local.properties"/>
+        <tstamp>
+            <format property="TODAY" pattern="yyyyMMdd" locale="en,US"/>
+        </tstamp>
+        <condition property="sonar.projectKey"
+                   value="${component.name}">
+            <not>
+                <isset property="sonar.projectKey"/>
+            </not>
+        </condition>
+        <condition property="sonar.projectName"
+                   value="${sonar.projectKey}">
+            <not>
+                <isset property="sonar.projectName"/>
+            </not>
+        </condition>
+        <condition property="sonar.branch"
+                   value="NOBRANCH">
+            <not>
+                <isset property="sonar.branch"/>
+            </not>
+        </condition>
+        <condition property="sonar.projectVersion"
+                   value="${TODAY}">
+            <not>
+                <isset property="sonar.projectVersion"/>
+            </not>
+        </condition>
+        <sonarqube.codescan buildtools.dir="${basedir}"
+                            source.dir="${component.src}"
+                            temp.dir="${component.temp_dir}/sonarqube"
+                            sonar.host.url="${sonar.host.url}"
+                            sonar.login="${sonar.login}"
+                            sonar.password="${sonar.password}"
+                            sonar.projectKey="${sonar.projectKey}"
+                            sonar.projectName="${sonar.projectName}"
+                            sonar.projectVersion="${sonar.projectVersion}"
+                            sonar.branch="${sonar.branch}"
+                            result.propertyname="analyze.result"/>
+        <sonarqube.archiveoutput buildtools.dir="${basedir}"
+                                 source.dir="${component.src}"
+                                 temp.dir="${component.temp_dir}/sonarqube"
+                                 archivename="${component.temp_dir}/sonarqube/analyze.sonarqube.zip"/>
+        <!--fail if="analyze.result"
+              message="Found problems. Please check analyze result."/-->
+    </target>
+
+    <!--Default target-->
+    <target name="default">
+        <echo message="Please use &quot;ant -projecthelp&quot; or &quot;ant -p&quot; to get a list of public targets"/>
+    </target>
+</project>

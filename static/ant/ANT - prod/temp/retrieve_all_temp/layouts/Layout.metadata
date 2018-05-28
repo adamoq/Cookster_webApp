@@ -1,0 +1,376 @@
+************************************************************
+FileName: layouts/ScorecardAssociation-Scorecard Association Layout.layout
+FullName/Id: ScorecardAssociation-Scorecard Association Layout/00h1r00000jlumIAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: layouts/Contact-Contact Layout.layout
+FullName/Id: Contact-Contact Layout/00h1r00000jlumAAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/AssetRelationship-Asset Relationship Layout.layout
+FullName/Id: AssetRelationship-Asset Relationship Layout/00h1r00000iDUFNAA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: layouts/Pricebook2-Price Book Layout.layout
+FullName/Id: Pricebook2-Price Book Layout/00h1r00000jlumQAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: layouts/Job_Posting_Site__c-Job Posting Site Layout.layout
+FullName/Id: Job_Posting_Site__c-Job Posting Site Layout/00h1r00000jlumWAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/UserProvisioningLog-User Provisioning Log Layout.layout
+FullName/Id: UserProvisioningLog-User Provisioning Log Layout/00h1r00000jlumKAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: layouts/Candidate__c-Candidate Layout.layout
+FullName/Id: Candidate__c-Candidate Layout/00h1r00000jlumSAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Review__c-Review Layout.layout
+FullName/Id: Review__c-Review Layout/00h1r00000jlumUAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/CaseClose-Close Case Layout.layout
+FullName/Id: CaseClose-Close Case Layout/00h1r00000jlumaAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/User-User Layout.layout
+FullName/Id: User-User Layout/00h1r00000jlumjAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Account-Account Layout.layout
+FullName/Id: Account-Account Layout/00h1r00000jlum9AAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Task-Task Layout.layout
+FullName/Id: Task-Task Layout/00h1r00000jlumFAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Idea-Idea Layout.layout
+FullName/Id: Idea-Idea Layout/00h1r00000jlumdAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Position__c-Technical Position Layout.layout
+FullName/Id: Position__c-Technical Position Layout/00h1r00000iDWLiAAO
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/CampaignMember-Campaign Member Page Layout.layout
+FullName/Id: CampaignMember-Campaign Member Page Layout/00h1r00000jlumZAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/ScorecardMetric-Scorecard Metric Layout.layout
+FullName/Id: ScorecardMetric-Scorecard Metric Layout/00h1r00000jlumHAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Ben Stuart/0051r000008T3n4AAC
+Last Modified By (Name/Id): Ben Stuart/0051r000008T3n4AAC
+************************************************************
+************************************************************
+FileName: layouts/Solution-Solution Layout.layout
+FullName/Id: Solution-Solution Layout/00h1r00000jlumiAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/FeedItem-Feed Item Layout.layout
+FullName/Id: FeedItem-Feed Item Layout/00h1r00000jlumoAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: layouts/Order-Order Layout.layout
+FullName/Id: Order-Order Layout/00h1r00000jlumfAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/OpportunityLineItem-Opportunity Product Layout.layout
+FullName/Id: OpportunityLineItem-Opportunity Product Layout/00h1r00000jlumeAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/PricebookEntry-Price Book Entry Layout.layout
+FullName/Id: PricebookEntry-Price Book Entry Layout/00h1r00000jlummAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: layouts/DuplicateRecordSet-Duplicate Record Set Layout.layout
+FullName/Id: DuplicateRecordSet-Duplicate Record Set Layout/00h1r00000jlumnAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: layouts/UserProvisioningRequest-User Provisioning Request Layout.layout
+FullName/Id: UserProvisioningRequest-User Provisioning Request Layout/00h1r00000jlumJAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: layouts/Opportunity-Opportunity Layout.layout
+FullName/Id: Opportunity-Opportunity Layout/00h1r00000jlumCAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Offer__c-Offer Layout.layout
+FullName/Id: Offer__c-Offer Layout/00h1r00000jlumRAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Lead-Lead Layout.layout
+FullName/Id: Lead-Lead Layout/00h1r00000jlumBAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Job_Posting__c-Job Posting Layout.layout
+FullName/Id: Job_Posting__c-Job Posting Layout/00h1r00000iDWZpAAO
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Macro-Macro Layout.layout
+FullName/Id: Macro-Macro Layout/00h1r00000jlumpAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: layouts/CaseInteraction-Case Feed Layout.layout
+FullName/Id: CaseInteraction-Case Feed Layout/00h1r00000jlum8AAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Ben Stuart/0051r000008T3n4AAC
+Last Modified By (Name/Id): Ben Stuart/0051r000008T3n4AAC
+************************************************************
+************************************************************
+FileName: layouts/QuickText-Quick Text Layout.layout
+FullName/Id: QuickText-Quick Text Layout/00h1r00000iDUFOAA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: layouts/Campaign-Campaign Layout.layout
+FullName/Id: Campaign-Campaign Layout/00h1r00000jlumYAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Job_Application__c-Job Application Layout.layout
+FullName/Id: Job_Application__c-Job Application Layout/00h1r00000jlumTAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Car__c-Car Layout.layout
+FullName/Id: Car__c-Car Layout/00h1r00000iDgydAAC
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Contract-Contract Layout.layout
+FullName/Id: Contract-Contract Layout/00h1r00000jlumbAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/UserProvAccount-User Provisioning Account Layout.layout
+FullName/Id: UserProvAccount-User Provisioning Account Layout/00h1r00000jlumLAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: layouts/Interviewer__c-Interviewer Layout.layout
+FullName/Id: Interviewer__c-Interviewer Layout/00h1r00000jlumVAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/OrderItem-Order Product Layout.layout
+FullName/Id: OrderItem-Order Product Layout/00h1r00000jlumgAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Global-Global Layout.layout
+FullName/Id: Global-Global Layout/00h1r00000jlumEAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: layouts/Position__c-Position Layout.layout
+FullName/Id: Position__c-Position Layout/00h1r00000iDW7lAAG
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Event-Event Layout.layout
+FullName/Id: Event-Event Layout/00h1r00000jlumcAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Scorecard-Scorecard Layout.layout
+FullName/Id: Scorecard-Scorecard Layout/00h1r00000jlumGAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Ben Stuart/0051r000008T3n4AAC
+Last Modified By (Name/Id): Ben Stuart/0051r000008T3n4AAC
+************************************************************
+************************************************************
+FileName: layouts/EmailMessage-Email Message Layout.layout
+FullName/Id: EmailMessage-Email Message Layout/00h1r00000jlumPAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: layouts/Asset-Asset Layout.layout
+FullName/Id: Asset-Asset Layout/00h1r00000jlumXAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Product2-Product Layout.layout
+FullName/Id: Product2-Product Layout/00h1r00000jlumhAAA
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Position__c-Approved Position Layout.layout
+FullName/Id: Position__c-Approved Position Layout/00h1r00000iDWMCAA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Case-Case Layout.layout
+FullName/Id: Case-Case Layout/00h1r00000jlumDAAQ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: layouts/Competitor__c-Competitor Layout.layout
+FullName/Id: Competitor__c-Competitor Layout/00h1r00000iDZfdAAG
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************

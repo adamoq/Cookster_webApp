@@ -1,0 +1,5 @@
+<apex:page standardController="Opportunity">     
+<flow:interview name="Remove_oppurtinity_and_send_email_to_the_owner" finishLocation="{!URLFOR('/006/o')}">        
+<apex:param name="varOppurtinityId" value="{!Opportunity.Id}"/>     
+</flow:interview> 
+</apex:page>

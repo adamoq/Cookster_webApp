@@ -1,0 +1,40 @@
+************************************************************
+FileName: flowDefinitions/Update_Record_Type_Process.flowDefinition
+FullName/Id: Update_Record_Type_Process/3001r0000008cBFAAY
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: flowDefinitions/Update_RT.flowDefinition
+FullName/Id: Update_RT/3001r0000008cBAAAY
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: flowDefinitions/Remove_oppurtinity_and_send_email_to_the_owner.flowDefinition
+FullName/Id: Remove_oppurtinity_and_send_email_to_the_owner/3001r0000008cB0AAI
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: flowDefinitions/Lead_Conversion.flowDefinition
+FullName/Id: Lead_Conversion/3001r0000008cAlAAI
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: flowDefinitions/Create_task_on_lead_creation.flowDefinition
+FullName/Id: Create_task_on_lead_creation/3001r0000008cAgAAI
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************

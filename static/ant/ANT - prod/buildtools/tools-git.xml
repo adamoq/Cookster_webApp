@@ -1,0 +1,217 @@
+<project name="Git tools"
+         xmlns:sf="antlib:com.salesforce">
+    <description>
+        This build script provides Git macros and scripts.
+    </description>
+
+    <macrodef name="git">
+		<attribute name="command" />
+		<attribute name="options" default="" />
+		<attribute name="dir" default="" />
+		<attribute name="failerror" default="false" />
+		<element name="args" optional="true" />
+		<sequential>
+			<echo message="git @{command} on @{dir}" />
+			<exec executable="git" dir="@{dir}" failonerror="@{failerror}">
+				<arg line="@{command} @{options}" />
+				<args />
+			</exec>
+		</sequential>
+	</macrodef>
+
+    <macrodef name="git.config">
+		<attribute name="remote" />
+		<attribute name="username" />
+		<attribute name="password" />
+		<attribute name="dir" default="" />
+		<attribute name="failerror" default="false" />
+		<sequential>
+			<git command="config" dir="@{dir}" options="" failerror="@{failerror}" >
+				<args>
+					<arg value="credential.helper" />
+					<arg value="cache" />
+				</args>
+			</git>
+			<git command="config" dir="@{dir}" options="" failerror="@{failerror}" >
+				<args>
+					<arg value="credential.@{remote}" />
+					<arg value="@{username}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+
+    <macrodef name="git.clean">
+		<attribute name="dir" />
+		<attribute name="options" default="-d -f --quiet" />
+		<attribute name="failerror" default="false" />
+		<sequential>
+			<git command="clean" dir="@{dir}" options="@{options}" failerror="@{failerror}" >
+				<args>
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+
+    <macrodef name="git.pull">
+		<attribute name="remote" default=""/>
+		<attribute name="dir" />
+		<attribute name="options" default="" />
+		<attribute name="failerror" default="false" />
+		<sequential>
+			<git command="pull" dir="@{dir}" options="@{options}" failerror="@{failerror}" >
+				<args>
+					<arg value="@{remote}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+    
+    <macrodef name="git.submodule-update">
+		<attribute name="dir" />
+		<attribute name="options" default="update --recursive --remote" />
+		<attribute name="failerror" default="false" />
+		<sequential>
+			<git command="submodule" dir="@{dir}" options="@{options}" failerror="@{failerror}" >
+				<args>
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+    
+    <macrodef name="git.branch">
+		<attribute name="branch" />
+		<attribute name="options" default="" />
+		<attribute name="dir" />
+		<attribute name="failerror" default="false" />
+		<sequential>
+			<git command="branch" dir="@{dir}" options="@{options}" failerror="@{failerror}" >
+				<args>
+					<arg value="@{branch}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+
+    <macrodef name="git.checkout">
+		<attribute name="branch" />
+		<attribute name="dir" />
+		<attribute name="options" default=""  />
+		<attribute name="failerror" default="false" />
+		<sequential>
+			<git command="checkout" dir="@{dir}" options="@{options}" failerror="@{failerror}" >
+				<args>
+					<arg value="@{branch}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+
+    <macrodef name="git.add">
+		<attribute name="file" />
+		<attribute name="dir" />
+		<attribute name="options" default="" />
+		<attribute name="failerror" default="false" />
+		<sequential>
+			<git command="add" dir="@{dir}" options="@{options}" failerror="@{failerror}" >
+				<args>
+					<arg value="@{file}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+    
+    <macrodef name="git.commit">
+		<attribute name="message" />
+		<attribute name="dir" />
+		<attribute name="options" default="" />
+		<attribute name="failerror" default="false" />
+		<sequential>
+			<git command="commit" dir="@{dir}" options="@{options}" failerror="@{failerror}" >
+				<args>
+					<arg value="-m @{message}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="git.push">
+		<attribute name="remote" />
+		<attribute name="dir" />
+        <attribute name="branch" />
+		<attribute name="options" default="" />
+		<attribute name="failerror" default="false" />
+		<sequential>
+			<git command="push" dir="@{dir}" options="@{options}" failerror="@{failerror}" >
+				<args>
+					<arg value="@{remote}" />
+					<arg value="@{branch}" />
+				</args>
+			</git>
+		</sequential>
+    </macrodef>
+    
+    <macrodef name="git.log">
+		<attribute name="dir" />
+		<attribute name="version.from" />
+		<attribute name="version.to" />
+		<attribute name="property.output" />
+		<attribute name="property.error" />
+		<attribute name="options" default="" />
+		<attribute name="failerror" default="false" />
+		<sequential>
+			<echo message="git log on @{dir}" />
+			<exec executable="git" 
+                  dir="@{dir}" 
+                  failonerror="@{failerror}" 
+                  outputproperty="@{property.output}" 
+                  errorproperty="@{property.error}">
+				<arg line="log @{options}" />
+                <arg value="@{version.from}" />
+                <arg value="@{version.to}" />
+			</exec>
+		</sequential>
+	</macrodef>
+
+    <macrodef name="git.stash.save">
+		<attribute name="dir" />
+		<attribute name="message" default="" />
+		<attribute name="options" default="--include-untracked --all --quiet" />
+		<attribute name="failerror" default="true" />
+		<sequential>
+			<git command="stash" dir="@{dir}" options="save @{options}" failerror="@{failerror}" >
+				<args>
+					<arg value="@{message}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+
+    <macrodef name="git.stash.apply">
+		<attribute name="dir" />
+		<attribute name="stash" default="" />
+		<attribute name="options" default="--index --quiet" />
+		<attribute name="failerror" default="true" />
+		<sequential>
+			<git command="stash" dir="@{dir}" options="apply @{options}" failerror="@{failerror}" >
+				<args>
+					<arg value="@{stash}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+
+    <macrodef name="git.stash.drop">
+		<attribute name="dir" />
+		<attribute name="stash" default="" />
+		<attribute name="options" default="--quiet" />
+		<attribute name="failerror" default="true" />
+		<sequential>
+			<git command="stash" dir="@{dir}" options="drop @{options}" failerror="@{failerror}" >
+				<args>
+					<arg value="@{stash}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+</project>

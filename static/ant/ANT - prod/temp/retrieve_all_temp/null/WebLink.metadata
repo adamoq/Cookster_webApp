@@ -1,0 +1,168 @@
+************************************************************
+FileName: objects/Lead.object
+FullName/Id: Lead.HooversProfile/00b1r000002ScEAAA0
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Lead.object
+FullName/Id: Lead.SendGmail/00b1r000002ScEBAA0
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contact.object
+FullName/Id: Contact.GoogleSearch/00b1r000002ScE2AAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Lead.object
+FullName/Id: Lead.YahooMaps/00b1r000002ScECAA0
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Account.object
+FullName/Id: Account.YahooMaps/00b1r000002ScDzAAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Account.object
+FullName/Id: Account.GoogleSearch/00b1r000002ScDxAAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Account.object
+FullName/Id: Account.GoogleNews/00b1r000002ScDwAAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Lead.object
+FullName/Id: Lead.GoogleMaps/00b1r000002ScE7AAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Campaign.object
+FullName/Id: Campaign.ViewCampaignInfluenceReport/00b1r000002ScDtAAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Lead.object
+FullName/Id: Lead.GoogleSearch/00b1r000002ScE9AAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Opportunity.object
+FullName/Id: Opportunity.Delete_Oppurtinity/00b1r000001ypABAAY
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contact.object
+FullName/Id: Contact.YahooWeather/00b1r000002ScE5AAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contact.object
+FullName/Id: Contact.GoogleMaps/00b1r000002ScE1AAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Account.object
+FullName/Id: Account.GoogleMaps/00b1r000002ScDvAAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Campaign.object
+FullName/Id: Campaign.ViewAllCampaignMembers/00b1r000002ScE0AAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contact.object
+FullName/Id: Contact.SendGmail/00b1r000002ScE3AAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Account.object
+FullName/Id: Account.HooversProfile/00b1r000002ScDyAAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Lead.object
+FullName/Id: Lead.GoogleNews/00b1r000002ScE8AAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contact.object
+FullName/Id: Contact.YahooMaps/00b1r000002ScE4AAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Account.object
+FullName/Id: Account.AltavistaNews/00b1r000002ScDuAAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Lead.object
+FullName/Id: Lead.AltavistaNews/00b1r000002ScE6AAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************

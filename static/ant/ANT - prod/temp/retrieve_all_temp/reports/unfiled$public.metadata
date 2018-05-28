@@ -1,0 +1,248 @@
+************************************************************
+FileName: reports/unfiled$public/SampleReportLastModifiedBy.report
+FullName/Id: unfiled$public/SampleReportLastModifiedBy/00O1r00000B3y8pEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportDocumentLibrary.report
+FullName/Id: unfiled$public/SampleReportDocumentLibrary/00O1r00000B3y8dEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportofReports.report
+FullName/Id: unfiled$public/SampleReportofReports/00O1r00000B3y8gEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportClosedSales.report
+FullName/Id: unfiled$public/SampleReportClosedSales/00O1r00000B3y8REAR
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportofAccounts.report
+FullName/Id: unfiled$public/SampleReportofAccounts/00O1r00000B3y8vEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportCustomReportsbyUser.report
+FullName/Id: unfiled$public/SampleReportCustomReportsbyUser/00O1r00000B3y8rEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportPipelineHistory.report
+FullName/Id: unfiled$public/SampleReportPipelineHistory/00O1r00000B3y8mEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportLoginWallofShame.report
+FullName/Id: unfiled$public/SampleReportLoginWallofShame/00O1r00000B3y8hEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportofLeads.report
+FullName/Id: unfiled$public/SampleReportofLeads/00O1r00000B3y8lEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportMonthtoDateTrending.report
+FullName/Id: unfiled$public/SampleReportMonthtoDateTrending/00O1r00000B3y8eEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportofContacts.report
+FullName/Id: unfiled$public/SampleReportofContacts/00O1r00000B3y8jEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportofDocuments.report
+FullName/Id: unfiled$public/SampleReportofDocuments/00O1r00000B3y8fEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportSalesPipelinebyStage.report
+FullName/Id: unfiled$public/SampleReportSalesPipelinebyStage/00O1r00000B3y8VEAR
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportOpenCasesByPriority.report
+FullName/Id: unfiled$public/SampleReportOpenCasesByPriority/00O1r00000B3y8XEAR
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportUsersLoggedIn.report
+FullName/Id: unfiled$public/SampleReportUsersLoggedIn/00O1r00000B3y8YEAR
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportofTasksandActivities.report
+FullName/Id: unfiled$public/SampleReportofTasksandActivities/00O1r00000B3y8oEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportofOpenTasks.report
+FullName/Id: unfiled$public/SampleReportofOpenTasks/00O1r00000B3y8sEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportofOpportunities.report
+FullName/Id: unfiled$public/SampleReportofOpportunities/00O1r00000B3y8qEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportSalesLeaderboard.report
+FullName/Id: unfiled$public/SampleReportSalesLeaderboard/00O1r00000B3y8aEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportLoginLeaderboard.report
+FullName/Id: unfiled$public/SampleReportLoginLeaderboard/00O1r00000B3y8tEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportofSolutions.report
+FullName/Id: unfiled$public/SampleReportofSolutions/00O1r00000B3y8kEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportsLeadsbyStatus.report
+FullName/Id: unfiled$public/SampleReportsLeadsbyStatus/00O1r00000B3y8cEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportPipelineByCloseMonth.report
+FullName/Id: unfiled$public/SampleReportPipelineByCloseMonth/00O1r00000B3y8WEAR
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportSolutionsAdded.report
+FullName/Id: unfiled$public/SampleReportSolutionsAdded/00O1r00000B3y8ZEAR
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportActiveUsers.report
+FullName/Id: unfiled$public/SampleReportActiveUsers/00O1r00000B3y8nEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportLeadsbyLeadSource.report
+FullName/Id: unfiled$public/SampleReportLeadsbyLeadSource/00O1r00000B3y8UEAR
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportofCases.report
+FullName/Id: unfiled$public/SampleReportofCases/00O1r00000B3y8iEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportCompletedActivities.report
+FullName/Id: unfiled$public/SampleReportCompletedActivities/00O1r00000B3y8uEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportOpenDeals.report
+FullName/Id: unfiled$public/SampleReportOpenDeals/00O1r00000B3y8SEAR
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportCasesStatusbyRep.report
+FullName/Id: unfiled$public/SampleReportCasesStatusbyRep/00O1r00000B3y8bEAB
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: reports/unfiled$public/SampleReportTopAccounts.report
+FullName/Id: unfiled$public/SampleReportTopAccounts/00O1r00000B3y8TEAR
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************

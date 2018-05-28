@@ -1,0 +1,192 @@
+************************************************************
+FileName: settings/Search.settings
+FullName/Id: Search/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Name.settings
+FullName/Id: Name/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Case.settings
+FullName/Id: Case/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/PathAssistant.settings
+FullName/Id: PathAssistant/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Order.settings
+FullName/Id: Order/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Forecasting.settings
+FullName/Id: Forecasting/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Mobile.settings
+FullName/Id: Mobile/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Opportunity.settings
+FullName/Id: Opportunity/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Company.settings
+FullName/Id: Company/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Macro.settings
+FullName/Id: Macro/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/PersonalJourney.settings
+FullName/Id: PersonalJourney/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/BusinessHours.settings
+FullName/Id: BusinessHours/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Quote.settings
+FullName/Id: Quote/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Contract.settings
+FullName/Id: Contract/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Product.settings
+FullName/Id: Product/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Address.settings
+FullName/Id: Address/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Account.settings
+FullName/Id: Account/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/FileUploadAndDownloadSecurity.settings
+FullName/Id: FileUploadAndDownloadSecurity/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/OrgPreference.settings
+FullName/Id: OrgPreference/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Ideas.settings
+FullName/Id: Ideas/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Activities.settings
+FullName/Id: Activities/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Security.settings
+FullName/Id: Security/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/Entitlement.settings
+FullName/Id: Entitlement/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: settings/SocialCustomerServiceSettings.settings
+FullName/Id: SocialCustomerService/
+Manageable State: null
+Namespace Prefix: 
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************

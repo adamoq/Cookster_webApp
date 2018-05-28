@@ -1,0 +1,56 @@
+************************************************************
+FileName: flows/Update_RT.flow
+FullName/Id: Update_RT/3011r000000LhIRAA0
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: flows/Create_task_on_lead_creation.flow
+FullName/Id: Create_task_on_lead_creation/3011r000000LhHEAA0
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: flows/Lead_Conversion.flow
+FullName/Id: Lead_Conversion/3011r000000LhJAAA0
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: flows/Lead_Conversion-1.flow
+FullName/Id: Lead_Conversion-1/3011r000000LhHYAA0
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: flows/Remove_oppurtinity_and_send_email_to_the_owner.flow
+FullName/Id: Remove_oppurtinity_and_send_email_to_the_owner/3011r000000LhI7AAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: flows/Update_Record_Type_Process-1.flow
+FullName/Id: Update_Record_Type_Process-1/3011r000000LhIbAAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: flows/Lead_Conversion-2.flow
+FullName/Id: Lead_Conversion-2/3011r000000LhHiAAK
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************

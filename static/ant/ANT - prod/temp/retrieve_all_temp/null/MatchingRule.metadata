@@ -1,0 +1,24 @@
+************************************************************
+FileName: matchingRules/Account.matchingRule
+FullName/Id: Account.Standard_Account_Match_Rule_v1_0/0JD1r000001siVXGAY
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Ben Stuart/0051r000008T3n4AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: matchingRules/Lead.matchingRule
+FullName/Id: Lead.Standard_Lead_Match_Rule_v1_0/0JD1r000001siVWGAY
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Ben Stuart/0051r000008T3n4AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: matchingRules/Contact.matchingRule
+FullName/Id: Contact.Standard_Contact_Match_Rule_v1_1/0JD1r000001siVVGAY
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Ben Stuart/0051r000008T3n4AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************

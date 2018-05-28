@@ -1,0 +1,448 @@
+************************************************************
+FileName: objects/Lead.object
+FullName/Id: Lead.MyUnreadLeads/00B1r00000AmdHGEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/User.object
+FullName/Id: User.AdminUsers/00B1r00000AmdHKEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contract.object
+FullName/Id: Contract.AllInApprovalContracts/00B1r00000AmdH8EAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Product2.object
+FullName/Id: Product2.AllProducts/00B1r00000AmdGZEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Activity.object
+FullName/Id: Activity.MyTeamsActivities/00B1r00000AmdHuEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Activity.object
+FullName/Id: Activity.UpcomingEvents/00B1r00000AmdHPEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Activity.object
+FullName/Id: Activity.TodaysTasks/00B1r00000AmdHOEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Position__c.object
+FullName/Id: Position__c.All/00B1r000009LPtdEAG
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contract.object
+FullName/Id: Contract.AllDraftContracts/00B1r00000AmdH5EAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Opportunity.object
+FullName/Id: Opportunity.ClosingNextMonth/00B1r00000AmdHQEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Position__c.object
+FullName/Id: Position__c.Recruiter_Queue_Position/00B1r000009LQkxEAG
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Offer__c.object
+FullName/Id: Offer__c.All/00B1r00000AmdGLEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Account.object
+FullName/Id: Account.AllAccounts/00B1r00000AmdGOEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Account.object
+FullName/Id: Account.MyAccounts/00B1r00000AmdHgEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Job_Application__c.object
+FullName/Id: Job_Application__c.All/00B1r00000AmdGKEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Lead.object
+FullName/Id: Lead.TodaysLeads/00B1r00000AmdHFEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Order.object
+FullName/Id: Order.AllOrders/00B1r00000AmdHcEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Activity.object
+FullName/Id: Activity.MyActivities/00B1r00000AmdHvEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Opportunity.object
+FullName/Id: Opportunity.Won/00B1r00000AmdHIEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contract.object
+FullName/Id: Contract.MyDraftContracts/00B1r00000AmdH7EAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contract.object
+FullName/Id: Contract.AllActivatedContracts/00B1r00000AmdH4EAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Candidate__c.object
+FullName/Id: Candidate__c.All/00B1r00000AmdGIEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Opportunity.object
+FullName/Id: Opportunity.NewThisWeek/00B1r00000AmdHJEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Car__c.object
+FullName/Id: Car__c.All/00B1r000009Lda9EAC
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Idea.object
+FullName/Id: Idea.Ideas_Last_7_Days/00B1r00000AmdHSEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Case.object
+FullName/Id: Case.AllOpenCases/00B1r00000AmdHNEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contact.object
+FullName/Id: Contact.NewThisWeek/00B1r00000AmdHCEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contract.object
+FullName/Id: Contract.AllContracts/00B1r00000AmdHdEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/User.object
+FullName/Id: User.ActiveUsers/00B1r00000AmdHLEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Order.object
+FullName/Id: Order.AllDraftOrders/00B1r00000AmdH0EAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Job_Posting_Site__c.object
+FullName/Id: Job_Posting_Site__c.All/00B1r00000AmdGNEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Interviewer__c.object
+FullName/Id: Interviewer__c.All/00B1r00000AmdGJEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Case.object
+FullName/Id: Case.MyOpenCases/00B1r00000AmdHMEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Case.object
+FullName/Id: Case.MyCases/00B1r00000AmdHpEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Order.object
+FullName/Id: Order.AllActivatedOrders/00B1r00000AmdH1EAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/User.object
+FullName/Id: User.AllUsers/00B1r00000AmdGbEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Opportunity.object
+FullName/Id: Opportunity.ClosingThisMonth/00B1r00000AmdHHEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Scorecard.object
+FullName/Id: Scorecard.AllScorecards/00B1r00000AmdGeEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: objects/Candidate__c.object
+FullName/Id: Candidate__c.Recruiter_Queue_Candidate/00B1r000009LQkyEAG
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Account.object
+FullName/Id: Account.NewThisWeek/00B1r00000AmdHAEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Solution.object
+FullName/Id: Solution.AllReviewedSolutions/00B1r00000AmdHEEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Scorecard.object
+FullName/Id: Scorecard.MyScorecards/00B1r00000AmdGfEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: objects/Campaign.object
+FullName/Id: Campaign.MyActiveCampaigns/00B1r00000AmdGzEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Opportunity.object
+FullName/Id: Opportunity.MyOpportunities/00B1r00000AmdHnEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Review__c.object
+FullName/Id: Review__c.All/00B1r00000AmdGMEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Asset.object
+FullName/Id: Asset.AllAssets/00B1r00000AmdGTEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Lead.object
+FullName/Id: Lead.AllOpenLeads/00B1r00000AmdGWEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contract.object
+FullName/Id: Contract.MyInApprovalContracts/00B1r00000AmdH6EAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Activity.object
+FullName/Id: Activity.MyDelegatedActivities/00B1r00000AmdHtEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Campaign.object
+FullName/Id: Campaign.AllActiveCampaigns/00B1r00000AmdGUEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contract.object
+FullName/Id: Contract.MyActivatedContracts/00B1r00000AmdH3EAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Opportunity.object
+FullName/Id: Opportunity.AllOpportunities/00B1r00000AmdGXEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Contact.object
+FullName/Id: Contact.AllContacts/00B1r00000AmdGVEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/CollaborationGroup.object
+FullName/Id: CollaborationGroup.All_ChatterGroups/00B1r00000AmdGhEAJ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Ben Stuart/0051r000008T3n4AAC
+Last Modified By (Name/Id): Ben Stuart/0051r000008T3n4AAC
+************************************************************
+************************************************************
+FileName: objects/Contact.object
+FullName/Id: Contact.BirthdaysThisMonth/00B1r00000AmdHBEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: objects/Solution.object
+FullName/Id: Solution.AllUnreviewedSolutions/00B1r00000AmdHDEAZ
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************

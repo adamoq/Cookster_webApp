@@ -1,0 +1,72 @@
+************************************************************
+FileName: workflows/Candidate__c.workflow
+FullName/Id: Candidate__c.Assign_New_Candidate_to_Recruiter_Queue/04Y1r0000005OjREAU
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: workflows/Position__c.workflow
+FullName/Id: Position__c.Sub_status_to_Approved_on_Approval/04Y1r0000005Oq3EAE
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: workflows/Position__c.workflow
+FullName/Id: Position__c.Sub_status_to_Not_Approved_on_Reject/04Y1r0000005OqNEAU
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: workflows/Position__c.workflow
+FullName/Id: Position__c.Status_to_Open_on_Approval/04Y1r0000005OpyEAE
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: workflows/Position__c.workflow
+FullName/Id: Position__c.Owner_to_Recruiter_Queue_on_Approval/04Y1r0000005Oq8EAE
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: workflows/Position__c.workflow
+FullName/Id: Position__c.Assign_New_Position_to_Recruiter_Queue/04Y1r0000005OjMEAU
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: workflows/Position__c.workflow
+FullName/Id: Position__c.Sub_status_for_Position_in_Progress/04Y1r0000005OptEAE
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: workflows/Position__c.workflow
+FullName/Id: Position__c.Date_Opened_to_Today/04Y1r0000005OqDEAU
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: workflows/Position__c.workflow
+FullName/Id: Position__c.Status_to_Closed_on_Not_Approved/04Y1r0000005OqIEAU
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************

@@ -1,0 +1,216 @@
+************************************************************
+FileName: quickActions/Task.UpdateStatus_1.quickAction
+FullName/Id: Task.UpdateStatus_1/09D1r000003SPcbEAG
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: quickActions/Task.EditDescription_1.quickAction
+FullName/Id: Task.EditDescription_1/09D1r000003SPcZEAW
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: quickActions/Task.Defer_0.quickAction
+FullName/Id: Task.Defer_0/09D1r000003SPYNEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: quickActions/Task.UpdatePriority_1.quickAction
+FullName/Id: Task.UpdatePriority_1/09D1r000003SPccEAG
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: quickActions/CollaborationGroup.NewGroupRecord.quickAction
+FullName/Id: CollaborationGroup.NewGroupRecord/09D1r000003SPYYEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/FeedItem.NewTaskFromFeedItem.quickAction
+FullName/Id: FeedItem.NewTaskFromFeedItem/09D1r000003SPYUEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/SendEmail.quickAction
+FullName/Id: SendEmail/09D1r000003SPYIEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: quickActions/NewEvent.quickAction
+FullName/Id: NewEvent/09D1r000003SPYJEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/Task.UpdateStatus.quickAction
+FullName/Id: Task.UpdateStatus/09D1r000003SPYSEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: quickActions/NewGroup.quickAction
+FullName/Id: NewGroup/09D1r000003SPYWEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/NewContact.quickAction
+FullName/Id: NewContact/09D1r000003SPYDEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/CollaborationGroup.NewGroupMember.quickAction
+FullName/Id: CollaborationGroup.NewGroupMember/09D1r000003SPYXEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/NewNote.quickAction
+FullName/Id: NewNote/09D1r000003SPYGEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/Task.UpdatePriority.quickAction
+FullName/Id: Task.UpdatePriority/09D1r000003SPYTEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: quickActions/Task.Defer_1.quickAction
+FullName/Id: Task.Defer_1/09D1r000003SPcaEAG
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: quickActions/LogACall.quickAction
+FullName/Id: LogACall/09D1r000003SPYFEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/NewTask.quickAction
+FullName/Id: NewTask/09D1r000003SPYCEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/Task.EditDescription_0.quickAction
+FullName/Id: Task.EditDescription_0/09D1r000003SPYMEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: quickActions/NewLead.quickAction
+FullName/Id: NewLead/09D1r000003SPYLEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/Task.Defer.quickAction
+FullName/Id: Task.Defer/09D1r000003SPYREA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: quickActions/Case.NewChildCase.quickAction
+FullName/Id: Case.NewChildCase/09D1r000003SPYKEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/NewOpportunity.quickAction
+FullName/Id: NewOpportunity/09D1r000003SPYHEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/Task.EditDescription.quickAction
+FullName/Id: Task.EditDescription/09D1r000003SPYQEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: quickActions/Task.UpdatePriority_0.quickAction
+FullName/Id: Task.UpdatePriority_0/09D1r000003SPYPEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************
+************************************************************
+FileName: quickActions/NewAccount.quickAction
+FullName/Id: NewAccount/09D1r000003SPYVEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/NewCase.quickAction
+FullName/Id: NewCase/09D1r000003SPYEEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): salesforce.com/0051r000008T3n6AAC
+Last Modified By (Name/Id): salesforce.com/0051r000008T3n6AAC
+************************************************************
+************************************************************
+FileName: quickActions/Task.UpdateStatus_0.quickAction
+FullName/Id: Task.UpdateStatus_0/09D1r000003SPYOEA4
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+Last Modified By (Name/Id): Adam Ferchichi/0051r000007QEkbAAG
+************************************************************

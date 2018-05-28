@@ -1,0 +1,6 @@
+Overall code coverage,0.0
+
+To get reliable results switch off Setup->Develop->Apex Test Execution->Options->Disable Parallel Apex Testing
+
+Class or Trigger,NumLinesCovered,NumLinesUncovered,NumLinesTotal,Coverage
+myAccountTrigger,0,0,0,100.0

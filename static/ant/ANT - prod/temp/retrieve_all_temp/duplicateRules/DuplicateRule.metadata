@@ -1,0 +1,40 @@
+************************************************************
+FileName: duplicateRules/Contact.Standard_Rule_for_Contacts_with_Duplicate_Leads.duplicateRule
+FullName/Id: Contact.Standard_Rule_for_Contacts_with_Duplicate_Leads/0Bm1r000001sfEOCAY
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: duplicateRules/Lead.Standard_Rule_for_Leads_with_Duplicate_Contacts.duplicateRule
+FullName/Id: Lead.Standard_Rule_for_Leads_with_Duplicate_Contacts/0Bm1r000001sfENCAY
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: duplicateRules/Lead.Standard_Lead_Duplicate_Rule.duplicateRule
+FullName/Id: Lead.Standard_Lead_Duplicate_Rule/0Bm1r000001sfEQCAY
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: duplicateRules/Contact.Standard_Contact_Duplicate_Rule.duplicateRule
+FullName/Id: Contact.Standard_Contact_Duplicate_Rule/0Bm1r000001sfERCAY
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************
+************************************************************
+FileName: duplicateRules/Account.Standard_Account_Duplicate_Rule.duplicateRule
+FullName/Id: Account.Standard_Account_Duplicate_Rule/0Bm1r000001sfEPCAY
+Manageable State: unmanaged
+Namespace Prefix: null
+Created By (Name/Id): Automated Process/0051r000008T3n5AAC
+Last Modified By (Name/Id): Automated Process/0051r000008T3n5AAC
+************************************************************

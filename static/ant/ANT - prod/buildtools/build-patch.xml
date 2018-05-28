@@ -1,0 +1,195 @@
+<project name="Salesforce tasks to patch retrieve or deployment packages" 
+         basedir="." 
+         xmlns:sf="antlib:com.salesforce">
+    <description>
+        This build script provides tasks to patch retrieve or deployment packages.
+    </description>
+
+    <!--This target is called after a retrieve package descriptor has been created.-->
+    <!--It can be used to patch the descriptor.-->
+    <target name="retrieve.all.package.patch">
+        <echo message="Patch retrieve.all package descriptor"/>
+        <!--Add standard value sets to retrieve-->
+        <property name="retrieve.all.package.patch.standardvaluesets"
+                  value=""/>
+        <!--See https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/standardvalueset_names.htm-->
+        <var name="retrieve.all.package.patch.standardvaluesets" value=""/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;AccountContactMultiRoles&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;AccountContactRole&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;AccountOwnership&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;AccountRating&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;AccountType&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;AssetStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;CampaignMemberStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;CampaignStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;CampaignType&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;CaseContactRole&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;CaseOrigin&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;CasePriority&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;CaseReason&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;CaseStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;CaseType&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;ContactRole&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;ContractContactRole&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;ContractStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;EntitlementType&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;EventSubject&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;EventType&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;FiscalYearPeriodName&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;FiscalYearPeriodPrefix&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;FiscalYearQuarterName&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;FiscalYearQuarterPrefix&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;IdeaCategory1&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;IdeaMultiCategory&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;IdeaStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;IdeaThemeStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;Industry&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;LeadSource&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;LeadStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;OpportunityCompetitor&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;OpportunityStage&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;OpportunityType&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;OrderType&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;PartnerRole&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;Product2Family&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;QuestionOrigin1&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;QuickTextCategory&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;QuickTextChannel&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;QuoteStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;RoleInTerritory2&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;SalesTeamRole&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;Salutation&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;ServiceContractApprovalStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;SocialPostClassification&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;SocialPostEngagementLevel&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;SocialPostReviewedStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;SolutionStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;TaskPriority&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;TaskStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;TaskSubject&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;TaskType&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;WorkOrderLineItemStatus&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;WorkOrderPriority&lt;/members&gt;${line.separator}"/>
+        <var name="retrieve.all.package.patch.standardvaluesets" value="${retrieve.all.package.patch.standardvaluesets}&lt;members&gt;WorkOrderStatus&lt;/members&gt;${line.separator}"/>
+        <!--Extend the first package.xml file which contains permission sets only-->
+        <!--This should contain less than 10000 components, and adding standard value sets should not be a problem-->
+        <!--It also should always exist-->
+        <echo message="Patching standard value sets into package-0.xml as there is no describe result returned from org"/>
+        <replaceregexp byline="true"
+                       flags="m">
+            <regexp pattern="(\s*)(&lt;version&gt;.*?&lt;/version&gt;)"/>
+            <substitution expression="\1&lt;types&gt;${line.separator}${retrieve.all.package.patch.standardvaluesets}\1\1&lt;name&gt;StandardValueSet&lt;/name&gt;${line.separator}\1&lt;/types&gt;${line.separator}\1\2"/>
+            <fileset dir="${component.retrieve.temp}">
+                <include name="package-0.xml"/>
+            </fileset>
+        </replaceregexp>           
+    </target>
+    
+    <!--This target is called after a retrieve package has been retrieved.-->
+    <!--It can be used to patch the package before it is used.-->
+    <target name="retrieve.all.components.patch">
+        <echo message="Patch retrieve.all components"/>
+        <connectedapp.anonymous source="${component.retrieve.target}"/>
+        <setting.remove source="${component.retrieve.target}/settings/OrgPreference.settings"
+                        setting="ScratchOrgManagementPref"/>
+        <userpermission.remove source="${component.retrieve.target}"
+                               permissionname="ManageSandboxes"/>
+    </target>
+    
+    <!--This target is called after a delta package has been created.-->
+    <!--It can be used to patch the components contained in the package.-->
+    <target name="delta.package.components.patch">
+        <echo message="Patch delta.package components"/>
+        <connectedapp.anonymous source="${component.deploy_delta}"/>
+        <setting.remove source="${component.deploy_delta}/settings/OrgPreference.settings"
+                        setting="ScratchOrgManagementPref"/>
+        <userpermission.remove source="${component.deploy_delta}"
+                               permissionname="ManageSandboxes"/>
+    </target>
+
+    <!--This target is called after a backup package descriptor has been created.-->
+    <!--It can be used to patch the descriptor.-->
+    <target name="backup.package.patch">
+        <echo message="Patch backup package descriptor"/>
+        <antcall target="retrieve.all.package.patch">
+            <param name="component.retrieve.temp" value="${component.backup.temp}"/>
+        </antcall>
+    </target>
+    
+    <!--This target is called after a backup package has been retrieved.-->
+    <!--It can be used to patch components contained in the package before it is used.-->
+    <target name="backup.components.patch">
+        <echo message="Patch backup components"/>
+        <antcall target="retrieve.all.components.patch">
+            <param name="component.retrieve.target" value="${component.backup.temp}"/>
+        </antcall>
+    </target>
+
+    <!--This target is called after providing components to compare.-->
+    <!--It can be used to patch the components so they do no longer contain org-specific metadata.-->
+    <!--The folder to handle is stored in property "source"-->
+    <target name="compare.orgwithbranch.components.patch.test">
+        <echo message="Patch org-branch comparison components in ${source}"/>
+        <condition property="compare.orgwithbranch.components.patch.flows.required">
+            <and>
+                <available file="${source}/flowDefinitions"/>
+                <available file="${source}/flows"/>
+            </and>
+        </condition> 
+    </target>
+    <target name="compare.orgwithbranch.components.patch.flows"
+            depends="compare.orgwithbranch.components.patch.test"
+            if="compare.orgwithbranch.components.patch.flows.required">
+        <!--Remove all inactive flows, and change the version number of the active flow to ACTIVEVERSION.-->
+        <groovy>
+            <classpath>
+                <dirset dir="${basedir}/groovy"/>
+            </classpath>
+            import util.FlowTools
+            import java.util.regex.Matcher
+            import java.util.regex.Pattern
+            
+            //Find active flow versions
+            String flowDefinitionsDirName = "${properties['source']}/flowDefinitions"
+            Map names2ActiveVersions = FlowTools.determineActiveFlowVersions("${properties['source']}")
+            println "Found flow definitions " + names2ActiveVersions
+            
+            //Go through all flows, delete them in case they are not the active version,
+            //and remove the version number if they are active
+            String flowDirName = "${properties['source']}/flows"
+            File flowDir = new File(flowDirName)
+            flowDir.eachFile() { flowFile->
+                String flowBaseName = FlowTools.getBaseNameFromFlow(flowFile.getPath())
+                String activeFlowVersion = names2ActiveVersions.get(flowBaseName)
+                if ( null != activeFlowVersion ) {
+                    println "For flow with name " + flowBaseName + ", active version is " + activeFlowVersion
+                    if ( ! flowFile.getName().endsWith("-" + activeFlowVersion + ".flow") ) {
+                        println "For flow with name " + flowBaseName + ", delete that inactive version " + flowFile.getName()
+                        flowFile.delete()
+                    }
+                    else {
+                        String newFlowName = flowFile.getPath().take(flowFile.getPath().lastIndexOf('-')) + "-ACTIVEVERSION.flow"
+                        println "For flow with name " + flowBaseName + ", rename that active version to " + newFlowName
+                        flowFile.renameTo(newFlowName)
+                    }
+                }
+                else {
+                    println "Skip flow with name " + flowBaseName + " (" + flowFile.getName() + ") as no flow definition has been found"
+                }
+            }
+        </groovy>
+        <!--Flow definitions are not compared - the main content (active version) would always be different-->
+        <delete>
+            <fileset dir="${source}/flowDefinitions"/>
+        </delete>
+    </target>
+    <target name="compare.orgwithbranch.components.patch"
+            depends="compare.orgwithbranch.components.patch.flows">
+        <echo message="Patch org-branch comparison components in ${source}"/>
+        <connectedapp.anonymous source="${source}"/>
+        <setting.remove source="${source}/settings/OrgPreference.settings"
+                        setting="ScratchOrgManagementPref"/>
+        <userpermission.remove source="${source}"
+                               permissionname="ManageSandboxes"/>
+    </target>
+</project>

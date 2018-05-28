@@ -1,0 +1,96 @@
+<project name="SonarQube tools">
+    <description>
+        This build script provides SonarQube macros and scripts.
+    </description>
+
+    <path id="sonarqube.lib.path">
+        <fileset dir="${basedir}/sonarqube">
+            <include name="lib/*.jar"/>
+        </fileset>
+    </path>
+    <!-- Define the ant tasks. Use ant.file.dir to ensure we look for the jar files next to antbuild.xml -->
+    <taskdef uri="antlib:org.sonar.ant" 
+             resource="org/sonar/ant/antlib.xml">
+        <classpath refid="sonarqube.lib.path"/>
+    </taskdef>
+    
+    <!--Runs static code analysis using SonarQube (CodeScan)-->
+    <!--buildtools.dir: folder containing build tools (used to find PMD resources)-->
+    <!--source.dir: folder with sources to handle (relevant sources are copied into temparary folder)-->
+    <!--temp.dir: folder to store analyze sources and results-->
+    <!--sonar.host.url: -->
+    <!--sonar.login: -->
+    <!--sonar.password: -->
+    <!--sonar.projectKey: -->
+    <!--sonar.projectName: -->
+    <!--sonar.projectVersion: -->
+    <!--sonar.branch: -->
+    <!--result.propertyname: a name of a property to store whether analysis problems have been found or not-->
+    <macrodef name="sonarqube.codescan">
+        <attribute name="buildtools.dir"/>
+		<attribute name="source.dir"/>
+		<attribute name="temp.dir"/>
+		<attribute name="sonar.host.url"/>
+		<attribute name="sonar.login"/>
+		<attribute name="sonar.password"/>
+        <attribute name="sonar.projectKey"/>
+        <attribute name="sonar.projectName"/>
+        <attribute name="sonar.projectVersion"/>
+        <attribute name="sonar.branch"/>
+        <attribute name="result.propertyname"/>
+		<sequential>
+            <echo level="verbose">sonarqube.codescan: @{buildtools.dir}, @{source.dir}, @{temp.dir}, @{sonar.host.url}, @{sonar.login}, @{sonar.projectKey}, @{sonar.projectName}, @{sonar.projectVersion}, @{sonar.branch}</echo>
+            
+            <!--All files to scan are in a src folder as sub-folder of the project base dir-->
+            <!--This makes sure the BitBucket Sonar Plugin resp. the SonarServer can assign problems to the right files-->
+            <delete dir="@{temp.dir}"
+                    quiet="true"/>
+            <mkdir dir="@{temp.dir}"/>
+            <mkdir dir="@{temp.dir}/src"/>
+            <copy todir="@{temp.dir}/src">
+                <fileset dir="@{source.dir}"
+                         includes="classes/**, components/**, pages/**, triggers/**"
+                         excludes="**/*-meta.xml"/>
+            </copy>
+            
+            <property name="sonar.host.url" value="@{sonar.host.url}"/>
+            <property name="sonar.login" value="@{sonar.login"/>
+            <property name="sonar.password" value="@{sonar.password}"/>
+            <!--property name="sonar.working.directory" value="@{temp.dir}"/-->
+            
+            <property name="sonar.projectKey" value="@{sonar.projectKey}"/>
+            <property name="sonar.projectName" value="@{sonar.projectName}"/>
+            <property name="sonar.projectVersion" value="@{sonar.projectVersion}"/>
+            <property name="sonar.projectBaseDir" value="@{temp.dir}"/>
+            <property name="sonar.branch" value="@{sonar.branch}" />
+            
+            <property name="sonar.sources"
+                      value="src"/>
+            <echo message="Analyze sources in ${sonar.sources}"
+                  level="verbose"/>
+            <property name="sonar.sourceEncoding" value="utf8"/>
+            
+            <sonar:sonar xmlns:sonar="antlib:org.sonar.ant" />
+            <!--condition property="@{result.propertyname}"
+                       value="failed">
+                <resourcecontains resource="@{temp.dir}/errors/errors.xml"
+                                  substring="&lt;error linenumber="/>
+            </condition-->
+        </sequential>
+    </macrodef>
+
+    <macrodef name="sonarqube.archiveoutput">
+        <attribute name="buildtools.dir"/>
+		<attribute name="source.dir"/>
+		<attribute name="temp.dir"/>
+        <attribute name="archivename"/>
+		<sequential>
+            <echo level="verbose">sonarqube.archiveoutput: @{buildtools.dir}, @{source.dir}, @{temp.dir}, @{archivename}</echo>
+            <!--zip destfile="@{archivename}">
+                <zipfileset dir="@{temp.dir}"
+                            includes="**/*.*">
+                </zipfileset>
+            </zip-->            
+		</sequential>
+    </macrodef>
+</project>

@@ -1,0 +1,353 @@
+<project name="Property tools">
+         
+    <description>
+        This build script provides Propery macros and scripts.
+    </description>
+
+    <!--Gets and validates command line properties-->
+    <target name="properties.general">
+        <dirname property="component.root.temp"
+                 file="${basedir}"/>
+        <path id="component.root.temp2">
+            <pathelement location="${component.root.temp}"/>
+        </path>
+        <pathconvert targetos="unix" property="component.root" refid="component.root.temp2">
+        </pathconvert>
+        <echo message="Using component root ${component.root}."
+              level="verbose"/>
+
+        <property file="${component.root}/build/local.properties"/>
+        <property file="${component.root}/build/build.properties"/>
+
+        <condition property="description"
+                   value="">
+            <not>
+                <isset property="description"/>
+            </not>
+        </condition>
+        
+        <tstamp>
+              <format property="time.start"
+                      pattern="yyyy-MM-dd HH:mm:ss"/>
+        </tstamp>
+    </target>
+
+    <!--Gets and validates component properties-->
+    <target name="properties.component">
+        <property name="component.src"
+                  value="${component.root}/src"/>
+        <echo message="Using component src ${component.src}."
+              level="verbose"/>
+		<property name="component.temp_dir" 
+                  value="${component.root}/temp"/>
+        <echo message="Store temporary files into ${component.temp_dir}."
+              level="verbose"/>
+        <property name="component.retrieve_all"
+                  value="${component.temp_dir}/retrieve_all"/>
+        <echo message="Retrieving all into ${component.retrieve_all}."
+              level="verbose"/>
+        <property name="component.retrieve"
+                  value="${component.temp_dir}/retrieve"/>
+        <echo message="Retrieving into ${component.retrieve}."
+              level="verbose"/>
+        <property name="component.retrieve_package"
+                  value="${component.temp_dir}/retrieve_package"/>
+        <echo message="Retrieving package into ${component.retrieve_package}."
+              level="verbose"/>
+        <property name="component.deploy_delta"
+                  value="${component.temp_dir}/deploy_delta"/>
+        <echo message="Store delta deployment package of component into ${component.deploy_delta}."
+              level="verbose"/>
+        <property name="component.undeploy_delta"
+                  value="${component.temp_dir}/undeploy_delta"/>
+        <echo message="Store undelta deployment package of component into ${component.undeploy_delta}."
+              level="verbose"/>
+        <property name="component.deploy_full"
+                  value="${component.temp_dir}/deploy_full"/>
+        <echo message="Store full deployment package of component into ${component.deploy_full}."
+              level="verbose"/>
+        <property name="component.compare"
+                  value="${component.temp_dir}/compare"/>
+        <echo message="Store comparison results of component into ${component.compare}."
+              level="verbose"/>
+
+        <fail message="Please specify a component.name parameter in build.properties.">
+            <condition>
+                <not>
+                    <isset property="component.name"/>
+                </not>
+            </condition>        
+        </fail>
+        <echo message="Running for component name ${component.name}."
+              level="verbose"/>
+    </target>
+    
+    <!--Gets and validates general org properties-->
+    <target name="properties.org.general.tests">
+        <fail message="Please specify the org parameter, which is required to determine source or target org information.">
+            <condition>
+                <not>
+                    <isset property="org"/>
+                </not>
+            </condition>        
+        </fail>
+        <property name="org.name"
+                  value="${org}"/>
+        <echo message="Handle org ${org.name}."
+              level="verbose"/>
+        <available file="${component.root}/build/local-${org.name}.properties" 
+                   property="properties.org.general.local.available"/>
+        <available file="${component.root}/build/build-${org.name}.properties" 
+                   property="properties.org.general.build.available"/>
+    </target>
+    <target name="properties.org.general.local"
+            depends="properties.org.general.tests"
+            if="properties.org.general.local.available">
+        <property file="${component.root}/build/local-${org.name}.properties"/>
+    </target>
+    <target name="properties.org.general.build.load"
+            depends="properties.org.general.tests"
+            if="properties.org.general.build.available">
+        <property file="${component.root}/build/build-${org.name}.properties"/>
+    </target>
+    <target name="properties.org.general.build.missing"
+            depends="properties.org.general.tests"
+            unless="properties.org.general.build.available">
+        <echo message="Warning: There is no ${component.root}/build/build-${org.name}.properties file."/>
+    </target>
+    <target name="properties.org.general.build"
+            depends="properties.org.general.build.load,
+                     properties.org.general.build.missing">
+    </target>
+    <target name="properties.org.general"
+            depends="properties.org.general.local,
+                     properties.org.general.build">
+    </target>
+    
+    <!--Gets and validates salesforce target org properties-->
+    <target name="properties.org.sf"
+            depends="properties.org.general">
+        <fail message="Please specify a sf.serverurl parameter in ${component.root}/build/build-${org.name}.properties.">
+            <condition>
+                <not>
+                    <isset property="sf.serverurl"/>
+                </not>
+            </condition>        
+        </fail>
+        <echo message="Running against Salesforce server ${sf.serverurl}."
+              level="verbose"/>
+        <fail message="Please specify a sf.apiversion parameter in ${component.root}/build/build-${org.name}.properties.">
+            <condition>
+                <not>
+                    <isset property="sf.apiversion"/>
+                </not>
+            </condition>        
+        </fail>
+        <echo message="Using API version ${sf.apiversion}."
+              level="verbose"/>
+        <fail message="Please specify a sf.maxpoll parameter in ${component.root}/build/build-${org.name}.properties.">
+            <condition>
+                <not>
+                    <isset property="sf.maxpoll"/>
+                </not>
+            </condition>        
+        </fail>
+        <echo message="Running with Salesforce maxpoll ${sf.maxpoll}."
+              level="verbose"/>
+        <fail message="Please specify a sf.username parameter in ${component.root}/build/local-${org.name}.properties.">
+            <condition>
+                <not>
+                    <isset property="sf.username"/>
+                </not>
+            </condition>        
+        </fail>
+        <echo message="Running with Salesforce user ${sf.username}."
+              level="verbose"/>
+        <fail message="Please specify a sf.password parameter in ${component.root}/build/local-${org.name}.properties.">
+            <condition>
+                <not>
+                    <isset property="sf.password"/>
+                </not>
+            </condition>        
+        </fail>
+    </target>
+    
+    <!--Gets and validates general Git properties-->
+    <target name="properties.git.general"
+            depends="properties.component">
+        <fail message="Please specify a git.home parameter in ${component.root}/build/local.properties.">
+            <condition>
+                <not>
+                    <isset property="git.home"/>
+                </not>
+            </condition>        
+        </fail>
+        <condition property="git.executable"
+                   value="${git.home}/bin/git.exe"
+                   else="${git.home}/bin/git">
+            <os family="windows"/>
+        </condition>
+        <echo message="Using Git executable ${git.executable}."
+              level="verbose"/>
+    </target>
+    
+    <!--Gets and validates Git delta package properties-->
+    <target name="properties.git.delta_package">
+        <fail message="Please specify a git.versions parameter in ${component.root}/build/build-${org.name}.properties.">
+            <condition>
+                <not>
+                    <isset property="git.versions"/>
+                </not>
+            </condition>        
+        </fail>
+        <script language="javascript"> <![CDATA[
+            var range = project.getProperty("git.versions");
+            var fromVersion;
+            var toVersion;
+            if ( range.match(/^[\d\w]+$/) ) {
+                fromVersion = range;
+                fromVersion = fromVersion.trim();
+                toVersion = 'HEAD';
+            }
+            else 
+            if ( -1 != range.indexOf(' ') ) {
+                var index = range.indexOf(' ' );
+                fromVersion = range.substring(0, index);
+                toVersion = range.substring(index);
+            }
+            else {
+                fromVersion = range;
+                fromVersion = fromVersion.trim();
+                toVersion = "";
+            }
+            project.setProperty("git.versions.from", fromVersion);
+            project.setProperty("git.versions.to", toVersion);
+		]]></script>
+        <condition property="git.versions.from"
+                   value="master">
+            <not>
+                <isset property="git.backup.branch"/>
+            </not>
+        </condition>
+        <echo message="Building package with versions ${git.versions}."
+              level="verbose"/>
+    </target>
+
+    <!--Gets and validates Git backup properties-->
+    <target name="properties.git.backup">
+        <fail message="Please specify either git.backup.folder or git.backup.branch, but not both.">
+            <condition>
+                <and>
+                    <isset property="git.backup.folder"/>
+                    <isset property="git.backup.branch"/>
+                </and>
+            </condition>        
+        </fail>
+        <fail message="Please specify at least git.backup.folder or git.backup.branch.">
+            <condition>
+                <and>
+                    <not>
+                        <isset property="git.backup.folder"/>
+                    </not>
+                    <not>
+                        <isset property="git.backup.branch"/>
+                    </not>
+                </and>
+            </condition>        
+        </fail>
+        <condition property="git.backup.folder.postfix"
+                   value=""
+                   else="_${sf.backup.installedpackage}">
+            <not>
+                <isset property="sf.backup.installedpackage"/>
+            </not>
+        </condition>
+        <condition property="git.backup.folder"
+                   value="${org}${git.backup.folder.postfix}">
+            <not>
+                <isset property="git.backup.folder"/>
+            </not>
+        </condition>
+        <condition property="git.backup.branch.postfix"
+                   value=""
+                   else="_${sf.backup.installedpackage}">
+            <not>
+                <isset property="sf.backup.installedpackage"/>
+            </not>
+        </condition>
+        <condition property="git.backup.branch"
+                   value="${org}${git.backup.branch.postfix}">
+            <not>
+                <isset property="git.backup.branch"/>
+            </not>
+        </condition>
+        <echo message="Running Git backup to folder ${git.backup.folder} and branch ${git.backup.branch}."
+              level="verbose"/>
+    </target>
+
+    <!--Gets and validates SFDC force properties-->
+    <target name="properties.force.general"
+            depends="properties.component">
+            
+        <!--Even escaping does not work in Unix
+        <property name="properties.force.unix.unescaped"
+                  value="${component.root}/buildtools/bin/force"/>
+        <escape.property value="${properties.force.unix.unescaped}"
+                         toproperty="properties.force.unix.escaped"/>
+        -->
+        <condition property="force.executable"
+                   value="${component.root}/buildtools/bin/force.exe"
+                   else="${component.root}/buildtools/bin/force">
+            <os family="windows"/>
+        </condition>
+        <echo message="Using Force executable ${force.executable}."
+              level="verbose"/>
+    </target>
+
+    <!--Gets and validates command line properties-->
+    <target name="properties.proxy.check">
+        <condition property="proxy.inuse"
+                   value="true">
+            <and>
+                <isset property="proxy.host"/>
+                <isset property="proxy.port"/>
+                <isset property="proxy.user"/>
+                <isset property="proxy.pass"/>
+            </and>
+        </condition>
+    </target>
+    <target name="properties.proxy"
+            depends="properties.proxy.check"
+            if="proxy.inuse">
+        <echo message="Using proxy ${proxy.host}:${proxy.port} as user ${proxy.user}."
+              level="verbose"/>
+        <setproxy proxyhost="${proxy.host}" 
+                  proxyport="${proxy.port}"
+                  proxyuser="${proxy.user}" 
+                  proxypassword="${proxy.pass}"/>
+    </target>
+
+    <!--Patches descriptions into a package descriptor-->
+    <target name="package.descriptor.patch.missing">
+        <condition property="package.description.full"
+                   value="${package.prefix}"
+                   else="${package.prefix}: ${package.description}">
+            <or>
+                <not>
+                    <isset property="package.description"/>
+                </not>
+                <equals arg1="${package.description}" arg2="" trim="true"/>
+            </or>
+        </condition>
+    </target>
+    <target name="package.descriptor.patch"
+            depends="package.descriptor.patch.missing">
+        <echo message="Patch description in ${package.descriptor} to ${package.description.full}"
+              level="verbose"/>
+        <replaceregexp file="${package.descriptor}"
+                       byline="true">
+            <regexp pattern="&lt;description&gt;&lt;/description&gt;"/>
+            <substitution expression="&lt;description&gt;${package.description.full}&lt;/description&gt;"/>
+        </replaceregexp>              
+    </target>
+</project>
