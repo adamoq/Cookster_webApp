@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from . import settings
+from django.conf import settings
+from django.conf.urls.static import static
 from cook.views import main, products, administration, employers, menu, orders, login_user, category, dish, orders_waiter, login_mobile, changepassword,changephone, changeproduct
 from django.contrib import admin
 from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, DishOrderResource
@@ -47,7 +49,7 @@ urlpatterns = [
 	url(r'^mobilereset/password/$', changepassword),
 	url(r'^mobilereset/phone/$', changephone),
 	url(r'^mobilereset/product/$', changeproduct),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     import debug_toolbar
 
