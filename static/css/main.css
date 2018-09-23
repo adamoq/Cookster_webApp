@@ -9,6 +9,7 @@
 body {
 	margin: 0;
 	padding: 0;
+	background: radial-gradient(#ccc, #eee);
 }
 a,
 a:link,
@@ -27,10 +28,9 @@ a:hover{
 .content {
 	width: 100%;
 	position: fixed;
-	padding-left: 121px;
+	padding-left: 81px;
 	font-family: 'Futura', sans-serif;
 	height: 100vh;
-	background: radial-gradient(#eee, #fff);
 }
 .results-container{
 	width: 98%;
