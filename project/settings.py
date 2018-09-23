@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'cook',
 	'tastypie',
+	'django_tables2'
 ]
 
 MIDDLEWARE = [
@@ -57,8 +58,24 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+	'django.middleware.locale.LocaleMiddleware',
 ]
+MIDDLEWARE_CLASSES = (
+   'django.contrib.sessions.middleware.SessionMiddleware',
+   'django.middleware.locale.LocaleMiddleware',
+   'django.middleware.common.CommonMiddleware',
+)
 
+# Set the default language for your site.
+LANGUAGE_CODE = 'en'
+# Tell Django where the project's translation files should be.
+LOCALE_PATHS = (
+     BASE_DIR + 'locale/', 
+)
+FORMAT_MODULE_PATH = [
+    'mysite.formats',
+    'some_app.formats',
+]
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [

@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Catamaran&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -30,8 +31,7 @@
 <body>
 <div class = "nav-bar left">
 <div class = "nav-logo">
-<h1>CS</h1>
-<p class="cookster"> CookSter </p>
+<img src="{% static 'img/cookster-logo.png' %}">
 </div> 
 	<ul>
 		<a href="{% url 'menu' %}"><li><img src="{% static 'img/menu-icon.png' %}"><p>Dania</p></li></a>
@@ -41,9 +41,13 @@
 		<a href="{% url 'orders' %}"><li><img src="{% static 'img/orders-icon.png' %}"><p>Zamówienia</p></li></a>
 		
 	</ul>
-	<a href="/logout" class="logout"><p><img src="{% static 'img/logout-icon.png' %}">Wyloguj się</p></a>
+	
 </div>
 <div class = "content">
+<div class="bar">U Klaudii restaurant - Klaudia Ferchichi
+
+<a href="/logout" class="logout"><p><img src="{% static 'img/logout-icon.png' %}">Wyloguj się</p></a>
+</div>
 <div id = "overlay">
 	<div class="loader">COOKSTER</div>
 </div>

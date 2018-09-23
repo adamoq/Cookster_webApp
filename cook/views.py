@@ -13,6 +13,8 @@ from django import forms
 from .forms import ProductForm, CategoryForm, DishForm, EmployeeForm
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
+from cook.tables import ProductTable, EmployeeTable
+from django_tables2   import RequestConfig
 def main(request):
 	if request.user.is_authenticated():	
 		redirect(products)
@@ -35,12 +37,15 @@ def products(request):
 			else:
 				form.save()       
 		template = loader.get_template('products.html')
+		table = ProductTable(Product.objects.all())
+		RequestConfig(request).configure(table)
 		context = {
-			'productsList': Product.objects.all(),
+			'productsList': table,
 			'form':ProductForm(),
 			'formText': 'Dodaj produkt'
 		}
 		return HttpResponse(template.render(context, request))
+		#return render(request, 'products.html', context)
 
 @login_required
 @csrf_exempt
@@ -63,7 +68,7 @@ def employers(request):
 		else:
 			form.save()   
 	context = {
-		'employesList': Employee.objects.all(),
+		'employesList': EmployeeTable(Employee.objects.all()),
 		'form': EmployeeForm(),
 		'formText': 'Dodaj pracownika'
 	}
