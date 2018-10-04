@@ -4,6 +4,6 @@ gunicorn==19.4.5
 psycopg2==2.7.3.1
 whitenoise==3.3.1
 django-tastypie>0.10
-django_tables2>2.0.1
+django_tables2==2.0.1
 python-gettext>0.16
 gettext>0.16

@@ -15,6 +15,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from cook.tables import ProductTable, EmployeeTable
 from django_tables2   import RequestConfig
+from django.utils.translation import gettext as _
+
 def main(request):
 	if request.user.is_authenticated():	
 		redirect(products)
@@ -27,13 +29,13 @@ def products(request):
 		if request.method == 'PUT':
 			form = ProductForm(request.POST)
 			if not form.is_valid():
-				showError(request,'Dane produktu są niepoprawane.')
+				showError(request,_('Dane produktu są niepoprawane.'))
 			else:
 				form.save()   
 		elif request.method == 'POST':
 			form = ProductForm(request.POST)
 			if not form.is_valid():
-				showError(request,'Dane produktu są niepoprawane.')
+				showError(request,_('Dane produktu są niepoprawane.'))
 			else:
 				form.save()       
 		template = loader.get_template('products.html')
@@ -42,7 +44,7 @@ def products(request):
 		context = {
 			'productsList': table,
 			'form':ProductForm(),
-			'formText': 'Dodaj produkt'
+			'formText': _("Dodaj produkt")
 		}
 		return HttpResponse(template.render(context, request))
 		#return render(request, 'products.html', context)
@@ -64,13 +66,24 @@ def employers(request):
 	if request.method == 'POST':
 		form = EmployeeForm(request.POST)
 		if not form.is_valid():
-			showError(request,'Dane produktu są niepoprawane.')
+			showError(request,_('Dane produktu są niepoprawane.'))
 		else:
-			form.save()   
+			form.save()
+	elif request.method == 'PUT':
+		form = EmployeeForm(request.POST)
+		if not form.is_valid():
+			showError(request,_('Dane produktu są niepoprawane.'))
+		print(form)
+		form.save()
+	forms = {}
+	for employee in Employee.objects.all():
+		forms[employee.id]=EmployeeForm(instance=employee)
 	context = {
 		'employesList': EmployeeTable(Employee.objects.all()),
+		'forms': forms,
 		'form': EmployeeForm(),
-		'formText': 'Dodaj pracownika'
+		'formText': _('Dodaj pracownika')
+
 	}
 	return HttpResponse(template.render(context, request))
 @login_required
@@ -79,20 +92,20 @@ def menu(request):
 	if request.method == 'PUT':
 		categoryform = CategoryForm(request.POST)
 		if not categoryform.is_valid():
-			showError(request,'Dane kategorii są niepoprawane.')
+			showError(request,_('Dane kategorii są niepoprawane.'))
 		else:
 			categoryform.save()   
 	elif request.method == 'POST':
 		categoryform = CategoryForm(request.POST)
 		if not categoryform.is_valid():
-			showError(request,'Dane kategorii są niepoprawane.')
+			showError(request,_('Dane kategorii są niepoprawane.'))
 		else:
 			Category.objects.create(name=categoryform.cleaned_data['name'])    
 	template = loader.get_template('menu.html')
 	context = {
 		'categoryList': Category.objects.all(),
 		'form':CategoryForm(),
-		'formText': 'Dodaj kategorię'
+		'formText': _('Dodaj kategorię')
 	}
 	return HttpResponse(template.render(context, request))
 @login_required
@@ -108,17 +121,17 @@ def category(request):
 			'categoryName': category.name,
 			'dishesList' : dishes,
 			'form':DishForm(),
-			'formText': 'Dodaj danie'
+			'formText': _('Dodaj danie')
 		}
 	if request.method == 'GET':
 		context = {
 			'categoryName': category.name,
 			'dishesList' : dishes,
 			'form':DishForm(),
-			'formText': 'Dodaj danie'
+			'formText': _('Dodaj danie')
 		}
 	else:
-		showError(request,'Dane dania są niepoprawane.')
+		showError(request,_('Dane dania są niepoprawane.'))
 	return HttpResponse(template.render(context, request))
 @login_required
 @csrf_exempt	
@@ -128,7 +141,7 @@ def dish(request):
 	if request.method == 'POST':
 		dishForm = DishForm(request.POST, instance = Dish.objects.get(pk = request.POST.get('id')))
 		if not dishForm.is_valid():
-			showError(request,'Dane kategorii są niepoprawane.')
+			showError(request,_('Dane kategorii są niepoprawane.'))
 		else:
 			dishForm.save() 
 		context = {

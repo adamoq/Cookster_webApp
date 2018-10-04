@@ -9,15 +9,15 @@
 {% csrf_token %}
 <span id="dish-flag" style="display: none;" ></span>  
 <div class="dish-container">
- <h1>Edycja dania</h1>
- <p>Składniki, z których składają się Twoje dania.</p>    
- <p>Mozesz dodawać nowe elementy oraz je modyfikować.</p>   
+ <h1>{{trans Edycja dania}}</h1>
+ <p>{{trans Składniki, z których składają się Twoje dania.}}</p>    
+ <p>{{trans Mozesz dodawać nowe elementy oraz je modyfikować.}}</p>   
  <br><br>
  {% if dish %}
   <form class="dish-form" alt="Użyj przycisku CTRL" method="POST">{% csrf_token %}
         {{ dish.as_p }}
 		<input type="text" class="hidden" name = "id" value = "{{dishId}}" >
-        <button type="submit" class="save btn btn-default">Save</button>
+        <button type="submit" class="save btn btn-default">{{trans zapisz }}</button>
     </form>
 {% endif %}
 

@@ -60,11 +60,6 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 	'django.middleware.locale.LocaleMiddleware',
 ]
-MIDDLEWARE_CLASSES = (
-   'django.contrib.sessions.middleware.SessionMiddleware',
-   'django.middleware.locale.LocaleMiddleware',
-   'django.middleware.common.CommonMiddleware',
-)
 
 # Set the default language for your site.
 LANGUAGE_CODE = 'en'

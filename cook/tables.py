@@ -29,7 +29,7 @@ class ProductTable(tables.Table):
 		else: return format_html(value,value)
 		
 class EmployeeTable(tables.Table):
-	id = tables.Column(verbose_name = "Id", attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	id = tables.Column(verbose_name = "Id", attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
 	name = tables.Column(verbose_name = "Imię", attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})	
 	surname = tables.Column( verbose_name='Nazwisko',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	position = tables.Column( verbose_name='Pozycja',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
@@ -40,7 +40,7 @@ class EmployeeTable(tables.Table):
 	
 		
 	def render_edit(self, value):
-		return format_html('<img src="/static/img/edit-icon.png" />',value)
+		return format_html('<img class="t" src="/static/img/edit-icon.png" />',value)
 	def render_gps(self, value):
 		return format_html('<img src="/static/img/gps.png" />',value)
 	def render_status(self, value):

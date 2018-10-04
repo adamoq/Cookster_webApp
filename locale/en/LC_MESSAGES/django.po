@@ -1,0 +1,162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-27 17:07+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\cook\forms.py:9 .\cook\forms.py:18 .\cook\forms.py:26
+msgid "Nazwa"
+msgstr "Name"
+
+#: .\cook\forms.py:10 .\cook\tables.py:16
+msgid "Dostępność"
+msgstr "Avaibility"
+
+#: .\cook\forms.py:27 .\templates\cookster\base.html:41
+msgid "Produkty"
+msgstr "Products"
+
+#: .\cook\forms.py:28
+msgid "Kategoria"
+msgstr "Category"
+
+#: .\cook\forms.py:29
+msgid "Dostepność"
+msgstr ""
+
+#: .\cook\forms.py:41
+msgid "Imię"
+msgstr ""
+
+#: .\cook\forms.py:42
+msgid "Nazwisko"
+msgstr ""
+
+#: .\cook\forms.py:43 .\cook\forms.py:45
+msgid "Hasło"
+msgstr ""
+
+#: .\cook\forms.py:44
+msgid "Login"
+msgstr ""
+
+#: .\cook\tables.py:14
+msgid "Id"
+msgstr ""
+
+#: .\cook\tables.py:15
+msgid "Name"
+msgstr ""
+
+#: .\cook\tables.py:17
+msgid "Edit"
+msgstr ""
+
+#: .\cook\views.py:32 .\cook\views.py:38 .\cook\views.py:69
+msgid "Dane produktu są niepoprawane."
+msgstr ""
+
+#: .\cook\views.py:47
+msgid "Dodaj produkt"
+msgstr ""
+
+#: .\cook\views.py:79
+msgid "Dodaj pracownika"
+msgstr ""
+
+#: .\cook\views.py:89 .\cook\views.py:95 .\cook\views.py:138
+msgid "Dane kategorii są niepoprawane."
+msgstr ""
+
+#: .\cook\views.py:102
+msgid "Dodaj kategorię"
+msgstr ""
+
+#: .\cook\views.py:118 .\cook\views.py:125
+msgid "Dodaj danie"
+msgstr ""
+
+#: .\cook\views.py:128
+msgid "Dane dania są niepoprawane."
+msgstr ""
+
+#: .\templates\cookster\base.html:39
+msgid "Dania"
+msgstr ""
+
+#: .\templates\cookster\base.html:40
+msgid " Pracownicy"
+msgstr ""
+
+#: .\templates\cookster\base.html:42
+msgid "Administracja"
+msgstr ""
+
+#: .\templates\cookster\base.html:43
+msgid "Zamówienia"
+msgstr ""
+
+#: .\templates\cookster\base.html:51
+msgid "Wyloguj sie"
+msgstr ""
+
+#: .\templates\cookster\base.html:80
+msgid "Zapisz"
+msgstr ""
+
+#: .\templates\cookster\base.html:81
+msgid "Back"
+msgstr ""
+
+#: .\templates\cookster\employers.html:12
+msgid "Pracownicy"
+msgstr ""
+
+#: .\templates\cookster\employers.html:13
+msgid "Użytkownicy, którzy korzystają z aplikacji CookSter."
+msgstr ""
+
+#: .\templates\cookster\employers.html:14
+msgid "Mozesz dodawać nowych pracowników oraz modyfikować ich dane."
+msgstr ""
+
+#: .\templates\cookster\employers.html:25
+msgid "Zamówienie"
+msgstr ""
+
+#: .\templates\cookster\employers.html:35
+msgid "Wróć"
+msgstr ""
+
+#: .\templates\cookster\employers.html:36
+msgid "Usuń"
+msgstr ""
+
+#: .\templates\cookster\employers.html:36
+msgid "Zaktualizuj"
+msgstr ""
+
+#: .\templates\cookster\products.html:14
+msgid "Products"
+msgstr ""
+
+#: .\templates\cookster\products.html:15
+msgid "Składniki, z których składają się Twoje dania."
+msgstr ""
+
+#: .\templates\cookster\products.html:16
+msgid "Mozesz dodawać nowe elementy oraz je modyfikować."
+msgstr ""

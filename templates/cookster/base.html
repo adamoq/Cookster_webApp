@@ -1,4 +1,6 @@
+{% load i18n %}
 {% load staticfiles %}
+
 <html>
 <head>
 <title>Cookster - A.F.</title>
@@ -34,11 +36,11 @@
 <img src="{% static 'img/cookster-logo.png' %}">
 </div> 
 	<ul>
-		<a href="{% url 'menu' %}"><li><img src="{% static 'img/menu-icon.png' %}"><p>Dania</p></li></a>
-		<a href="{% url 'employers' %}"><li><img src="{% static 'img/workers-icon.png' %}"><p>Pracownicy</p></li></a>
-		<a href="{% url 'products' %}"><li><img src="{% static 'img/products-icon.png' %}"><p>Produkty</p></li></a>
-		<a href="{% url 'administration' %}"><li><img src="{% static 'img/administration-icon.png' %}"><p>Administracja</p></li></a>
-		<a href="{% url 'orders' %}"><li><img src="{% static 'img/orders-icon.png' %}"><p>Zamówienia</p></li></a>
+		<a href="{% url 'menu' %}"><li><img src="{% static 'img/menu-icon.png' %}"><p>{% blocktrans %}Dania{% endblocktrans %}</p></li></a>
+		<a href="{% url 'employers' %}"><li><img src="{% static 'img/workers-icon.png' %}"><p>{% blocktrans %} Pracownicy{% endblocktrans %}</p></li></a>
+		<a href="{% url 'products' %}"><li><img src="{% static 'img/products-icon.png' %}"><p>{% blocktrans %}Produkty{% endblocktrans %}</p></li></a>
+		<a href="{% url 'administration' %}"><li><img src="{% static 'img/administration-icon.png' %}"><p>{% blocktrans %}Administracja{% endblocktrans %}</p></li></a>
+		<a href="{% url 'orders' %}"><li><img src="{% static 'img/orders-icon.png' %}"><p>{% blocktrans %}Zamówienia{% endblocktrans %}</p></li></a>
 		
 	</ul>
 	
@@ -46,7 +48,7 @@
 <div class = "content">
 <div class="bar">U Klaudii restaurant - Klaudia Ferchichi
 
-<a href="/logout" class="logout"><p><img src="{% static 'img/logout-icon.png' %}">Wyloguj się</p></a>
+<a href="/logout" class="logout"><p><img src="{% static 'img/logout-icon.png' %}">{% blocktrans %}Wyloguj sie{% endblocktrans %}</p></a>
 </div>
 <div id = "overlay">
 	<div class="loader">COOKSTER</div>
@@ -75,8 +77,8 @@
    
         </div>
         <div class="modal-footer">
-          <button type="submit" class="save btn btn-default">Zapisz</button>
-		  <button type="button" class="btn btn-default" data-dismiss="modal">Wróć</button>
+          <button type="submit" class="btn btn-default">{% blocktrans %}Zapisz{% endblocktrans %}</button>
+		  <button type="button" class="btn btn-default" data-dismiss="modal">{% blocktrans %}Back{% endblocktrans %}</button>
         </div>
 		 </form>
       </div>

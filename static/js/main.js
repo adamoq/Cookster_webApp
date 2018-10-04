@@ -227,45 +227,44 @@
     //PRACOWNICY
     else if ($("#employers-flag").length > 0) {
 
-
-        $(document).on('submit', 'form.emplyee-form', function() {
-            event.preventDefault();
-			$("#overlay").toggleClass('hidden');
-            var data = objectifyForm(this);
+console.log('xd');
+        $('.save').on('click', function(e) {
+            e.preventDefault();
+			//var id = $(this).attr('id');
+           // var data = $('#form'+id).serialize();
+			console.log('xd'+id);
              //aktualizowanie obiektu
-			 var id = data['id'];
+			 
+			var data = objectifyForm($('#form'+id));
+             //aktualizowanie obiektu
+			// var id = data['id'];
             data = JSON.stringify(data);
-            
-			data['position'] = $(this).find('select').val();
+            console.log('data'+data);
+			data['position'] = $('#form'+id).find('select').val();
             $.ajax({
-                url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/resemployees/' + id + '/',
+                url: 'http://127.0.0.1:8000/api/resemployees/' + id + '/',
                     type: 'PUT',
                     contentType: 'application/json',
                     data: data,
                     dataType: 'json',
                     processData: false,
 					success: function() {
-                        $("#overlay").toggleClass('hidden');
+						console.log('xd');
+                       // $("#overlay").toggleClass('hidden');
                     }
                 })
 
-            
-            $(this).parent().parent().find('input').each(function() {
-                if (!($(this).hasClass('not-active'))) $(this).toggleClass('not-active');
-                if ($(this).attr('type') == 'image') $(this).toggleClass('not-ready');
-            });
-        })
-        $('.remove-icon').on('click', function() { //usunięcie obiektu
-            var form = $(this).parent().parent().find('form').first()[0];
-            var data = objectifyForm(form);
-            var id = data['id'];
-            if (confirm('Jesteś pewien, że chcesz usunać pracownika ' + data['name'] + ' ' + data['surname'] + ' z bazy?')) {
+
+        });
+        $('.button-remove').on('click', function() { //usunięcie obiektu
+            //var form = $(this).parent().parent().find('form').first(;
+            //var data = objectifyForm(form);
+            var id = $(this).attr('id');
+            if (confirm('Jesteś pewien, że chcesz usunać pracownika z bazy?')) {
                 $.ajax({
-                    url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/resemployees/' + id + '/',
+                    url: 'http://127.0.0.1:8000/api/resemployees/' + id + '/',
                     type: 'DELETE',
                     contentType: 'application/json',
-                    data: data,
-                    dataType: 'json',
                     processData: false,
                     success: function() {
                         location.reload();
@@ -273,64 +272,33 @@
                 })
 
             } else {
-                // Do nothing!
+                console.log('xdd');
             }
         })
-        //skrypty dla form
-        $('table tr').css('opacity', '1');
-        var elems = document.querySelectorAll("form input[type='password']");
-        [].forEach.call(elems, function(el) {
-            el.onmouseover = mouseoverPass;
-            el.onmouseout = mouseoutPass;
-        });
 
-        function mouseoverPass() {
-            this.type = "text";
-        }
 
-        function mouseoutPass() {
-            this.type = "password";
-        }
-        $("form input.not-active").on('click', function() {
-            $(this).removeClass('not-active');
-        })
+		$('.t').on('click',function(e){
+			console.log('id');
+			parentEl = $(this).parent().parent().find('.id');
+			var id = parentEl.html();
+			console.log('id'+id);
+			id = '.f'+id;
+			$(id).addClass('in');
+			
+			
+		});
+		
+				
 
-        //walidacja wpisywanego tekstu
-        $('.emplyee-form .form-group .pass, .emplyee-form .pass,.pass, input').on('change', function() {
-            var inputValue = $(this).val();
-			console.log('xDDD');
-            var check = false;
-            var acceptbutton = $(this).parent().parent().find('input:image').first();
-			console.log('xDDD');
-            if (acceptbutton.hasClass('not-ready')) acceptbutton.removeClass('not-ready');
-            switch ($(this).attr('name')) {
-                case 'name':
-                case 'surname':
-                    check = /^[a-zA-ZąęćżóśźŻĆ]+$/.test(inputValue);
-                    break;
-                case 'login':
-                case 'password':
-                    check = /^[a-zA-Z0-9]+$/.test(inputValue);
-                    break;
-            }
-            if (check & $(this).parent().hasClass('has-feedback')) $(this).parent().toggleClass('has-warning has-feedback');
-            if (!check & !$(this).parent().hasClass('has-feedback')) $(this).parent().toggleClass('has-warning has-feedback');
-            check = true;
-            $(this).parent().parent().find('input:text, input:password').each(function() {
-                if ($(this).parent().hasClass('has-warning') || $(this).val() == '') {
-                    check = false;
-                }
-            })
-
-            if (check) {
-                acceptbutton.prop('disabled', false);
-                if (acceptbutton.hasClass('not-active')) acceptbutton.removeClass('not-active');
-            } else {
-                acceptbutton.prop('disabled', true);
-                if (!(acceptbutton.hasClass('not-active'))) acceptbutton.toggleClass('not-active');
-            }
-
-        });
+		$('.modal-close').on('click', function(e){
+			var id = '.f'+$(this).attr('id');
+			
+			$(id).removeClass('in');
+		});
+		
+		
+		
+		
     } else if ($("#category-flag").length > 0) {
         $('.remove-icon').on('click', function(e) {
             var form = $(this).parent().parent().find('form').first()[0];

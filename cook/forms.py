@@ -1,21 +1,21 @@
 from django import forms
-from .models import Product, Dish, Employee
-
+from .models import Product, Dish, Employee, Category
+from django.utils.translation import gettext as _
 class ProductForm(forms.ModelForm):
 	class Meta:
 		model = Product
 		fields = ('name', 'av',)
 		labels = {
-            'name': 'Nazwa',
-			'av': 'Dostępność'
+            'name': _('Nazwa'),
+			'av': _('Dostępność')
         }
 
 class CategoryForm(forms.ModelForm):
 	class Meta:
-		model = Product
+		model = Category
 		fields = ('name',)
 		labels = {
-            'name': 'Nazwa',
+            'name': _('Nazwa'),
         }
 
 class DishForm(forms.ModelForm):
@@ -23,10 +23,10 @@ class DishForm(forms.ModelForm):
 		model = Dish
 		fields = ('name', 'category', 'products','av')
 		labels = {
-            'name': 'Nazwa',
-			'products': 'Produkty',
-			'category': 'Kategoria',
-			'av': 'Dostepność'
+            'name': _('Nazwa'),
+			'products': _('Produkty'),
+			'category': _('Kategoria'),
+			'av': _('Dostepność')
         }
 	def __init__(self, *args, **kwargs):
 		super(DishForm, self).__init__(*args, **kwargs)
@@ -38,9 +38,10 @@ class EmployeeForm(forms.ModelForm):
 		model = Employee
 		fields = ('name', 'surname', 'position','login', 'password')
 		labels = {
-            'name': 'Imię',
-			'surname':'Nazwisko',
-			'Stanowisko': 'Hasło',
-			'login': 'Login',
-			'password': 'Hasło'
+            'name': _('Imię'),
+			'surname':_('Nazwisko'),
+			'Stanowisko': _('Hasło'),
+			'login': _('Login'),
+			'password': _('Hasło')
         }
+		

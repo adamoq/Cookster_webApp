@@ -49,12 +49,14 @@ class DishOrderResource(ModelResource):
 class EmployeeResource(ModelResource):
 	class Meta:
 		queryset = Employee.objects.all()
-		resource_name = 'resemployees'
+		resource_name = 'resemployees'		
 		authentication = Authentication()
 		authorization = Authorization()
+		allowed_methods = ['get','put', 'post', 'delete']	
 		filtering = {
             'position': ALL,    
         }
+		
 		
 class OrderResource(ModelResource):
 	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)

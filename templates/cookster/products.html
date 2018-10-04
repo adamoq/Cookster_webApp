@@ -1,8 +1,10 @@
+
 {% extends 'base.html' %}
+{% load i18n %}
 {% load render_table from django_tables2 %}
 {% block content %}
 {% load staticfiles %}
-{% load i18n %}
+
 <script>
 (function($){
 	$('.nav-bar.left a:nth-child(3) li').addClass('active');
@@ -11,9 +13,9 @@
 {% csrf_token %}
 <span id="products-flag" style="display: none;" ></span>  
 <div class="results-container">
-  <h1>{% trans 'Products' %}</h1>
- <p>Składniki, z których składają się Twoje dania.</p>    
- <p>Mozesz dodawać nowe elementy oraz je modyfikować.</p>   
+  <h1>{% blocktrans %}Products{% endblocktrans %}</h1>
+ <p>{% blocktrans %}Składniki, z których składają się Twoje dania.{% endblocktrans %}</p>    
+ <p>{% blocktrans %}Mozesz dodawać nowe elementy oraz je modyfikować.{% endblocktrans %}</p>   
  <br>
 
 	
