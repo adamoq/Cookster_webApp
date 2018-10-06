@@ -13,7 +13,7 @@ from django import forms
 from .forms import ProductForm, CategoryForm, DishForm, EmployeeForm
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
-from cook.tables import ProductTable, EmployeeTable
+from cook.tables import ProductTable, EmployeeTable, DishTable
 from django_tables2   import RequestConfig
 from django.utils.translation import gettext as _
 
@@ -41,10 +41,15 @@ def products(request):
 		template = loader.get_template('products.html')
 		table = ProductTable(Product.objects.all())
 		RequestConfig(request).configure(table)
+		forms = {}
+		for product in Product.objects.all():
+			forms[product.id]=ProductForm(instance=product)
 		context = {
 			'productsList': table,
 			'form':ProductForm(),
-			'formText': _("Dodaj produkt")
+			'formText': _("Dodaj produkt"),
+			'update_forms': forms,
+			'data_target': 'api/products/'
 		}
 		return HttpResponse(template.render(context, request))
 		#return render(request, 'products.html', context)
@@ -69,21 +74,17 @@ def employers(request):
 			showError(request,_('Dane produktu są niepoprawane.'))
 		else:
 			form.save()
-	elif request.method == 'PUT':
-		form = EmployeeForm(request.POST)
-		if not form.is_valid():
-			showError(request,_('Dane produktu są niepoprawane.'))
-		print(form)
-		form.save()
 	forms = {}
 	for employee in Employee.objects.all():
 		forms[employee.id]=EmployeeForm(instance=employee)
+	table = EmployeeTable(Employee.objects.all())
+	RequestConfig(request).configure(table)
 	context = {
-		'employesList': EmployeeTable(Employee.objects.all()),
-		'forms': forms,
+		'employesList': table,
+		'update_forms': forms,
 		'form': EmployeeForm(),
-		'formText': _('Dodaj pracownika')
-
+		'formText': _('Dodaj pracownika'),
+		'data_target': 'api/resemployees/'
 	}
 	return HttpResponse(template.render(context, request))
 @login_required
@@ -114,19 +115,21 @@ def category(request):
 	template = loader.get_template('category.html')
 	category = Category.objects.get(pk = request.GET.get('c'))
 	dishes = Dish.objects.filter(category = category)
+	table = DishTable(dishes)
+	RequestConfig(request).configure(table)
 	if request.method == 'POST':
 		dishForm = DishForm(request.POST)
 		dishForm.save()
 		context = {
 			'categoryName': category.name,
-			'dishesList' : dishes,
+			'dishesList' : table,
 			'form':DishForm(),
 			'formText': _('Dodaj danie')
 		}
 	if request.method == 'GET':
 		context = {
 			'categoryName': category.name,
-			'dishesList' : dishes,
+			'dishesList' : table,
 			'form':DishForm(),
 			'formText': _('Dodaj danie')
 		}

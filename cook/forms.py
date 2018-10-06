@@ -36,11 +36,11 @@ class DishForm(forms.ModelForm):
 class EmployeeForm(forms.ModelForm):
 	class Meta:
 		model = Employee
-		fields = ('name', 'surname', 'position','login', 'password')
+		fields = ('id','name', 'surname', 'position','login', 'password')
 		labels = {
             'name': _('Imię'),
 			'surname':_('Nazwisko'),
-			'Stanowisko': _('Hasło'),
+			'position': _('Stanowisko'),
 			'login': _('Login'),
 			'password': _('Hasło')
         }

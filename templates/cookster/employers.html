@@ -15,33 +15,7 @@
  <p>{% blocktrans %}Mozesz dodawać nowych pracowników oraz modyfikować ich dane.{% endblocktrans %}</p>   
  <br>
  {% render_table employesList %}
-  <div class = "float-button add-product" data-toggle="modal" data-target="#cookmodal"> </div>
-</div>
-{% for  id, form in forms.items  %} 
- <div class="modal fade f{{id}}" role="dialog">
-    <div class="modal-dialog">
-		<div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close modal-close" id = {{id}}>&times;</button>
-          <h4 class="modal-title">{% blocktrans %}Zamówienie{% endblocktrans %}{{ id }}</h4>
-        </div>
-	<form method="PUT">
-        <div class="modal-body">
-         
-		{{form.as_p}}
-		<button type="submit" class="btn btn-default">{% blocktrans %}Zaktualizuj{% endblocktrans %}</button>
-  
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default modal-close" id = {{id}}>{% blocktrans %}Wróć{% endblocktrans %}</button>
-		  <button type="button" class="btn btn-default button-remove" id = {{id}}>{% blocktrans %}Usuń{% endblocktrans %}</button>
-        </div>
-	 </form>
-      </div>
-      
-    </div>
-  </div>
-    
 
-{% endfor %}
+</div>
+
 {% endblock %}

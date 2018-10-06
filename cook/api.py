@@ -53,9 +53,8 @@ class EmployeeResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']	
-		filtering = {
-            'position': ALL,    
-        }
+
+
 		
 		
 class OrderResource(ModelResource):

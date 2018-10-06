@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
 {% load staticfiles %}
 <script>
@@ -9,15 +10,15 @@
 {% csrf_token %}
 <span id="dish-flag" style="display: none;" ></span>  
 <div class="dish-container">
- <h1>{{trans Edycja dania}}</h1>
- <p>{{trans Składniki, z których składają się Twoje dania.}}</p>    
- <p>{{trans Mozesz dodawać nowe elementy oraz je modyfikować.}}</p>   
+ <h1>{% blocktrans %}Edycja dania{% endblocktrans %}</h1>
+ <p>{% blocktrans %}Składniki, z których składają się Twoje dania.{% endblocktrans %}</p>    
+ <p>{% blocktrans %}Mozesz dodawać nowe elementy oraz je modyfikować.{% endblocktrans %}</p>   
  <br><br>
  {% if dish %}
   <form class="dish-form" alt="Użyj przycisku CTRL" method="POST">{% csrf_token %}
         {{ dish.as_p }}
 		<input type="text" class="hidden" name = "id" value = "{{dishId}}" >
-        <button type="submit" class="save btn btn-default">{{trans zapisz }}</button>
+        <button type="submit" class="save btn btn-default">{% blocktrans %} zapisz {% endblocktrans %}</button>
     </form>
 {% endif %}
 

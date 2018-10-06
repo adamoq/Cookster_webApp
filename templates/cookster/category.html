@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load render_table from django_tables2 %}
 {% load staticfiles %}
 <script>
 (function($){
@@ -13,63 +14,15 @@
  <p>Składniki, z których składają się Twoje dania.</p>    
  <p>Mozesz dodawać nowe elementy oraz je modyfikować.</p>   
  <br><br>
- <table class="table table-striped">
-    <thead>
-      <tr>
-		<th width="5%">ID</th>
-        <th width="20%">Nazwa</th>
-        <th width="25%">Dostępność</th>
-        <th width="45%">Produkty</th>
-		<th width="5%"></th>
-      </tr>
-    </thead>
-    <tbody>
+
 {% if dishesList %}
   
+	 {% render_table dishesList %}
 	
-	{% for dish in dishesList %}
-	<tr {%if dish.av == '1' %} class = "danger" {% endif %}>
-		<form class = "product-form"> {% csrf_token %}
-      <td width="50%">
-			<div class="form-group">
-				<input type = "text" name = "id" class = "form-control not-active" value = "{{ dish.id }}" style="padding: 0!important;"disabled>
-			</div>
-			<div class="form-group" style = "width: 35%;">
-			<a href = "/dish/?d={{ dish.id }}">
-				<input type = "text" name = "name" class = "form-control not-active" value = "{{ dish.name }}">
-				<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-			</a>
-			</div>
-			<div class="form-group" style = "display:inline;width: 35%;">
-				
-				<input type="radio" id="radio-{{ dish.id }}-1" name="radio-{{ dish.id }}-set" class="radio-av" {%if dish.av == '0' %}  checked {% endif %} value = "0"/><label for="radio-{{ product.id }}-1"></label>
-				<input type="radio" id="radio-{{ dish.id }}-2" name="radio-{{ dish.id }}-set" class="radio-av" {%if dish.av == '1' %}  checked {% endif %} value = "1"/><label for="radio-{{ product.id }}-2"></label>
-				<input type = 'text' name = 'av' class="hidden" value = "{{ dish.av }}">
-			</div>
-			<input type = "image" name = "submit" class = "submit-icon not-ready" src = "{% static 'img/accept-icon.png' %}" disabled>
-		
-		</td>
-		<td width="45%">
-		<p>{%for product in dish.products.all%}
-		{{product.name}},
-		{%endfor%}
-		</p>
-		</td>
-		<td width="5%"><img class = "remove-icon" src = "{% static 'img/rubbish-icon.png' %}"</td>
-		</form>
-      </tr>
-	  {% endfor %}
-   
    
    
 {% endif %}
- </tbody>
-  </table>
 
 
-
-
-
-<div class = "float-button add-product" data-toggle="modal" data-target="#cookmodal"> </div>
 </div>
 {% endblock %}

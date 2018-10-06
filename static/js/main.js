@@ -1,5 +1,6 @@
 (function() {
     //szablon
+	
     function createCookie(name, value, days) {
         var expires;
 
@@ -75,10 +76,60 @@
     $("form input.not-active").on('click', function() {
         $(this).removeClass('not-active');
     })
+	
+	//FORMULARZE!!!!!!!!!!
+	$('form.update-form').submit( function(e) {
+		e.preventDefault();
+		var id = $(this).attr('id');			 
+		var data = objectifyForm($(this).serializeArray())
+		data = JSON.stringify(data);
+		var target=$(this).attr('data-target');
+		$.ajax({
+			url: window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+$(this).attr('id')+'/',
+			type: 'PUT',
+			contentType: 'application/json',
+			data: data,
+			success: function() {
+					location.reload();
+				}
+			})
+	});
+	$('.button-remove').on('click', function() { //usunięcie obiektu
+		var id = $(this).attr('id');
+		if (confirm('Jesteś pewien, że chcesz usunać pracownika z bazy?')) {
+			$.ajax({
+				url: window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+$(this).attr('id')+'/',
+				type: 'DELETE',
+				contentType: 'application/json',
+				processData: false,
+				success: function() {
+					location.reload();
+				}
+			})
+
+		} else {
+			console.log('error while removing');
+		}
+	})
+
+	$('.edit').on('click',function(e){
+		
+		parentEl = $(this).parent().parent().find('.id');
+		var id = parentEl.html();console.log('ok'+id);
+		id = '.modal'+id;
+		$(id).modal('show');
+	});				
+
+	$('.modal-close').on('click', function(e){
+		var id = '.modal'+$(this).attr('id');			
+		$(id).modal('hide');
+	});
+	
 
     //DANIA
 
     if ($("#dishes-flag").length > 0) {
+		console.log('XDDDDD');
         //usuniecie kategorii z bazy
         $('.category-remove').on('click', function(e) { //usunięcie obiektu
 			
@@ -128,177 +179,11 @@
     }
     //PRODUKTY
     else if ($("#products-flag").length > 0) {
-        //dodanie nowego produktu front-end
-        $('.add-product').on('click', function() {
-            $('table').append('<tr> <td width="90%"> <form class = "emplyee-form"> <div class="form-group"> <input type = "text" name = "id" class = "form-control not-active" value = "#" disabled="disabled"> </div> <div class="form-group"> <input type = "text" name = "name" class = "form-control"> <span class="glyphicon glyphicon-remove form-control-feedback"></span> </div> <div class="form-group"> <input type = "text" name = "surname" class = "form-control"> <span class="glyphicon glyphicon-remove form-control-feedback"></span> </div> <div class="form-group"> <select name = "position" class = "form-control not-active"> <option value = "0">Dostawca</option> <option value = "1">Kelner</option> <option value = "2">Kucharz</option> </select> <span class="glyphicon glyphicon-remove form-control-feedback"></span> </div> <div class="form-group"> <input type = "text" name = "login" class = "form-control"> <span class="glyphicon glyphicon-remove form-control-feedback"></span> </div> <div class="form-group"> <input type = "password" name = "password" class = "form-control"> <span class="glyphicon glyphicon-remove form-control-feedback"></span> </div> <input type = "image" name = "submit" class = "remove-icon not-active" src = "/static/img/accept-icon.png" disabled> </form> </td> <td width="5%"></td> </tr>');
-            var el = $("form input[type='password']").last()[0];
-            el.onmouseover = mouseoverPass;
-            el.onmouseout = mouseoutPass;
-
-            function mouseoverPass() {
-                this.type = "text";
-            }
-
-            function mouseoutPass() {
-                this.type = "password";
-            }
-        })
-        //walidacja pól
-        $(document).on('change', 'input', function() {
-            var inputValue = $(this).val();
-            var check = false;
-            var acceptbutton = $(this).parent().parent().find('input:image').first();
-            if (acceptbutton.hasClass('not-ready')) acceptbutton.removeClass('not-ready');
-            if ($(this).attr('name') == 'name') check = /^[a-zA-ZąęćżóśźŻĆ]+$/.test(inputValue);
-            if (check & $(this).parent().hasClass('has-feedback')) $(this).parent().addClass('has-warning has-feedback');
-            if (!check & !$(this).parent().hasClass('has-feedback')) $(this).parent().removeClass('has-warning has-feedback');
-            check = true;
-            $(this).parent().parent().find('input:text').each(function() {
-                if ($(this).parent().hasClass('has-warning') || $(this).val() == '') {
-                    check = false;
-                }
-            })
-
-            if (check) {
-                acceptbutton.prop('disabled', false);
-                if (acceptbutton.hasClass('not-active')) acceptbutton.removeClass('not-active');
-            } else {
-                acceptbutton.prop('disabled', true);
-                if (!(acceptbutton.hasClass('not-active'))) acceptbutton.addClass('not-active');
-            }
-
-        });
-        //update produktu
-        $(document).on('submit', 'form.product-form', function() {
-            event.preventDefault();
-			$("#overlay").toggleClass('hidden');
-            var data = objectifyForm(this);
-            var id = data['id'];
-            data = JSON.stringify(data);
-            $.ajax({
-                url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/products/' + id + '/',
-                type: 'PUT',
-                contentType: 'application/json',
-                data: data,
-                dataType: 'json',
-                processData: false,
-				success: function() {
-                        $("#overlay").toggleClass('hidden');
-                    }
-            })
-
-
-            $(this).parent().parent().find('input').each(function() {
-                if (!($(this).hasClass('not-active'))) $(this).toggleClass('not-active');
-                if ($(this).attr('type') == 'image') $(this).toggleClass('not-ready');
-            });
-        })
-        //uzupełnienie formularza - wybranie dostępności produktu
-        $('.radio-av').on('click', function() {
-            $("input[name='av']").val($(this).val());;
-            console.log('xdd');
-        })
-        $('.remove-icon').on('click', function(e) { //usunięcie obiektu
-            e.preventDefault();
-            var form = $(this).parent().parent().find('form').first()[0];
-            console.log(form);
-
-            var data = objectifyForm(form);
-            var id = data['id'];
-            if (confirm('Jesteś pewien, że chcesz usunać product: ' + data['name'] + ' z bazy?')) {
-                $.ajax({
-                    url: 'http://cookster-cookster.193b.starter-ca-central-1.openshiftapps.com/api/products/' + id + '/',
-                    type: 'DELETE',
-                    contentType: 'application/json',
-                    data: data,
-                    dataType: 'json',
-                    processData: false,
-                    success: function() {
-                        location.reload();
-                    }
-                })
-
-            } else {
-                // Do nothing!
-            }
-        })
 
     }
     //PRACOWNICY
     else if ($("#employers-flag").length > 0) {
-
-console.log('xd');
-        $('.save').on('click', function(e) {
-            e.preventDefault();
-			//var id = $(this).attr('id');
-           // var data = $('#form'+id).serialize();
-			console.log('xd'+id);
-             //aktualizowanie obiektu
-			 
-			var data = objectifyForm($('#form'+id));
-             //aktualizowanie obiektu
-			// var id = data['id'];
-            data = JSON.stringify(data);
-            console.log('data'+data);
-			data['position'] = $('#form'+id).find('select').val();
-            $.ajax({
-                url: 'http://127.0.0.1:8000/api/resemployees/' + id + '/',
-                    type: 'PUT',
-                    contentType: 'application/json',
-                    data: data,
-                    dataType: 'json',
-                    processData: false,
-					success: function() {
-						console.log('xd');
-                       // $("#overlay").toggleClass('hidden');
-                    }
-                })
-
-
-        });
-        $('.button-remove').on('click', function() { //usunięcie obiektu
-            //var form = $(this).parent().parent().find('form').first(;
-            //var data = objectifyForm(form);
-            var id = $(this).attr('id');
-            if (confirm('Jesteś pewien, że chcesz usunać pracownika z bazy?')) {
-                $.ajax({
-                    url: 'http://127.0.0.1:8000/api/resemployees/' + id + '/',
-                    type: 'DELETE',
-                    contentType: 'application/json',
-                    processData: false,
-                    success: function() {
-                        location.reload();
-                    }
-                })
-
-            } else {
-                console.log('xdd');
-            }
-        })
-
-
-		$('.t').on('click',function(e){
-			console.log('id');
-			parentEl = $(this).parent().parent().find('.id');
-			var id = parentEl.html();
-			console.log('id'+id);
-			id = '.f'+id;
-			$(id).addClass('in');
-			
-			
-		});
-		
 				
-
-		$('.modal-close').on('click', function(e){
-			var id = '.f'+$(this).attr('id');
-			
-			$(id).removeClass('in');
-		});
-		
-		
-		
-		
     } else if ($("#category-flag").length > 0) {
         $('.remove-icon').on('click', function(e) {
             var form = $(this).parent().parent().find('form').first()[0];
@@ -318,6 +203,13 @@ console.log('xd');
                 });
             };
         });
+		
+		$('.edit').on('click',function(e){
+		
+			parentEl = $(this).parent().parent().find('.id');
+			var id = parentEl.html();console.log('ok'+id);
+			window.location = '/dish/?d='+id;
+		});	
     } else if ($("#administration-flag").length > 0) {
 
         $('.changeColor').on('click', function(e) {

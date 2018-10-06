@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-27 17:07+0200\n"
+"POT-Creation-Date: 2018-10-06 19:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Nazwa"
 msgstr ""
 
-#: .\cook\forms.py:10 .\cook\tables.py:16
+#: .\cook\forms.py:10 .\cook\tables.py:19
 msgid "Dostępność"
 msgstr ""
 
@@ -48,51 +48,55 @@ msgstr ""
 msgid "Nazwisko"
 msgstr ""
 
-#: .\cook\forms.py:43 .\cook\forms.py:45
-msgid "Hasło"
+#: .\cook\forms.py:43
+msgid "Stanowisko"
 msgstr ""
 
 #: .\cook\forms.py:44
 msgid "Login"
 msgstr "Login"
 
-#: .\cook\tables.py:14
+#: .\cook\forms.py:45
+msgid "Hasło"
+msgstr ""
+
+#: .\cook\tables.py:17
 msgid "Id"
 msgstr "ID"
 
-#: .\cook\tables.py:15
+#: .\cook\tables.py:18
 msgid "Name"
 msgstr "Nazwa"
 
-#: .\cook\tables.py:17
+#: .\cook\tables.py:20
 msgid "Edit"
 msgstr "Edytuj"
 
-#: .\cook\views.py:32 .\cook\views.py:38 .\cook\views.py:69
+#: .\cook\views.py:32 .\cook\views.py:38 .\cook\views.py:74
 msgid "Dane produktu są niepoprawane."
 msgstr ""
 
-#: .\cook\views.py:47
+#: .\cook\views.py:50
 msgid "Dodaj produkt"
 msgstr ""
 
-#: .\cook\views.py:79
+#: .\cook\views.py:86
 msgid "Dodaj pracownika"
 msgstr ""
 
-#: .\cook\views.py:89 .\cook\views.py:95 .\cook\views.py:138
+#: .\cook\views.py:96 .\cook\views.py:102 .\cook\views.py:145
 msgid "Dane kategorii są niepoprawane."
 msgstr ""
 
-#: .\cook\views.py:102
+#: .\cook\views.py:109
 msgid "Dodaj kategorię"
 msgstr ""
 
-#: .\cook\views.py:118 .\cook\views.py:125
+#: .\cook\views.py:125 .\cook\views.py:132
 msgid "Dodaj danie"
 msgstr ""
 
-#: .\cook\views.py:128
+#: .\cook\views.py:135
 msgid "Dane dania są niepoprawane."
 msgstr ""
 
@@ -112,54 +116,68 @@ msgstr ""
 msgid "Zamówienia"
 msgstr ""
 
-#: .\templates\cookster\base.html:51
+#: .\templates\cookster\base.html:56
 msgid "Wyloguj sie"
 msgstr "Wyloguj się"
 
-#: .\templates\cookster\base.html:80
+#: .\templates\cookster\base.html:85
 msgid "Zapisz"
 msgstr ""
 
-#: .\templates\cookster\base.html:81
+#: .\templates\cookster\base.html:86
 msgid "Back"
 msgstr "Wróć"
 
-#: .\templates\cookster\employers.html:12
-msgid "Pracownicy"
-msgstr "Pracownicy"
-
-#: .\templates\cookster\employers.html:13
-msgid "Użytkownicy, którzy korzystają z aplikacji CookSter."
-msgstr ""
-
-#: .\templates\cookster\employers.html:14
-msgid "Mozesz dodawać nowych pracowników oraz modyfikować ich dane."
-msgstr ""
-
-#: .\templates\cookster\employers.html:25
+#: .\templates\cookster\base.html:101
 msgid "Zamówienie"
 msgstr "Zamówienie"
 
-#: .\templates\cookster\employers.html:35
-msgid "Wróć"
-msgstr "Wróć"
-
-#: .\templates\cookster\employers.html:36
-msgid "Usuń"
-msgstr "Usuń"
-
-#: .\templates\cookster\employers.html:36
+#: .\templates\cookster\base.html:107
 msgid "Zaktualizuj"
 msgstr "Zaktualizuj"
 
-#: .\templates\cookster\products.html:14
-msgid "Products"
-msgstr "Produkty"
+#: .\templates\cookster\base.html:111
+msgid "Wróć"
+msgstr "Wróć"
 
-#: .\templates\cookster\products.html:15
+#: .\templates\cookster\base.html:112
+msgid "Usuń"
+msgstr "Usuń"
+
+#: .\templates\cookster\dish.html:12
+msgid " Edycja dania"
+msgstr ""
+
+#: .\templates\cookster\dish.html:13 .\templates\cookster\products.html:17
 msgid "Składniki, z których składają się Twoje dania."
 msgstr "Składniki, z których składają się Twoje dania."
 
+#: .\templates\cookster\dish.html:14
+#, fuzzy
+#| msgid "Mozesz dodawać nowe elementy oraz je modyfikować."
+msgid " Mozesz dodawać nowe elementy oraz je modyfikować."
+msgstr "Mozesz dodawać nowe elementy oraz je modyfikować."
+
+#: .\templates\cookster\dish.html:20
+msgid " zapisz "
+msgstr ""
+
+#: .\templates\cookster\employers.html:13
+msgid "Pracownicy"
+msgstr "Pracownicy"
+
+#: .\templates\cookster\employers.html:14
+msgid "Użytkownicy, którzy korzystają z aplikacji CookSter."
+msgstr ""
+
+#: .\templates\cookster\employers.html:15
+msgid "Mozesz dodawać nowych pracowników oraz modyfikować ich dane."
+msgstr ""
+
 #: .\templates\cookster\products.html:16
+msgid "Products"
+msgstr "Produkty"
+
+#: .\templates\cookster\products.html:18
 msgid "Mozesz dodawać nowe elementy oraz je modyfikować."
 msgstr "Mozesz dodawać nowe elementy oraz je modyfikować."
