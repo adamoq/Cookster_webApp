@@ -23,25 +23,26 @@ h1, p {
 	top: 0;
 	z-index: 2;
 	height: 100%;
-	width: 80px;
+	width: 120px;
 	background: var(--grey1); 
     background: -webkit-linear-gradient(var(--grey1), var(--grey2)); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(var(--grey1), var(--grey2)); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(var(--grey1), var(--grey2)); /* For Firefox 3.6 to 15 */
     background: linear-gradient(var(--grey1), var(--grey2)); /* Standard syntax */
 	background: transparent!important;
+	text-align:center;
 }
 .nav-bar.left .nav-logo{
 	width: 100%;
-	height: 80px;	
+	height: 120px;	
 	text-align: center;
 	margin: 0;
 	padding-top: 10px;
 	background: transparent!important;
 }
 .nav-bar.left .nav-logo img{
-	width: 70px;
-	margin: 2px 5px 0;
+	width: 100px;
+	margin-top: 2px;
 	}
 .nav-bar.left .nav-logo h1{
 	font-size: 67px;
@@ -69,20 +70,20 @@ h1, p {
 	box-shadow: none;
 	border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
-	width: 95px;
+	width: 125px;
 	height: 80px;
 }
 
 .nav-bar.left li.active img{
 	height: 60px;
-	margin: 15px;	
+	margin: 15px auto;	
 }
 .nav-bar.left li.active p{
 	visibility: hidden;
 }
 .nav-bar.left li img{
 	height: 40px;
-	margin: 15px 20px 1px 20px;
+	margin: 25px auto 1px auto;
 	
 }
 .nav-bar.left li p{
@@ -90,15 +91,15 @@ h1, p {
 	text-align: center;
 	margin: 0;
 	color: white;
-	font-weight: 200;
-	font-size: 14px;
+	font-weight: 100;
+	font-size: 17px;
 	word-break: break-all;
 }
 .nav-bar.left li{
 	min-height: 100px;
-	height: auto;
+	height: 120px;
 	list-style: none;
-	width: 80px;
+	width: 120px;
 	border: 0;
 	line-height: 30px;
 	-webkit-transition: background-color 1s ease-out;

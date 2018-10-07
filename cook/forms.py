@@ -34,13 +34,21 @@ class DishForm(forms.ModelForm):
 		self.fields['category'].label_from_instance = lambda obj: "%s" % obj.name
 		
 class EmployeeForm(forms.ModelForm):
+	POSITIONS = (
+		('0', _('waiter')),
+		('1', _('cook')),
+		('2', _('provaider')),
+	)
+	#CHOICES = (('Option 1', 'Option 1'),('Option 2', 'Option 2'),)
+	position = forms.ChoiceField(choices=POSITIONS)
 	class Meta:
 		model = Employee
-		fields = ('id','name', 'surname', 'position','login', 'password')
+		fields = ('id','name', 'surname', 'position','phonenumber','login', 'password')
 		labels = {
             'name': _('Imię'),
 			'surname':_('Nazwisko'),
 			'position': _('Stanowisko'),
+			'phonenumber': _('Numer telefonu'),
 			'login': _('Login'),
 			'password': _('Hasło')
         }

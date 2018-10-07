@@ -48,12 +48,15 @@
 <div class = "content">
 <div class="bar">
 	<div class="bar-name">
-		U Klaudii restaurant - Klaudia Ferchichi
+		{{user.get_restaurant_name}} - {{user.get_full_name}}
 	</div>
-	<div class="bar-add" data-toggle="modal" data-target="#cookmodal">+
+	 {% if add_text %}
+	<div class="bar-raport bar-item" data-toggle="modal" data-target="#cookmodal"><img src="{% static 'img/svg-icos/report.svg' %}">{% blocktrans %}Generuj raport{% endblocktrans %}
 	</div>
-	<a href="/logout" class="bar-logout">
-		<p>{% blocktrans %}Wyloguj sie{% endblocktrans %}  <img src="{% static 'img/logout-icon.png' %}"></p>
+	<div class="bar-add bar-item" data-toggle="modal" data-target="#cookmodal"><img src="{% static 'img/svg-icos/add.svg' %}">{{ add_text }}
+	</div>
+	 {% endif %}
+	<a href="/logout" class="bar-logout bar-item"><img src="{% static 'img/svg-icos/logout.svg' %}">{% blocktrans %}Wyloguj sie{% endblocktrans %}
 	</a>
 </div>
 <div id = "overlay">
@@ -91,25 +94,26 @@
     </div>
   </div>
  {% endif %}
-  {% if update_forms %}
+  {% if update_forms and edit_text %}
 {% for  id, form in update_forms.items  %} 
  <div class="modal fade modal{{id}}" role="dialog">
     <div class="modal-dialog">
 		<div class="modal-content">
         <div class="modal-header">
           <button type="button" data-dismiss="modal" class="close modal-close" id = "{{id}}" >&times;</button>
-          <h4 class="modal-title">{% blocktrans %}Zamówienie{% endblocktrans %}{{ id }}</h4>
+          <h4 class="modal-title"><img src="{% static 'img/svg-icos/edit.svg' %}">{{edit_text}} #{{ id }}</h4>
         </div>
 	<form method="PUT" data-target="{{data_target}}" class="update-form" id = "{{ id }}">
         <div class="modal-body">
          
 		{{form.as_p}}
-		<button type="submit" class="btn btn-default">{% blocktrans %}Zaktualizuj{% endblocktrans %}</button>
+		
   
         </div>
         <div class="modal-footer">
-          <button type="button" data-dismiss="modal" class="btn btn-default modal-close" id = {{id}}>{% blocktrans %}Wróć{% endblocktrans %}</button>
+		  <button type="submit" class="btn btn-default">{% blocktrans %}Zaktualizuj{% endblocktrans %}</button>
 		  <button type="button" data-target="{{data_target}}" class="btn btn-default button-remove" id = {{id}}>{% blocktrans %}Usuń{% endblocktrans %}</button>
+          <button type="button" data-dismiss="modal" class="btn btn-default modal-close" id = {{id}}>{% blocktrans %}Wróć{% endblocktrans %}</button>		  
         </div>
 	 </form>
       </div>

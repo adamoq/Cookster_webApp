@@ -49,7 +49,9 @@ def products(request):
 			'form':ProductForm(),
 			'formText': _("Dodaj produkt"),
 			'update_forms': forms,
-			'data_target': 'api/products/'
+			'data_target': 'api/products/',
+			'add_text': _('Add product'),
+			'edit_text': _('Edit product\'s description')
 		}
 		return HttpResponse(template.render(context, request))
 		#return render(request, 'products.html', context)
@@ -84,7 +86,9 @@ def employers(request):
 		'update_forms': forms,
 		'form': EmployeeForm(),
 		'formText': _('Dodaj pracownika'),
-		'data_target': 'api/resemployees/'
+		'data_target': 'api/resemployees/',
+		'add_text': _('Add worker'),
+		'edit_text': _('Edit worker\'s description')
 	}
 	return HttpResponse(template.render(context, request))
 @login_required

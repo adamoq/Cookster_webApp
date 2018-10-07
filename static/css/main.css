@@ -28,37 +28,41 @@ a:hover{
 .content {
 	width: 100%;
 	position: fixed;
-	padding-left: 81px;
+	padding-left: 121px;
 	font-family: 'Montserrat', sans-serif!important;
 	height: 100vh;
 }
 .content .bar {
 	width: 100%;
-	height: 30px;
+	height: 40px;
+	line-height: 40px;
 	font-size: 15px;
 	display: flex;
-	background-color: white;
+	background-color: white;	
 }
-.content .bar .bar-add{
-	flex-grow:1;
-	background-color: yellowgreen;
-	font-size: 30px;
-	line-height: 30px;
-	max-width: 30px;
-	color:white;
-	text-align:center;
+.content .bar .bar-item{
+    flex-grow: 2;
+    border-left: 1px solid #ddd;
+    font-size: 15px;
+    color: #707070;
+    text-align: center;
+	cursor: pointer;
+}
+
+.content .bar .bar-item:hover{
+	background-color: #eee;
+}
+.content .bar .bar-item img{
+    height: 17px;
+	margin-right: 5px
 }
 .content .bar .bar-name{
 	flex-grow:12;
 	padding-left: 15px;
-	line-height: 30px;
 }
 .content .bar .bar-logout{
-	flex-grow:1;
-	text-align: center;	
-	line-height: 30px;
-	background-color: #eee;
-	color: black;
+	flex-grow:2;
+
 }
 .content .bar .bar-logout img{
 	height: 20px;
@@ -78,7 +82,6 @@ table {
     flex-flow: column;
     height: auto;
     width: 100%;
-
 }
 
 thead {
@@ -99,26 +102,33 @@ table tbody tr {
 table thead th a {
     color: black;
 	font-size: 16px;
-}
+}/*
 table tbody tr {
-	-webkit-animation-name: show; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+	-webkit-animation-name: show; 
+    -webkit-animation-duration: 2s; 
     animation-name: show;
     animation-duration: 2s;
 	height: 40px;
-	padding: auto;
-	
-	
+	padding: auto;	
+}*/
+table tbody tr {
+	height: 40px;
 }
 table tbody tr.odd {
 	background-color: #eee;
 }
 table tbody td.small,th.small{
-	width: 7%;
+	width: 3%;	
+	text-transform: uppercase;
+	text-align: center;
+}
+table tbody td.status,th.status{
+	width: 7%;	
 	text-align: center;
 }
 table tbody td.size22,th.size22{
 	width: 22%;
+	
 }
 table tbody td.name, th.name, td.av, th.av {
 	width: 46%;
@@ -137,6 +147,9 @@ table tbody .av-ico{
 	border-radius: 17px;
 	opacity: .2;
 	border: 1px solid white;
+}
+table tbody .status .av-ico{
+	margin: 0;
 }
 table tbody .av-ico.small{
 	background-color: darkred;
@@ -810,14 +823,14 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 }
 .modal-footer{
 	padding: 0!important;
+	display:flex;
 }
 .modal-footer button{
-	margin: 0!important;
-    width: 50%;
-    display: inline;
-    float: right;
+	flex-grow: 1;
+	flex-basis: 0;
 	height: 45px;
 	border: 0;
+	margin: 0!important;
 	border-radius: 0;
 	background-color:#eee;
 }
@@ -832,6 +845,10 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 	color: #aaa;
     font-weight: 200;
     font-size: 19px;
+}
+.modal-title img{
+	height: 30px;
+	margin-right: 10px;
 }
 form{
 	margin: 0;

@@ -35,7 +35,7 @@ class EmployeeTable(tables.Table):
 	surname = tables.Column( verbose_name=_('Nazwisko'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	position = tables.Column( verbose_name=_('Pozycja'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	phonenumber = tables.Column( verbose_name=_('Numer telefonu'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	status = tables.Column(verbose_name='', attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	status = tables.Column(verbose_name='', attrs={'td': {'class': 'status'},'th': {'class': 'status'}})
 	#gps = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'small gps'},'th': {'class': 'small gps'}})
 	edit = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'small'},'th': {'class': 'small'}})	
 		

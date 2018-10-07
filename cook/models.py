@@ -4,7 +4,7 @@ import json
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-
+import cook.userdesc
 class Category(models.Model):
 	name = models.CharField(max_length=50)
 	
