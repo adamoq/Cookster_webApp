@@ -238,12 +238,12 @@ def changeproduct(request):
 					if state == "0":			
 						dishes.update(av='0')
 					elif state == "1" or state == "2":
-						dishes.update(av='0')
+						dishes.update(av='1')
 						for i in range(len(dishes)):	
 							for product in dishes[i].products.all():
 								if product.av == '0':
 									dishes[i].av='0'
 									break
-						dishes.update(av='1')
+						
 					return HttpResponse(serializers.serialize("json", dishes))
 	return HttpResponse("False")
