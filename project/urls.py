@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from cook.views import main, products, administration, employers, menu, orders, login_user, category, dish, orders_waiter, login_mobile, changepassword,changephone, changeproduct
 from django.contrib import admin
-from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, DishOrderResource
+from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, DishOrderResource, EmployeeProductResource
 from django.contrib.auth import views as auth_views
 
 
@@ -45,6 +45,7 @@ urlpatterns = [
 	url(r'^api/', include(OrderResource().urls)),
 	url(r'^api/', include(OrderCookResource().urls)),
 	url(r'^api/', include(DishOrderResource().urls)),
+	url(r'^api/', include(EmployeeProductResource().urls)),
 	url(r'^mobileapi/$', login_mobile),
 	url(r'^mobilereset/password/$', changepassword),
 	url(r'^mobilereset/phone/$', changephone),

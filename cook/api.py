@@ -53,6 +53,14 @@ class EmployeeResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']	
+		
+class EmployeeProductResource(ModelResource):
+	class Meta:
+		queryset = Employee.objects.all() + Product.objects.all()
+		resource_name = 'resemployeesproducts'		
+		authentication = Authentication()
+		authorization = Authorization()
+		allowed_methods = ['get','put', 'post', 'delete']	
 
 
 		
