@@ -4,7 +4,7 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
-from itertools import chain
+
 class CategoryResource(ModelResource):
 	class Meta:
 		queryset = Category.objects.all()
@@ -53,17 +53,7 @@ class EmployeeResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']	
-		
-class EmployeeProductResource(ModelResource):
-	class Meta:
-		queryset = list(chain(Employee.objects.all(), Product.objects.all().order_by('name')))
-		resource_name = 'resemployeesproducts'		
-		authentication = Authentication()
-		authorization = Authorization()
-		allowed_methods = ['get','put', 'post', 'delete']	
-
-
-		
+	
 		
 class OrderResource(ModelResource):
 	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)
