@@ -4,7 +4,7 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
-
+from itertools import chain
 class CategoryResource(ModelResource):
 	class Meta:
 		queryset = Category.objects.all()

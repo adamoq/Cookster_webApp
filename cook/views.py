@@ -200,7 +200,9 @@ def login_mobile(request):
 		password = request.GET.get('password')
 		if login and password :
 			user = Employee.objects.all().filter(login = login)
-			if user is not None and user[0].password == password: return HttpResponse(serializers.serialize("json", user))
+			if user is not None and user[0].password == password: 
+				user.status = '2';
+				return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
 def changepassword(request):
 	if request.method == 'GET':
