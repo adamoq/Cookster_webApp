@@ -15,7 +15,7 @@ class CategoryResource(ModelResource):
 	
 class ProductResource(ModelResource):
 	class Meta:
-		queryset = Product.objects.all()
+		queryset = Product.objects.all().order_by('name')
 		resource_name = 'products'
 		authentication = Authentication()
 		authorization = Authorization()
@@ -27,7 +27,7 @@ class DishResource(ModelResource):
 	category = fields.ForeignKey(CategoryResource, 'category',full=True)
 	products = fields.ManyToManyField(ProductResource, 'products',full=True)
 	class Meta:
-		queryset = Dish.objects.all()
+		queryset = Dish.objects.all().order_by('category.name','name')
 		resource_name = 'resdishes'
 		authentication = Authentication()
 		authorization = Authorization()
@@ -48,7 +48,7 @@ class DishOrderResource(ModelResource):
 		
 class EmployeeResource(ModelResource):
 	class Meta:
-		queryset = Employee.objects.all()
+		queryset = Employee.objects.all().order_by('surname')
 		resource_name = 'resemployees'		
 		authentication = Authentication()
 		authorization = Authorization()
@@ -56,7 +56,7 @@ class EmployeeResource(ModelResource):
 		
 class EmployeeProductResource(ModelResource):
 	class Meta:
-		queryset = Employee.objects.all() + Product.objects.all()
+		queryset = list(chain(Employee.objects.all(), Product.objects.all().order_by('name')))
 		resource_name = 'resemployeesproducts'		
 		authentication = Authentication()
 		authorization = Authorization()
