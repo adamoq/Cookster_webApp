@@ -27,7 +27,7 @@ class DishResource(ModelResource):
 	category = fields.ForeignKey(CategoryResource, 'category',full=True)
 	products = fields.ManyToManyField(ProductResource, 'products',full=True)
 	class Meta:
-		queryset = Dish.objects.all().order_by('category.name','name')
+		queryset = Dish.objects.all().order_by('name')
 		resource_name = 'resdishes'
 		authentication = Authentication()
 		authorization = Authorization()
