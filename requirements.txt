@@ -6,3 +6,4 @@ whitenoise==3.3.1
 django-tastypie>0.10
 django_tables2==2.0.1
 python-gettext>0.16
+django-chartjs == 1.3
