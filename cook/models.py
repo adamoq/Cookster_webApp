@@ -62,6 +62,7 @@ class Product(models.Model):
 	)
 	name = models.CharField(max_length=50, unique = True)
 	av = models.CharField(max_length=2, choices=avs)
+	unit = models.CharField(max_length=8)
 
 class Dish(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
