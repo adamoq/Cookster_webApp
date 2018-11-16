@@ -80,12 +80,24 @@
 	//FORMULARZE!!!!!!!!!!
 	$('form.update-form').submit( function(e) {
 		e.preventDefault();
-		var id = $(this).attr('id');			 
+		var id = $(this).attr('id');
+		if( id.charAt(0) == 'c')
+			{
+			 id = id.substr(1);
+			}		
+			
+		var url;
+		if (typeof $(this).attr('data-target') !== 'undefined' ) url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+id+'/';
+		else url = window.location.protocol + "//" + window.location.host + "/menu/";
+		
 		var data = objectifyForm($(this).serializeArray())
+		data['id'] = id;
 		data = JSON.stringify(data);
-		var target=$(this).attr('data-target');
+		console.log('data'+data);
+		
+		console.log(id);
 		$.ajax({
-			url: window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+$(this).attr('id')+'/',
+			url:url,
 			type: 'PUT',
 			contentType: 'application/json',
 			data: data,
@@ -95,10 +107,20 @@
 			})
 	});
 	$('.button-remove').on('click', function() { //usunięcie obiektu
+	
 		var id = $(this).attr('id');
+		if( id.charAt(0) == 'c')
+			{
+			 id = id.substr(1);
+			}
+		var url;
+		if ($(this).attr('data-target') != 'undefined' ) url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+id+'/';
+		else url = window.location.protocol + "//" + window.location.host + "/menu/";
+		
+			
 		if (confirm('Jesteś pewien, że chcesz usunać pracownika z bazy?')) {
 			$.ajax({
-				url: window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+$(this).attr('id')+'/',
+				url: url,
 				type: 'DELETE',
 				contentType: 'application/json',
 				processData: false,
@@ -111,12 +133,29 @@
 			console.log('error while removing');
 		}
 	})
-
+	$('a#reset').on('click', function() { //reset obiektu
+	console.log('xddd');
+		var id = $(this).attr("href");
+		if( id.charAt(0) == 'c')
+			{
+			 id = id.substr(1);
+			}
+		var url;
+		if ($(this).attr('data-target') != 'undefined' ) url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+id+'/';
+		else url = window.location.protocol + "//" + window.location.host + id;
+		
+			
+		if (confirm('Jesteś pewien, że chcesz zresetować hasło pracownika?')) {
+					location.reload();
+		} else {
+			console.log('error while resetting');
+		}
+	})
 	$('.edit').on('click',function(e){
 		
-		parentEl = $(this).parent().parent().find('.id');
+		parentEl = $(this).parent().find('.id');
 		var id = parentEl.html();console.log('ok'+id);
-		id = '.modal'+id;
+		id = '.modal'+id;console.log('ok'+id);
 		$(id).modal('show');
 	});				
 

@@ -13,25 +13,26 @@ class ProductForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
 	class Meta:
 		model = Category
-		fields = ('name',)
+		fields = ('category_name','order')
 		labels = {
-            'name': _('Nazwa'),
+            'category_name': _('Nazwa'),
         }
 
 class DishForm(forms.ModelForm):
 	class Meta:
 		model = Dish
-		fields = ('name', 'category', 'products','av')
+		fields = ('name', 'category', 'description', 'products','av','price', 'tax')
 		labels = {
             'name': _('Nazwa'),
 			'products': _('Produkty'),
 			'category': _('Kategoria'),
-			'av': _('Dostepność')
+			'av': _('Dostepność'),
+			'price': _('price')
         }
 	def __init__(self, *args, **kwargs):
 		super(DishForm, self).__init__(*args, **kwargs)
-		self.fields['products'].label_from_instance = lambda obj: "%s" % obj.name
-		self.fields['category'].label_from_instance = lambda obj: "%s" % obj.name
+		self.fields['products'].label_from_instance = lambda obj: "%s" % obj.name		
+		self.fields['category'].label_from_instance = lambda obj: "%s" % obj.category_name
 		
 class EmployeeForm(forms.ModelForm):
 	POSITIONS = (
@@ -43,7 +44,7 @@ class EmployeeForm(forms.ModelForm):
 	position = forms.ChoiceField(choices=POSITIONS)
 	class Meta:
 		model = Employee
-		fields = ('id','name', 'surname', 'position','phonenumber','login', 'password')
+		fields = ('id','name', 'surname', 'position','phonenumber','login', 'password', 'active')
 		labels = {
             'name': _('Imię'),
 			'surname':_('Nazwisko'),

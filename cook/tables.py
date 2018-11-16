@@ -1,72 +1,106 @@
 from django.utils.html import format_html
 import django_tables2 as tables
 from django.utils.translation import gettext_lazy as _
-
+from .models import Dish, Product, Employee, Category, WaiterTask, RestaurantDetail
+def render_av(value):
+	if value == "small":
+		return format_html(renderSmallAv(),value)
+	elif value == "medium":
+		return format_html(renderMediumAv(),value)
+	elif value == "large":
+		return format_html(renderLargeAv(),value)
+	else: return format_html(value,value)
+		
 def renderSmallAv():
-	return '<div class="small av-ico choosen"></div><div class="medium av-ico"></div><div class="large av-ico"></div>'
+	return '<div class="small av-ico choosen"></div>'
 def renderMediumAv():
-	return '<div class="small av-ico"></div><div class="medium av-ico choosen"></div><div class="large av-ico"></div>'
+	return '<div class="medium av-ico choosen"></div>'
 def renderLargeAv():
-	return '<div class="small av-ico"></div><div class="medium av-ico"></div><div class="large av-ico choosen"></div>'
+	return '<div class="large av-ico choosen"></div>'
 def renderEdit(value):
 	return format_html('<img class="edit" src="/static/img/edit-icon.png" />',value)
 def renderGps():
 	return '<img class="gps-ico" src="/static/img/gps.png" />'
-class ProductTable(tables.Table):
+class ProductTable(tables.Table):	
 	id = tables.Column(verbose_name =_('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
+	av = tables.Column( verbose_name='',attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
 	name = tables.Column(verbose_name = _('Name'), attrs={'td': {'class': 'name'},'th': {'class': 'name'}})	
-	av = tables.Column( verbose_name=_('Dostępność'),attrs={'td': {'class': 'av'},'th': {'class': 'av'}})
-	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	
+	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
 		
 	def render_edit(self, value):
 		return renderEdit(value)		
 	def render_av(self, value):
-		if value == "small":
-			return format_html(renderSmallAv(),value)
-		elif value == "medium":
-			return format_html(renderMediumAv(),value)
-		elif value == "large":
-			return format_html(renderLargeAv(),value)
-		else: return format_html(value,value)
+		return render_av(value)
 		
 class EmployeeTable(tables.Table):
 	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
+	status = tables.Column(verbose_name='', attrs={'td': {'class': 'small-status'},'th': {'class': 'small-status'}})
 	name = tables.Column(verbose_name = _('Imię'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})	
 	surname = tables.Column( verbose_name=_('Nazwisko'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	position = tables.Column( verbose_name=_('Pozycja'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	phonenumber = tables.Column( verbose_name=_('Numer telefonu'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	status = tables.Column(verbose_name='', attrs={'td': {'class': 'status'},'th': {'class': 'status'}})
-	#gps = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'small gps'},'th': {'class': 'small gps'}})
-	edit = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'small'},'th': {'class': 'small'}})	
-		
+	reset = tables.Column(empty_values=(),verbose_name='', attrs={'td': {'class': 'status'},'th': {'class': 'status'}})
+	edit = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})	
+
 	def render_edit(self, value):
 		return renderEdit(value)
+	def render_reset(self, value, record):
+		if record.active == '1':
+			return format_html('<div class="notactive">notactive</div>',value)
+		if record.status == "0" : return format_html('<a id="reset" href="/reset/password/?login='+str(record.login)+'&passwordOld='+str(record.password)+'"><div class="notactive reset">resetuj hasło</div></a>',value)
+		elif record.status == "1" : return format_html(renderGps(),value)
+		elif record.status == "2" : return format_html(renderGps(),value)	
+		
 	def render_gps(self, value):
 		return format_html('<img src="/static/img/gps.png" />',value)
-	def render_status(self, value):
-		if value == "offline" : return format_html('<div class="small av-ico choosen"></div>',value)
-		elif value == "nonactive" : return format_html(renderGps()+'<div class="medium av-ico choosen"></div>',value)
-		elif value == "active" : return format_html(renderGps()+'<div class="large av-ico choosen"></div>',value)
-
-class DishTable(tables.Table):
-	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
-	name = tables.Column(verbose_name = _('Nazwa'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})	
+		
+	def render_status(self, value, record):
+		if record.active == '1':
+			return format_html('<div class="small av-ico choosen">',value)
+		if value == "offline" : return format_html('<div class="small av-ico choosen">',value)
+		elif value == "notactive" : return format_html('<div class="medium av-ico choosen"></div>',value)
+		elif value == "active" : return format_html('<div class="large av-ico choosen"></div>',value)
+		
+class CategoryTable(tables.Table):
 	
-	products = tables.Column( verbose_name=_('Produkty'))
-	av = tables.Column( verbose_name=_('Dostępność'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	category_name = tables.Column(verbose_name = _('Nazwa'), attrs={'td': {'class': 'categoryname'},'th': {'class': 'size22'}})
+	edit = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})	
+	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
 	
 	def render_edit(self, value):
 		return renderEdit(value)
+	def render_id(self, value):
+		return format_html("c"+str(value),value)
+class DishTable(tables.Table):
+	#currency = RestaurantDetail.objects.all().first().default_currency.name
+	
+	currency = " "
+	def __init__(self, *args, **kwargs):
+		x = args[1]
+		if x:
+			self.currency = x
+		super(DishTable, self).__init__(*args, **kwargs)
+		
+	av = tables.Column( verbose_name=_('Dostępność'),attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	name = tables.Column(verbose_name = _('Nazwa'), attrs={'td': {'class': 'dishname'},'th': {'class': 'dishname'}})	
+	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})	
+	products = tables.Column( verbose_name=_('Produkty'))
+	price = tables.Column( verbose_name=_('price'),attrs={'td': {'class': 'status'},'th': {'class': 'status'}})
+	
+	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
+	
+	def render_edit(self, value, record):
+		return format_html('<a href="/dish/?d='+str(record.id)+'"><img class="edit" src="/static/img/edit-icon.png" /></a>',value)
 	
 	def render_av(self, value):
 		if value == "not available":
-			return format_html(renderSmallAv(),value)
-		elif value == "medium":
-			return format_html(renderMediumAv(),value)
+			return format_html('<div class="small av-ico choosen"></div>',value)
 		elif value == "available":
-			return format_html(renderLargeAv(),value)
+			return format_html('<div class="large av-ico choosen"></div>',value)
 		else: return format_html(value,value)
 	def render_products(self, value):
 		if value is not None:
 			return ', '.join([category.name for category in value.all()])
+	def render_price(self, value):
+		return format_html(str(value)+" "+self.currency,value) 	

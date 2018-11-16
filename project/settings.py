@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'cook',
 	'tastypie',
+	'chartjs',
 	'django_tables2'
 ]
 

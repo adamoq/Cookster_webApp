@@ -17,9 +17,11 @@ from django.conf.urls import include, url
 from . import settings
 from django.conf import settings
 from django.conf.urls.static import static
-from cook.views import main, products, administration, employers, menu, orders, login_user, category, dish, orders_waiter, login_mobile, changepassword,changephone, changeproduct
+from cook.views import main, products, administration, employers, menu, orders, login_user, category, dish, orders_waiter, login_mobile
+from cook.views import changepassword,resetpassword,changephone, changeproduct, login_mobile_status, product_chart
+from cook.charts import category_chart_json,category_chart_json2, dish_chart_json,category_chart_json1
 from django.contrib import admin
-from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, DishOrderResource
+from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource
 from django.contrib.auth import views as auth_views
 
 
@@ -44,11 +46,24 @@ urlpatterns = [
 	url(r'^api/', include(CategoryResource().urls)),
 	url(r'^api/', include(OrderResource().urls)),
 	url(r'^api/', include(OrderCookResource().urls)),
-	url(r'^api/', include(DishOrderResource().urls)),
+	url(r'^api/', include(CookTaskResource().urls)),
 	url(r'^mobileapi/$', login_mobile),
+	url(r'^mobileapistatus/$', login_mobile_status),
 	url(r'^mobilereset/password/$', changepassword),
+	url(r'^reset/password/$', resetpassword),
 	url(r'^mobilereset/phone/$', changephone),
 	url(r'^mobilereset/product/$', changeproduct),
+	
+
+	url(r'^menu/raport/$', product_chart, name='product_chart'),
+	url(r'^products/raport-json/$', dish_chart_json, name='dish_chart_json'),
+	url(r'^category/raport-json/$', category_chart_json, name='category_chart_json'),
+	url(r'^category/raport-json1/$', category_chart_json1, name='category_chart_json1'),
+	url(r'^category/raport-json2/$', category_chart_json2, name='category_chart_json2'),
+
+	
+	
+	
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     import debug_toolbar

@@ -1,0 +1,15 @@
+.raports-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+.big-chart {
+	 width:85vw; display: inline-flex;
+}
+.small-chart {
+	 height:48vh; width:26vw; margin-right: 20px;
+}
+.small-chart ~ .small-chart {
+	
+}

@@ -4,19 +4,17 @@
 <html>
 <head>
 <title>Cookster - A.F.</title>
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href='http://fonts.googleapis.com/css?family=Didact+Gothic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-<link href="https://fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
-<link href='http://fonts.googleapis.com/css?family=Catamaran&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,500&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
 <style>
 :root {
   --colorAccent1: #307E4A;
@@ -48,11 +46,11 @@
 <div class = "content">
 <div class="bar">
 	<div class="bar-name">
-		{{user.get_restaurant_name}} - {{user.get_full_name}}
+		{{user.restaurant.name}} {{user.get_restaurant_name}} - {{user.get_full_name}}
 	</div>
 	 {% if add_text %}
-	<div class="bar-raport bar-item" data-toggle="modal" data-target="#cookmodal"><img src="{% static 'img/svg-icos/report.svg' %}">{% blocktrans %}Generuj raport{% endblocktrans %}
-	</div>
+	<a class="bar-raport bar-item" href="{% url 'product_chart' %}"><div><img src="{% static 'img/svg-icos/report.svg' %}">{% blocktrans %}Generuj raport{% endblocktrans %}
+	</div></a>
 	<div class="bar-add bar-item" data-toggle="modal" data-target="#cookmodal"><img src="{% static 'img/svg-icos/add.svg' %}">{{ add_text }}
 	</div>
 	 {% endif %}
@@ -123,13 +121,38 @@
     
 
 {% endfor %}
+{% endif %}
+{% if update_forms and edit_text %}
+{% for  id, form in update_forms.items  %} 
+ <div class="modal fade modal{{id}}" role="dialog">
+    <div class="modal-dialog">
+		<div class="modal-content">
+        <div class="modal-header">
+          <button type="button" data-dismiss="modal" class="close modal-close" id = "{{id}}" >&times;</button>
+          <h4 class="modal-title"><img src="{% static 'img/svg-icos/edit.svg' %}">{{edit_text}} #{{ id }}</h4>
+        </div>
+	<form method="PUT" data-target="{{data_target}}" class="update-form" id = "{{ id }}">
+        <div class="modal-body">
+         
+		{{form.as_p}}
+		
+  
+        </div>
+        <div class="modal-footer">
+		  <button type="submit" class="btn btn-default">{% blocktrans %}Zaktualizuj{% endblocktrans %}</button>
+		  <button type="button" data-target="{{data_target}}" class="btn btn-default button-remove" id = {{id}}>{% blocktrans %}Usuń{% endblocktrans %}</button>
+          <button type="button" data-dismiss="modal" class="btn btn-default modal-close" id = {{id}}>{% blocktrans %}Wróć{% endblocktrans %}</button>		  
+        </div>
+	 </form>
+      </div>
+      
+    </div>
+  </div>    
+{% endfor %}
  {% endif %}
+
 <script src="{% static 'js/main.js' %}"></script>
-<script> 
-(function(){
-	
-})(jQuery);
-</script>
+
 </body>
 <script> 
 (function() {

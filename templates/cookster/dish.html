@@ -11,9 +11,6 @@
 <span id="dish-flag" style="display: none;" ></span>  
 <div class="dish-container">
  <h1>{% blocktrans %}Edycja dania{% endblocktrans %}</h1>
- <p>{% blocktrans %}Składniki, z których składają się Twoje dania.{% endblocktrans %}</p>    
- <p>{% blocktrans %}Mozesz dodawać nowe elementy oraz je modyfikować.{% endblocktrans %}</p>   
- <br><br>
  {% if dish %}
   <form class="dish-form" alt="Użyj przycisku CTRL" method="POST">{% csrf_token %}
         {{ dish.as_p }}

@@ -1,5 +1,6 @@
 from tastypie.resources import ModelResource
-from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, DishOrder
+import datetime
+from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
@@ -7,7 +8,7 @@ from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 
 class CategoryResource(ModelResource):
 	class Meta:
-		queryset = Category.objects.all()
+		queryset = Category.objects.all().order_by("order")
 		resource_name = 'category'
 		authentication = Authentication()
 		authorization = Authorization()
@@ -27,7 +28,7 @@ class DishResource(ModelResource):
 	category = fields.ForeignKey(CategoryResource, 'category',full=True)
 	products = fields.ManyToManyField(ProductResource, 'products',full=True)
 	class Meta:
-		queryset = Dish.objects.all().order_by('name')
+		queryset = Dish.objects.all().order_by("category__order")
 		resource_name = 'resdishes'
 		authentication = Authentication()
 		authorization = Authorization()
@@ -36,16 +37,6 @@ class DishResource(ModelResource):
             'av': ALL_WITH_RELATIONS,    
         }
 
-class DishOrderResource(ModelResource):
-	dish = fields.ForeignKey(DishResource, 'dish',full=True)
-	class Meta:
-		queryset = DishOrder.objects.all()
-		resource_name = 'dishorder'
-		authentication = Authentication()
-		authorization = Authorization()
-		allowed_methods = ['get','put', 'post', 'delete']		
-		always_return_data = True
-		
 class EmployeeResource(ModelResource):
 	class Meta:
 		queryset = Employee.objects.all().order_by('surname')
@@ -67,11 +58,27 @@ class OrderResource(ModelResource):
             'state': ALL,
             'waiter': ALL_WITH_RELATIONS,       
         }
-		
 class OrderCookResource(ModelResource):
-	provider = fields.ForeignKey(EmployeeResource, 'provider',full=True)
+	products = fields.ManyToManyField(ProductResource, 'products',full=True)
 	class Meta:
-		queryset = CookTask.objects.all()
+		queryset = CookOrder.objects.all()
+		resource_name = 'cookorders'
+		authentication = Authentication()
+		authorization = Authorization()
+		allowed_methods = ['get','put', 'post', 'delete']
+		filtering = {
+            'state': ALL,
+            'provider': ALL_WITH_RELATIONS,       
+        }	
+class CookTaskResource(ModelResource):
+	provider = fields.ForeignKey(EmployeeResource, 'provider',full=True)
+	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
+	orders = fields.ManyToManyField(OrderCookResource, 'orders',full=True)
+	
+	class Meta:
+		today_min = datetime.date.today().strftime("%Y")
+		today_minm = datetime.date.today().strftime("%M")
+		queryset = CookTask.objects.filter(created_at__year = today_min, created_at__month = today_minm)
 		resource_name = 'cooktasks'
 		authentication = Authentication()
 		authorization = Authorization()

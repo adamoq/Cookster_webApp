@@ -4,18 +4,22 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Dish, Product, Employee, Category, WaiterTask
+from .models import Dish, Product, Employee, Category, WaiterTask, RestaurantDetail, LoginLog
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
 from django import forms
 from .forms import ProductForm, CategoryForm, DishForm, EmployeeForm
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
-from cook.tables import ProductTable, EmployeeTable, DishTable
+from cook.tables import ProductTable, EmployeeTable, CategoryTable, DishTable
 from django_tables2   import RequestConfig
 from django.utils.translation import gettext as _
+from random import randint
+from django.views.generic import TemplateView
+from chartjs.views.lines import BaseLineChartView
 
 def main(request):
 	if request.user.is_authenticated():	
@@ -31,13 +35,29 @@ def products(request):
 			if not form.is_valid():
 				showError(request,_('Dane produktu są niepoprawane.'))
 			else:
-				form.save()   
+				form.save()
+				id = form.cleaned_data['name']
+				state = form.cleaned_data['av']
+
+				product = Product.objects.all().filter(name = id)
+				if product is not None: 
+					dishes = Dish.objects.all().filter(products__in = [product])
+					if dishes[0]:
+						if state == "0":			
+							dishes.update(av='1')
+						elif state == "1" or state == "2":
+							dishes.update(av='0')
+							for i in range(len(dishes)):	
+								for product in dishes[i].products.all():
+									if product.av == '0':
+										dishes[i].av='1'
+										break
 		elif request.method == 'POST':
 			form = ProductForm(request.POST)
 			if not form.is_valid():
 				showError(request,_('Dane produktu są niepoprawane.'))
 			else:
-				form.save()       
+				form.save()	   
 		template = loader.get_template('products.html')
 		table = ProductTable(Product.objects.all())
 		RequestConfig(request).configure(table)
@@ -72,6 +92,7 @@ def employers(request):
 	template = loader.get_template('employers.html')
 	if request.method == 'POST':
 		form = EmployeeForm(request.POST)
+		form.restaurant = RestaurantDetail.objects.all().first()
 		if not form.is_valid():
 			showError(request,_('Dane produktu są niepoprawane.'))
 		else:
@@ -79,6 +100,7 @@ def employers(request):
 	forms = {}
 	for employee in Employee.objects.all():
 		forms[employee.id]=EmployeeForm(instance=employee)
+
 	table = EmployeeTable(Employee.objects.all())
 	RequestConfig(request).configure(table)
 	context = {
@@ -94,23 +116,50 @@ def employers(request):
 @login_required
 @csrf_exempt	
 def menu(request):
+
 	if request.method == 'PUT':
-		categoryform = CategoryForm(request.POST)
-		if not categoryform.is_valid():
-			showError(request,_('Dane kategorii są niepoprawane.'))
-		else:
-			categoryform.save()   
+		try:
+			categoryform = CategoryForm(request.POST)
+			if categoryform.is_valid():
+				categoryform.save()
+			 
+		except (IntegrityError,Error):
+			pass
+			
+	
+	elif request.method == 'PUT':
+		showError(request,_('Dane są niepoprawane.'))
 	elif request.method == 'POST':
 		categoryform = CategoryForm(request.POST)
 		if not categoryform.is_valid():
 			showError(request,_('Dane kategorii są niepoprawane.'))
 		else:
-			Category.objects.create(name=categoryform.cleaned_data['name'])    
+			Category.objects.create(category_name=categoryform.cleaned_data['category_name'],order=categoryform.cleaned_data['order'])	
 	template = loader.get_template('menu.html')
+	
+	map = {}
+	forms = {}
+	currency = RestaurantDetail.objects.all().first().default_currency.name
+	for category in Category.objects.all().order_by('order'):
+		list = []
+		list.append(Category.objects.get(pk = category.id))
+		table = DishTable(Dish.objects.filter(category = category), "zł")
+		#table.columns.price = "zł"
+		map[CategoryTable(list, currency)] = table 
+		forms["c"+str(category.id)]=CategoryForm(instance=category)
+		
+
 	context = {
-		'categoryList': Category.objects.all(),
+		'categoryList': map,#Category.objects.all(),
 		'form':CategoryForm(),
-		'formText': _('Dodaj kategorię')
+		'update_forms':forms,
+		'data_target' : 'api/category/',
+		'edit_text' : "Edytuj Kategorię",
+		'add_text' :  _('Dodaj kategorię'),
+		'formText': _('Dodaj kategorię'),#Category.objects.all(),
+		
+		'form2':DishForm(),
+		'add_text2' :  _('Dodaj danie')
 	}
 	return HttpResponse(template.render(context, request))
 @login_required
@@ -125,14 +174,14 @@ def category(request):
 		dishForm = DishForm(request.POST)
 		dishForm.save()
 		context = {
-			'categoryName': category.name,
+			'categoryName': category.category_name,
 			'dishesList' : table,
 			'form':DishForm(),
 			'formText': _('Dodaj danie')
 		}
 	if request.method == 'GET':
 		context = {
-			'categoryName': category.name,
+			'categoryName': category.category_name,
 			'dishesList' : table,
 			'form':DishForm(),
 			'formText': _('Dodaj danie')
@@ -167,7 +216,7 @@ def dish(request):
 @login_required
 @csrf_exempt		
 def orders(request):
-    return render(request, 'orders.html')
+	return render(request, 'orders.html')
 @login_required
 @csrf_exempt		
 def orders_waiter(request):
@@ -179,18 +228,18 @@ def orders_waiter(request):
 	return HttpResponse(template.render(context, request))
 @csrf_exempt	
 def login_user(request):
-    logout(request)
-    username = password = ''
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/products/')
-    if request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None and user.is_active:
-            login(request, user)
-            return HttpResponseRedirect('/products/')
-    return render_to_response('login.html')
+	logout(request)
+	username = password = ''
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/products/')
+	if request.POST:
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None and user.is_active:
+			login(request, user)
+			return HttpResponseRedirect('/products/')
+	return render_to_response('login.html')
 def showError(request, errorText):
 	template = loader.get_template('error.html')
 	HttpResponse(template.render({'errorText':errorText}, request))
@@ -204,6 +253,31 @@ def login_mobile(request):
 				user.status = '2';
 				return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
+
+
+def login_mobile_status(request):
+	if request.method == 'GET':
+		login = request.GET.get('login')
+		status = request.GET.get('status')
+		if login and status :
+			employee = Employee.objects.all().filter(login = login).first()
+			if employee is not None:				
+				employee.status = status;
+				LoginLog.objects.create(employee=employee,status=status) 
+				return HttpResponse("True")
+	return HttpResponse("False")	
+   
+
+def resetpassword(request):
+	if request.method == 'GET':
+		login = request.GET.get('login')
+		password = request.GET.get('passwordOld')
+		if login and password:
+			user = Employee.objects.all().filter(login = login)
+			if user is not None and user[0].password == password: 		
+				user.update(password='reset')				
+				return HttpResponseRedirect('/employers/')	
+	
 def changepassword(request):
 	if request.method == 'GET':
 		login = request.GET.get('login')
@@ -215,6 +289,7 @@ def changepassword(request):
 					user.update(password=npassword)				
 					return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
+
 def changephone(request):
 	if request.method == 'GET':
 		login = request.GET.get('login')
@@ -248,4 +323,45 @@ def changeproduct(request):
 									break
 						
 					return HttpResponse(serializers.serialize("json", dishes))
-	return HttpResponse("False")
+	return HttpResponse("False")	
+	
+def product_chart(request):
+	template = loader.get_template('charts/chart.html')
+	context = {
+			'url_json':'dish_chart_json',
+			'chart_type':'bar',
+			'url_json1':'category_chart_json1',
+			'url_json2':'category_chart_json',
+			'chart_type2':'doughnut',
+			'url_json3':'category_chart_json2'
+		}	
+	return HttpResponse(template.render(context, request))
+
+def employees_chart(request):
+	template = loader.get_template('charts/twocharts.html')
+	context = {
+			'url_json':'dish_chart_json',
+			'chart_type':'bar',
+			'url_json1':'category_chart_json1',
+			'chart_type2':'bar',
+		}	
+	return HttpResponse(template.render(context, request))	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
