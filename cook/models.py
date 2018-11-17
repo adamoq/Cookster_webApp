@@ -107,7 +107,7 @@ class WaiterTask(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	
 class CookOrder(models.Model):
-	product = models.ForeignKey(Product)
+	product = models.ForeignKey(Product, related_name='product')
 	count = models.DecimalField(decimal_places=0,max_digits=2)	
 	created_at = models.DateTimeField(auto_now_add=True)
 	
