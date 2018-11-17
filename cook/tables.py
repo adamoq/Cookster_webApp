@@ -80,7 +80,7 @@ class DishTable(tables.Table):
 	def __init__(self, *args, **kwargs):
 		x = args[1]
 		if x:
-			self.currency = x
+			self.currency = x.encode("utf-8")
 		super(DishTable, self).__init__(*args, **kwargs)
 		
 	av = tables.Column( verbose_name=_('Dostępność'),attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
