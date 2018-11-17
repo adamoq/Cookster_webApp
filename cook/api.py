@@ -59,7 +59,7 @@ class OrderResource(ModelResource):
             'waiter': ALL_WITH_RELATIONS,       
         }
 class OrderCookResource(ModelResource):
-	products = fields.ManyToManyField(ProductResource, 'products',full=True)
+	product = fields.ManyToManyField(ProductResource, 'product',full=True)
 	class Meta:
 		queryset = CookOrder.objects.all()
 		resource_name = 'cookorders'
