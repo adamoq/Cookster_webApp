@@ -143,7 +143,7 @@ def menu(request):
 	for category in Category.objects.all().order_by('order'):
 		list = []
 		list.append(Category.objects.get(pk = category.id))
-		table = DishTable(Dish.objects.filter(category = category), "zł")
+		table = DishTable(Dish.objects.filter(category = category), currency)
 		#table.columns.price = "zł"
 		map[CategoryTable(list, currency)] = table 
 		forms["c"+str(category.id)]=CategoryForm(instance=category)
