@@ -50,7 +50,8 @@ class OrderCookResource(ModelResource):
 		resource_name = 'cookorders'
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
-		authorization = Authorization()		
+		authorization = Authorization()
+		always_return_data = True
 
 class CookTaskResource(ModelResource):
 	provider = fields.ForeignKey(EmployeeResource, 'provider',full=True)
@@ -69,6 +70,7 @@ class CookTaskResource(ModelResource):
             'state': ALL,
             'provider': ALL_WITH_RELATIONS,
         }
+		always_return_data = True
 		
 class OrderCookTaskResource(ModelResource):
 	task = fields.ForeignKey(CookTaskResource, 'task',full=True)
@@ -79,6 +81,7 @@ class OrderCookTaskResource(ModelResource):
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
+		always_return_data = True
 
 
 class OrderResource(ModelResource):
