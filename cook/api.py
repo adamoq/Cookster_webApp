@@ -46,12 +46,13 @@ class EmployeeResource(ModelResource):
 class OrderCookResource(ModelResource):
 	product = fields.ForeignKey(ProductResource, 'product',full=True)
 	class Meta:
+		always_return_data = True
 		queryset = CookOrder.objects.all()
 		resource_name = 'cookorders'
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
-		always_return_data = True
+
 
 class CookTaskResource(ModelResource):
 	provider = fields.ForeignKey(EmployeeResource, 'provider',full=True)
@@ -59,6 +60,7 @@ class CookTaskResource(ModelResource):
 	cookorders = fields.ManyToManyField(OrderCookResource, 'cookorders',full=True)
 
 	class Meta:
+		always_return_data = True
 		today_min = datetime.date.today().strftime("%Y")
 		today_minm = datetime.date.today().strftime("%m")
 		queryset = CookTask.objects.filter(created_at__year = today_min, created_at__month = today_minm)
@@ -66,12 +68,8 @@ class CookTaskResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
-		filtering = {
-            'state': ALL,
-            'provider': ALL_WITH_RELATIONS,
-        }
 		always_return_data = True
-		
+
 class OrderCookTaskResource(ModelResource):
 	task = fields.ForeignKey(CookTaskResource, 'task',full=True)
 	order = fields.ForeignKey(OrderCookResource, 'order',full=True)
@@ -96,21 +94,21 @@ class OrderResource(ModelResource):
             'state': ALL,
             'waiter': ALL_WITH_RELATIONS,
         }
-		
-class OrderCookResource(ModelResource):
+
+class WaiterCookResource(ModelResource):
 	product = fields.ForeignKey(ProductResource, 'product',full=True)
 	class Meta:
 		queryset = CookOrder.objects.all()
-		resource_name = 'cookorders'
+		resource_name = 'waiterorders'
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
-		authorization = Authorization()	
+		authorization = Authorization()
 class WaiterCookTaskResource(ModelResource):
 	task = fields.ForeignKey(OrderResource, 'task',full=True)
 	order = fields.ForeignKey(OrderCookResource, 'order',full=True)
 	class Meta:
 		queryset = CookOrderTask.objects.all()
-		resource_name = 'cookordertasks'
+		resource_name = 'waiterordertasks'
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
