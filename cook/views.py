@@ -249,9 +249,12 @@ def login_mobile(request):
 		password = request.GET.get('password')
 		if login and password :
 			user = Employee.objects.all().filter(login = login)
-			if user is not None and user[0].password == password: 
-				user.status = '2';
-				return HttpResponse(serializers.serialize("json", user))
+			if not user.count():
+				return HttpResponse("False")
+			else:
+				if user[0].password == password: 
+					user.status = '2';
+					return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
 
 
@@ -262,7 +265,7 @@ def login_mobile_status(request):
 		if login and status :
 			employee = Employee.objects.all().filter(login = login).first()
 			if employee is not None:				
-				employee.status = status;
+				employee.status = status
 				LoginLog.objects.create(employee=employee,status=status) 
 				return HttpResponse("True")
 	return HttpResponse("False")	

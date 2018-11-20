@@ -21,7 +21,7 @@ from cook.views import main, products, administration, employers, menu, orders, 
 from cook.views import changepassword,resetpassword,changephone, changeproduct, login_mobile_status, product_chart
 from cook.charts import category_chart_json,category_chart_json2, dish_chart_json,category_chart_json1
 from django.contrib import admin
-from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource
+from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource, OrderCookTaskResource
 from django.contrib.auth import views as auth_views
 
 
@@ -47,6 +47,7 @@ urlpatterns = [
 	url(r'^api/', include(OrderResource().urls)),
 	url(r'^api/', include(OrderCookResource().urls)),
 	url(r'^api/', include(CookTaskResource().urls)),
+	url(r'^api/', include(OrderCookTaskResource().urls)),
 	url(r'^mobileapi/$', login_mobile),
 	url(r'^mobileapistatus/$', login_mobile_status),
 	url(r'^mobilereset/password/$', changepassword),
