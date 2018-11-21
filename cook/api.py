@@ -57,7 +57,7 @@ class OrderCookResource(ModelResource):
 class CookTaskResource(ModelResource):
 	provider = fields.ForeignKey(EmployeeResource, 'provider',full=True)
 	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
-	orders = fields.ManyToManyField(OrderCookResource, 'orders',full=True)
+	orders = fields.ManyToManyField(OrderCookResource, 'cookorders',full=True)
 
 	class Meta:
 		always_return_data = True
