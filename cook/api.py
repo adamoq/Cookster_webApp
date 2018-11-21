@@ -1,6 +1,6 @@
 from tastypie.resources import ModelResource
 import datetime
-from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, CookOrderTask
+from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, CookTaskOrder
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
@@ -57,7 +57,7 @@ class OrderCookResource(ModelResource):
 class CookTaskResource(ModelResource):
 	provider = fields.ForeignKey(EmployeeResource, 'provider',full=True)
 	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
-	cookorders = fields.ManyToManyField(OrderCookResource, 'cookorders',full=True)
+	orders = fields.ManyToManyField(OrderCookResource, 'orders',full=True)
 
 	class Meta:
 		always_return_data = True
@@ -68,18 +68,18 @@ class CookTaskResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
-		always_return_data = True
 
 class OrderCookTaskResource(ModelResource):
 	task = fields.ForeignKey(CookTaskResource, 'task',full=True)
 	order = fields.ForeignKey(OrderCookResource, 'order',full=True)
 	class Meta:
-		queryset = CookOrderTask.objects.all()
+		queryset = CookTaskOrder.objects.all()
 		resource_name = 'cookordertasks'
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
 		always_return_data = True
+		
 
 
 class OrderResource(ModelResource):
@@ -104,10 +104,9 @@ class WaiterCookResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 class WaiterCookTaskResource(ModelResource):
-	task = fields.ForeignKey(OrderResource, 'task',full=True)
-	order = fields.ForeignKey(OrderCookResource, 'order',full=True)
+
 	class Meta:
-		queryset = CookOrderTask.objects.all()
+		queryset = CookTaskOrder.objects.all()
 		resource_name = 'waiterordertasks'
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()

@@ -95,7 +95,7 @@ class WaiterTask(models.Model):
 	)
 	waiter = models.ForeignKey(Employee, null = True, related_name='waiter')
 	cook = models.ForeignKey(Employee)
-	waiterorders = models.ManyToManyField('WaiterOrder', through='WaiterOrderTask', related_name='orders')
+	orders = models.ManyToManyField('WaiterOrder', through='WaiterTaskOrder', related_name='orders')
 	currency = models.ForeignKey(Currency)
 	price = models.DecimalField(decimal_places=2,max_digits=5, null = True)
 	price_default = models.DecimalField(decimal_places=2,max_digits=5, null = True)
@@ -106,7 +106,7 @@ class WaiterTask(models.Model):
 	levels = models.DecimalField(decimal_places=0,max_digits=2)
 	created_at = models.DateTimeField(auto_now_add=True)
 
-class WaiterOrderTask(models.Model):
+class WaiterTaskOrder(models.Model):
 	order = models.ForeignKey(WaiterOrder, related_name='membership')
 	task = models.ForeignKey(WaiterTask, related_name='membership')		
 	
@@ -129,16 +129,17 @@ class CookTask(models.Model):
 	state = models.CharField(max_length=1, choices=STATES, default = '0')
 	cook = models.ForeignKey(Employee, null = True, related_name='cook')
 	provider = models.ForeignKey(Employee)
-	cookorders = models.ManyToManyField('CookOrder', through='CookOrderTask', related_name='orders', null = True)
+	orders = models.ManyToManyField('CookOrder', through='CookTaskOrder', related_name='orders', null = True)
 	priority = models.CharField(max_length=1, choices=PRIORITIES, default = '0')
 	comment = models.CharField(max_length=300, null = True)
 	created_at = models.DateTimeField(auto_now_add=True)
 
-class CookOrderTask(models.Model):
+
+class CookTaskOrder(models.Model):
 	order = models.ForeignKey(CookOrder, related_name='membership')
 	task = models.ForeignKey(CookTask, related_name='membership')		
-
-
+	class Meta():
+		auto_created=True
 class DishPrice(models.Model):
 	dish = models.ForeignKey(Dish)
 	currency = models.ForeignKey(Currency)
