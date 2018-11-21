@@ -129,7 +129,7 @@ class CookTask(models.Model):
 	state = models.CharField(max_length=1, choices=STATES, default = '0')
 	cook = models.ForeignKey(Employee, null = True, related_name='cook')
 	provider = models.ForeignKey(Employee)
-	cookorders = models.ManyToManyField('CookOrder', through='CookOrderTask', related_name='orders')
+	cookorders = models.ManyToManyField('CookOrder', through='CookOrderTask', related_name='orders', null = True)
 	priority = models.CharField(max_length=1, choices=PRIORITIES, default = '0')
 	comment = models.CharField(max_length=300, null = True)
 	created_at = models.DateTimeField(auto_now_add=True)
