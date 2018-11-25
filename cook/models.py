@@ -90,7 +90,6 @@ class WaiterTask(models.Model):
 	currency = models.ForeignKey(Currency)
 	price = models.DecimalField(decimal_places=2,max_digits=5, null = True)
 	price_default = models.DecimalField(decimal_places=2,max_digits=5, null = True)
-	currency = models.ForeignKey(Currency)
 	table = models.IntegerField()
 	state = models.CharField(max_length=1, choices=STATES, default = '0')
 	comment = models.CharField(max_length=200, null = True)
@@ -99,7 +98,6 @@ class WaiterTask(models.Model):
 	
 class WaiterOrder(models.Model):
 	dish = models.ForeignKey(Dish)
-	currency = models.ForeignKey(Currency)
 	task = models.ForeignKey(WaiterTask)
 	count = models.DecimalField(decimal_places=0,max_digits=2)
 	price = models.DecimalField(decimal_places=2,max_digits=5, null = True)

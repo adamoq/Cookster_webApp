@@ -1,6 +1,6 @@
 from tastypie.resources import ModelResource
 import datetime
-from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, WaiterOrder
+from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, WaiterOrder, Currency
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
