@@ -1,6 +1,6 @@
 from tastypie.resources import ModelResource
 import datetime
-from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, CookTaskOrder
+from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, WaiterOrder
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
@@ -43,25 +43,8 @@ class EmployeeResource(ModelResource):
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
 
-
-
-
 class CookTaskResource(ModelResource):
-	provider = fields.ForeignKey(EmployeeResource, 'provider',full=True)
-	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
-	#orders = fields.ManyToManyField(OrderCookResource, 'cookorders',full=True, null = True)
-
-	class Meta:
-		always_return_data = True
-		today_min = datetime.date.today().strftime("%Y")
-		today_minm = datetime.date.today().strftime("%m")
-		queryset = CookTask.objects.filter(created_at__year = today_min, created_at__month = today_minm)
-		resource_name = 'cooktasks'
-		allowed_methods = ['get','put', 'post', 'delete']
-		authentication = Authentication()
-		authorization = Authorization()
-
-
+	pass
 class OrderCookResource(ModelResource):
 	product = fields.ForeignKey(ProductResource, 'product',full=True)
 	task = fields.ForeignKey(CookTaskResource, 'task',full=True,null=True)
@@ -72,17 +55,33 @@ class OrderCookResource(ModelResource):
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
-
-class OrderCookTaskResource(ModelResource):
-	task = fields.ForeignKey(CookTaskResource, 'task',full=True)
+		
+		
+class CookTaskResource(ModelResource):
+	provider = fields.ForeignKey(EmployeeResource, 'provider',full=True)
+	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
+	#orders = fields.ManyToManyField(OrderCookResource, 'cookorders',full=True, null = True)
 
 	class Meta:
-		queryset = CookTaskOrder.objects.all()
-		resource_name = 'cookordertasks'
+		always_return_data = True
+		today_min = datetime.date.today().strftime("%Y")
+		today_minm = datetime.date.today().strftime("%m")
+		today_mind = datetime.date.today().strftime("%d")
+		queryset = CookTask.objects.filter(created_at__year = today_min, created_at__month = today_minm, created_at__day = today_mind)
+	
+		resource_name = 'cooktasks'
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
-		always_return_data = True
+	def dehydrate(self, bundle):
+		bundle.data['orders'] = CookOrder.objects.filter(task = bundle.data['id']).values('count', 'product__name', 'product__unit')
+		return bundle
+	def orders(self, instance):
+		return instance['product']['name']
+
+
+
+
 		
 
 
@@ -104,20 +103,14 @@ class OrderResource(ModelResource):
             'state': ALL,
             'waiter': ALL_WITH_RELATIONS,
         }
+	def dehydrate(self, bundle):
+		bundle.data['orders'] = WaiterOrder.objects.filter(task = bundle.data['id']).values('count', 'dish__name', 'dish__unit')
 
 class WaiterCookResource(ModelResource):
 	product = fields.ForeignKey(ProductResource, 'product',full=True)
 	class Meta:
-		queryset = CookOrder.objects.all()
+		queryset = WaiterOrder.objects.all()
 		resource_name = 'waiterorders'
-		allowed_methods = ['get','put', 'post', 'delete']
-		authentication = Authentication()
-		authorization = Authorization()
-class WaiterCookTaskResource(ModelResource):
-
-	class Meta:
-		queryset = CookTaskOrder.objects.all()
-		resource_name = 'waiterordertasks'
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()

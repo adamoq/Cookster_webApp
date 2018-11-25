@@ -63,6 +63,8 @@ class Product(models.Model):
 	name = models.CharField(max_length=50, unique = True)
 	av = models.CharField(max_length=2, choices=avs)
 	unit = models.CharField(max_length=8)
+	def __str__(self):
+		return str(self.name)
 
 class Dish(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -76,17 +78,7 @@ class Dish(models.Model):
 	tax = models.DecimalField(decimal_places=2,max_digits=4)
 	products = models.ManyToManyField(Product)
 	description = models.CharField(max_length=300, null = True)
-
-class WaiterOrder(models.Model):
-	dish = models.ForeignKey(Dish)
-	currency = models.ForeignKey(Currency)
-	count = models.DecimalField(decimal_places=0,max_digits=2)
-	price = models.DecimalField(decimal_places=2,max_digits=5, null = True)
-	price_default = models.DecimalField(decimal_places=2,max_digits=5, null = True)	
-	comment = models.CharField(max_length=300, null = True)
-	level = models.DecimalField(decimal_places=0,max_digits=2)
-	created_at = models.DateTimeField(auto_now_add=True)
-
+	
 class WaiterTask(models.Model):
 	STATES = (
 		('0', 'started'),
@@ -95,7 +87,6 @@ class WaiterTask(models.Model):
 	)
 	waiter = models.ForeignKey(Employee, null = True, related_name='waiter')
 	cook = models.ForeignKey(Employee)
-	orders = models.ManyToManyField('WaiterOrder', through='WaiterTaskOrder', related_name='orders')
 	currency = models.ForeignKey(Currency)
 	price = models.DecimalField(decimal_places=2,max_digits=5, null = True)
 	price_default = models.DecimalField(decimal_places=2,max_digits=5, null = True)
@@ -105,11 +96,19 @@ class WaiterTask(models.Model):
 	comment = models.CharField(max_length=200, null = True)
 	levels = models.DecimalField(decimal_places=0,max_digits=2)
 	created_at = models.DateTimeField(auto_now_add=True)
-
-class WaiterTaskOrder(models.Model):
-	order = models.ForeignKey(WaiterOrder, related_name='membership')
-	task = models.ForeignKey(WaiterTask, related_name='membership')		
 	
+class WaiterOrder(models.Model):
+	dish = models.ForeignKey(Dish)
+	currency = models.ForeignKey(Currency)
+	task = models.ForeignKey(WaiterTask)
+	count = models.DecimalField(decimal_places=0,max_digits=2)
+	price = models.DecimalField(decimal_places=2,max_digits=5, null = True)
+	price_default = models.DecimalField(decimal_places=2,max_digits=5, null = True)	
+	comment = models.CharField(max_length=300, null = True)
+	level = models.DecimalField(decimal_places=0,max_digits=2)
+	created_at = models.DateTimeField(auto_now_add=True)
+
+
 	
 
 class CookTask(models.Model):
@@ -129,15 +128,15 @@ class CookTask(models.Model):
 	priority = models.CharField(max_length=1, choices=PRIORITIES, default = '0')
 	comment = models.CharField(max_length=300, null = True)
 	created_at = models.DateTimeField(auto_now_add=True)
+
 class CookOrder(models.Model):
 	product = models.ForeignKey(Product, related_name='product')
 	count = models.DecimalField(decimal_places=0,max_digits=2)	
 	created_at = models.DateTimeField(auto_now_add=True)
-	task = models.ForeignKey(CookTask, related_name='task')	
-
-class CookTaskOrder(models.Model):
-	order = models.ForeignKey(CookOrder, related_name='order')
-	#task = models.ForeignKey(CookTask, related_name='task', null = True)		
+	task = models.ForeignKey(CookTask, related_name='task')
+	def __str__(self):
+		return str(self.product.name) + ", " + self.count + ", " + self.created_at 
+    
 
 class DishPrice(models.Model):
 	dish = models.ForeignKey(Dish)
