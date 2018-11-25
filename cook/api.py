@@ -42,6 +42,9 @@ class EmployeeResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
+		filtering = {
+            'position': ALL,
+        }
 
 class CookTaskResource(ModelResource):
 	pass
@@ -80,9 +83,15 @@ class CookTaskResource(ModelResource):
 		return instance['product']['name']
 
 
+class CurrencyResource(ModelResource):
 
+	class Meta:
+		queryset = Currency.objects.all()
+		resource_name = 'currency'
+		authentication = Authentication()
+		authorization = Authorization()
+		allowed_methods = ['get','put', 'post', 'delete']
 
-		
 
 
 
@@ -93,21 +102,29 @@ class CookTaskResource(ModelResource):
 
 class OrderResource(ModelResource):
 	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)
+	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
+	currency = fields.ForeignKey(CurrencyResource, 'currency',full=True)
 	class Meta:
-		queryset = WaiterTask.objects.all()
+		today_min = datetime.date.today().strftime("%Y")
+		today_minm = datetime.date.today().strftime("%m")
+		today_mind = datetime.date.today().strftime("%d")
+		queryset = WaiterTask.objects.filter(created_at__year = today_min, created_at__month = today_minm, created_at__day = today_mind)
 		resource_name = 'waitertasks'
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
+		
 		filtering = {
             'state': ALL,
             'waiter': ALL_WITH_RELATIONS,
+			'cook' : ALL_WITH_RELATIONS,
         }
 	def dehydrate(self, bundle):
 		bundle.data['orders'] = WaiterOrder.objects.filter(task = bundle.data['id']).values('count', 'dish__name', 'dish__unit')
 
 class WaiterCookResource(ModelResource):
-	product = fields.ForeignKey(ProductResource, 'product',full=True)
+	dish = fields.ForeignKey(DishResource, 'dish',full=True)
+	task = fields.ForeignKey(OrderResource, 'task',full=True)
 	class Meta:
 		queryset = WaiterOrder.objects.all()
 		resource_name = 'waiterorders'
