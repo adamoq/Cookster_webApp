@@ -57,9 +57,10 @@ class CookTaskResource(ModelResource):
 		today_minm = datetime.date.today().strftime("%m")
 		queryset = CookTask.objects.filter(created_at__year = today_min, created_at__month = today_minm)
 		resource_name = 'cooktasks'
+		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
-		allowed_methods = ['get','put', 'post', 'delete']
+
 
 class OrderCookResource(ModelResource):
 	product = fields.ForeignKey(ProductResource, 'product',full=True)
