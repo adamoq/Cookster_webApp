@@ -1,6 +1,6 @@
 from tastypie.resources import ModelResource
 import datetime
-from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, WaiterOrder, Currency
+from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, WaiterOrder, Currency, WaiterOrderDetails
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
@@ -77,10 +77,7 @@ class OrderCookResource(ModelResource):
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
-
-
-
-
+		
 
 class CurrencyResource(ModelResource):
 
@@ -91,14 +88,10 @@ class CurrencyResource(ModelResource):
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
 
-
-
-
-
-
-
-
-
+		
+		
+		
+		
 class OrderResource(ModelResource):
 	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)
 	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
@@ -120,10 +113,21 @@ class OrderResource(ModelResource):
         }
 	def dehydrate(self, bundle):
 		bundle.data['orders'] = WaiterOrder.objects.filter(task = bundle.data['id']).values('count', 'dish__name', 'dish__unit')
+		
+class WaiterOrderDetailsResource(ModelResource):
+	task = fields.ForeignKey(OrderResource, 'task',full=True)
+	class Meta:
+		queryset = WaiterOrderDetails.objects.all()
+		resource_name = 'waiterorderdetails'
+		allowed_methods = ['get','put', 'post', 'delete']
+		authentication = Authentication()
+		authorization = Authorization()
+
+
 
 class WaiterCookResource(ModelResource):
 	dish = fields.ForeignKey(DishResource, 'dish',full=True)
-	task = fields.ForeignKey(OrderResource, 'task',full=True)
+	task = fields.ForeignKey(WaiterOrderDetailsResource, 'task',full=True)
 	class Meta:
 		queryset = WaiterOrder.objects.all()
 		resource_name = 'waiterorders'

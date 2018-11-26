@@ -82,8 +82,7 @@ class Dish(models.Model):
 class WaiterTask(models.Model):
 	STATES = (
 		('0', 'started'),
-		('1', 'ready'),
-		('2', 'done'),
+		('1', 'done'),
 	)
 	waiter = models.ForeignKey(Employee, null = True, related_name='waiter')
 	cook = models.ForeignKey(Employee)
@@ -95,10 +94,21 @@ class WaiterTask(models.Model):
 	comment = models.CharField(max_length=200, null = True)
 	levels = models.DecimalField(decimal_places=0,max_digits=2)
 	created_at = models.DateTimeField(auto_now_add=True)
+
+class WaiterOrderDetails(models.Model):
+	STATES = (
+		('0', 'started'),
+		('1', 'ready'),
+		('2', 'done'),
+	)
+	state = models.CharField(max_length=1, choices=STATES, default = '0')	
+	level = models.DecimalField(decimal_places=0,max_digits=2)
+	task = models.ForeignKey(WaiterTask)
+	created_at = models.DateTimeField(auto_now_add=True)
 	
 class WaiterOrder(models.Model):
 	dish = models.ForeignKey(Dish)
-	task = models.ForeignKey(WaiterTask)
+	task = models.ForeignKey(WaiterOrderDetails)
 	count = models.DecimalField(decimal_places=0,max_digits=2)
 	price = models.DecimalField(decimal_places=2,max_digits=5, null = True)
 	price_default = models.DecimalField(decimal_places=2,max_digits=5, null = True)	
