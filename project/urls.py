@@ -21,7 +21,7 @@ from cook.views import main, products, administration, employers, menu, orders, 
 from cook.views import changepassword,resetpassword,changephone, changeproduct, login_mobile_status, product_chart
 from cook.charts import category_chart_json,category_chart_json2, dish_chart_json,category_chart_json1
 from django.contrib import admin
-from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource, WaiterOrderDetailsResource, WaiterCookResource
+from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource, WaiterOrderDetailsResource, WaiterCookResource, OrderResourceGet, CurrencyResource
 from django.contrib.auth import views as auth_views
 
 
@@ -46,16 +46,18 @@ urlpatterns = [
 	url(r'^api/', include(CategoryResource().urls)),
 	url(r'^api/', include(OrderResource().urls)),
 	url(r'^api/', include(OrderCookResource().urls)),
-	url(r'^api/', include(CookTaskResource().urls)),	
+	url(r'^api/', include(CookTaskResource().urls)),
 	url(r'^api/', include(WaiterOrderDetailsResource().urls)),
 	url(r'^api/', include(WaiterCookResource().urls)),
+	url(r'^api/', include(OrderResourceGet().urls)),
+	url(r'^api/', include(CurrencyResource().urls)),
 	url(r'^mobileapi/$', login_mobile),
 	url(r'^mobileapistatus/$', login_mobile_status),
 	url(r'^mobilereset/password/$', changepassword),
 	url(r'^reset/password/$', resetpassword),
 	url(r'^mobilereset/phone/$', changephone),
 	url(r'^mobilereset/product/$', changeproduct),
-	
+
 
 	url(r'^menu/raport/$', product_chart, name='product_chart'),
 	url(r'^products/raport-json/$', dish_chart_json, name='dish_chart_json'),
@@ -63,9 +65,9 @@ urlpatterns = [
 	url(r'^category/raport-json1/$', category_chart_json1, name='category_chart_json1'),
 	url(r'^category/raport-json2/$', category_chart_json2, name='category_chart_json2'),
 
-	
-	
-	
+
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     import debug_toolbar
