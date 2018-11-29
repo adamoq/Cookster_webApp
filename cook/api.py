@@ -54,6 +54,7 @@ class CookTaskResource(ModelResource):
 
 	class Meta:
 		always_return_data = True
+		limit = 0
 		today_min = datetime.date.today().strftime("%Y")
 		today_minm = datetime.date.today().strftime("%m")
 		today_mind = datetime.date.today().strftime("%d")
@@ -63,6 +64,11 @@ class CookTaskResource(ModelResource):
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
+		filtering = {
+			'state': ALL,
+			'cook' : ALL_WITH_RELATIONS,
+			'provider':ALL_WITH_RELATIONS
+        }
 	def dehydrate(self, bundle):
 		bundle.data['orders'] = CookOrder.objects.filter(task = bundle.data['id']).values('count', 'product__name', 'product__unit')
 		return bundle
@@ -73,6 +79,7 @@ class OrderCookResource(ModelResource):
 	task = fields.ForeignKey(CookTaskResource, 'task',full=True,null=True)
 	class Meta:
 		always_return_data = True
+		limit = 0
 		queryset = CookOrder.objects.all()
 		resource_name = 'cookorders'
 		allowed_methods = ['get','put', 'post', 'delete']
@@ -98,15 +105,10 @@ class OrderResource(ModelResource):
 	currency = fields.ForeignKey(CurrencyResource, 'currency',full=True)
 	class Meta:
 		always_return_data = True
-		today_min = datetime.date.today().strftime("%Y")
-		today_minm = datetime.date.today().strftime("%m")
-		today_mind = datetime.date.today().strftime("%d")
-		queryset = WaiterTask.objects.all() #filter(created_at__year = today_min, created_at__month = today_minm, created_at__day = today_mind)
+		limit = 0
+		queryset = WaiterTask.objects.all()
 		resource_name = 'waitertasks'
 		allowed_methods = ['get','put', 'post', 'delete']
-		filtering = {
-			'cook' : ALL_WITH_RELATIONS,
-        }
 		authentication = Authentication()
 		authorization = Authorization()
 
@@ -114,12 +116,14 @@ class OrderResourceGet(ModelResource):
 	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)
 	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
 	currency = fields.ForeignKey(CurrencyResource, 'currency',full=True)
+#	created_at = fields.DateTimeField( 'creaded_at',full=True)
 	class Meta:
 		always_return_data = True
+		limit = 0
 		today_min = datetime.date.today() + datetime.timedelta(days = 1)
 		today_minm = datetime.datetime.now() - datetime.timedelta(days = 1)
 		today_mind = datetime.date.today().strftime("%d")
-		queryset = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')])
+		queryset = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0)
 		resource_name = 'waitertasksget'
 		allowed_methods = ['get',]
 		filtering = {
@@ -130,17 +134,87 @@ class OrderResourceGet(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 	def dehydrate(self, bundle):
-		order = WaiterOrderDetails.objects.filter(task = bundle.data['id'])
+		order = WaiterOrderDetails.objects.filter(task = bundle.data['id'], state = 0)
 		orders = []
 		for ord in order:
-			orders = list(chain(orders, WaiterOrder.objects.filter(task = ord).values('count', 'dish__name', 'price', 'comment', 'level')))
+			orders = list(chain(orders, WaiterOrder.objects.filter(task = ord).values('count', 'dish__name', 'comment', 'level', 'task__id')))
 		bundle.data['orders'] = orders
+		bundle.data['created_at'] = bundle.data['created_at'].strftime("%H:%M")
+		return bundle
+
+class OrderResourceGet1(ModelResource):
+	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)
+	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
+	currency = fields.ForeignKey(CurrencyResource, 'currency',full=True)
+#	created_at = fields.DateTimeField( 'creaded_at',full=True)
+	class Meta:
+		always_return_data = True
+		limit = 0
+		today_min = datetime.date.today() + datetime.timedelta(days = 1)
+		today_minm = datetime.datetime.now() - datetime.timedelta(days = 1)
+		today_mind = datetime.date.today().strftime("%d")
+		queryset1 = []
+		for task in WaiterOrderDetails.objects.filter(state = "1"):
+			queryset1.append(task.task.id)
+		queryset = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0,id__in=queryset1)
+		resource_name = 'waitertasksget1'
+		allowed_methods = ['get',]
+		filtering = {
+			'cook' : ALL_WITH_RELATIONS,
+			'waiter':ALL_WITH_RELATIONS,
+			'state':ALL,
+        }
+		authentication = Authentication()
+		authorization = Authorization()
+	def dehydrate(self, bundle):
+		order = WaiterOrderDetails.objects.filter(task = bundle.data['id'], state = 1)
+		orders = []
+		for ord in order:
+			orders = list(chain(orders, WaiterOrder.objects.filter(task = ord).values('count', 'dish__name', 'comment', 'level', 'task__id', 'task__state')))
+		bundle.data['orders'] = orders
+		bundle.data['created_at'] = bundle.data['created_at'].strftime("%H:%M")
+		return bundle
+
+class OrderResourceGet2(ModelResource):
+	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)
+	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
+	currency = fields.ForeignKey(CurrencyResource, 'currency',full=True)
+#	created_at = fields.DateTimeField( 'creaded_at',full=True)
+	class Meta:
+		always_return_data = True
+		limit = 0
+		today_min = datetime.date.today() + datetime.timedelta(days = 1)
+		today_minm = datetime.datetime.now() - datetime.timedelta(days = 1)
+		today_mind = datetime.date.today().strftime("%d")
+		queryset1 = []
+		for task in WaiterOrderDetails.objects.filter(state = "2"):
+			queryset1.append(task.task.id)
+		queryset1 = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0,id__in=queryset1)
+		queryset2 = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 1)[:5]
+		queryset = queryset1|queryset2
+		resource_name = 'waitertasksget2'
+		allowed_methods = ['get',]
+		filtering = {
+			'cook' : ALL_WITH_RELATIONS,
+			'waiter':ALL_WITH_RELATIONS,
+			'state':ALL,
+        }
+		authentication = Authentication()
+		authorization = Authorization()
+	def dehydrate(self, bundle):
+		order = WaiterOrderDetails.objects.filter(task = bundle.data['id'], state = 2)
+		orders = []
+		for ord in order:
+			orders = list(chain(orders, WaiterOrder.objects.filter(task = ord).values('count', 'dish__name', 'comment', 'level', 'task__id', 'task__state')))
+		bundle.data['orders'] = orders
+		bundle.data['created_at'] = bundle.data['created_at'].strftime("%H:%M")
 		return bundle
 
 class WaiterOrderDetailsResource(ModelResource):
 	task = fields.ForeignKey(OrderResource, 'task',full=True)
 	class Meta:
 		always_return_data = True
+		limit = 0
 		queryset = WaiterOrderDetails.objects.all()
 		resource_name = 'waiterorderdetails'
 		allowed_methods = ['get','put', 'post', 'delete']
@@ -154,6 +228,7 @@ class WaiterCookResource(ModelResource):
 	task = fields.ForeignKey(WaiterOrderDetailsResource, 'task',full=True)
 	class Meta:
 		always_return_data = True
+		limit = 0
 		queryset = WaiterOrder.objects.all()
 		resource_name = 'waiterorders'
 		allowed_methods = ['get','put', 'post', 'delete']
