@@ -1,14 +1,14 @@
 from django.db import models
-from datetime import datetime  
-import json
 from django.contrib.auth.models import User
-from django.dispatch import receiver
-from django.db.models.signals import post_save
+
 from django.core.validators import RegexValidator
 
 class Currency(models.Model):
 	name = models.CharField(max_length=50, unique = True)
+	ab = models.CharField(max_length=10, unique = True)
 	value = models.DecimalField(decimal_places=2,max_digits=5)
+class Language(models.Model):
+	name = models.CharField(max_length=50, validators=[RegexValidator(regex='^[a-zA-Z]*$', message='Category name must be Alphanumeric', code='invalid_category_name' ),], unique = True)
 
 class Category(models.Model):
 	category_name = models.CharField(max_length=50, validators=[RegexValidator(regex='^[a-zA-Z]*$', message='Category name must be Alphanumeric', code='invalid_category_name' ),])
@@ -44,7 +44,7 @@ class Employee(models.Model):
 	restaurant = models.ForeignKey(RestaurantDetail, null = True)
 	active = models.CharField(max_length=1, choices=activities, default = '0')
 
-class LoginLog(models.Model):	
+class LoginLog(models.Model):
 	statuses = (
 		('0', 'offline'),
 		('1', 'notactive'),
@@ -52,7 +52,7 @@ class LoginLog(models.Model):
 	)
 	employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
 	time = models.DateTimeField(auto_now_add=True)
-	status = models.CharField(max_length=1, choices=statuses)	
+	status = models.CharField(max_length=1, choices=statuses)
 
 class Product(models.Model):
 	avs = (
@@ -78,7 +78,21 @@ class Dish(models.Model):
 	tax = models.DecimalField(decimal_places=2,max_digits=4)
 	products = models.ManyToManyField(Product)
 	description = models.CharField(max_length=300, null = True)
-	
+
+class DishTranslation(models.Model):
+	dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
+	lang = models.ForeignKey(Language, on_delete=models.CASCADE)
+	name = models.CharField(max_length=50, unique = True, default = "...")
+	description = models.CharField(max_length=300, default = "...")
+class ProductTranslation(models.Model):
+	product = models.ForeignKey(Product, on_delete=models.CASCADE)
+	lang = models.ForeignKey(Language, on_delete=models.CASCADE)
+	name = models.CharField(max_length=50, unique = True, default = "...")
+class CategoryTranslation(models.Model):
+	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+	lang = models.ForeignKey(Language, on_delete=models.CASCADE)
+	name = models.CharField(max_length=50, unique = True, default = "...")
+
 class WaiterTask(models.Model):
 	STATES = (
 		('0', 'started'),
@@ -101,23 +115,23 @@ class WaiterOrderDetails(models.Model):
 		('1', 'ready'),
 		('2', 'done'),
 	)
-	state = models.CharField(max_length=1, choices=STATES, default = '0')	
+	state = models.CharField(max_length=1, choices=STATES, default = '0')
 	level = models.DecimalField(decimal_places=0,max_digits=2)
 	task = models.ForeignKey(WaiterTask)
 	created_at = models.DateTimeField(auto_now_add=True)
-	
+
 class WaiterOrder(models.Model):
 	dish = models.ForeignKey(Dish)
 	task = models.ForeignKey(WaiterOrderDetails)
 	count = models.DecimalField(decimal_places=0,max_digits=2)
 	price = models.DecimalField(decimal_places=2,max_digits=5, null = True)
-	price_default = models.DecimalField(decimal_places=2,max_digits=5, null = True)	
+	price_default = models.DecimalField(decimal_places=2,max_digits=5, null = True)
 	comment = models.CharField(max_length=300, null = True)
 	level = models.DecimalField(decimal_places=0,max_digits=2)
 	created_at = models.DateTimeField(auto_now_add=True)
 
 
-	
+
 
 class CookTask(models.Model):
 	PRIORITIES = (
@@ -139,35 +153,33 @@ class CookTask(models.Model):
 
 class CookOrder(models.Model):
 	product = models.ForeignKey(Product, related_name='product')
-	count = models.DecimalField(decimal_places=0,max_digits=2)	
+	count = models.DecimalField(decimal_places=0,max_digits=2)
 	created_at = models.DateTimeField(auto_now_add=True)
 	task = models.ForeignKey(CookTask, related_name='task')
 	def __str__(self):
-		return str(self.product.name) + ", " + self.count + ", " + self.created_at 
-    
+		return str(self.product.name) + ", " + self.count + ", " + self.created_at
+
 
 class DishPrice(models.Model):
 	dish = models.ForeignKey(Dish)
 	currency = models.ForeignKey(Currency)
 	price = models.DecimalField(decimal_places=2,max_digits=5)
-	
-	
 
-	
-def get_restaurant_current_currency(self): 
+
+
+
+def get_restaurant_current_currency(self):
 	return RestaurantDetail.objects.all().first().default_currency.name
-User.add_to_class("get_restaurant_current_currency",get_restaurant_current_currency)	
+User.add_to_class("get_restaurant_current_currency",get_restaurant_current_currency)
 
 def get_restaurant_name(self):
 	return RestaurantDetail.objects.all().first().name
-User.add_to_class("get_restaurant_name",get_restaurant_name)	
+User.add_to_class("get_restaurant_name",get_restaurant_name)
 
 from django.utils.html import format_html
-import django_tables2 as tables
-from django.utils.translation import gettext_lazy as _
 
 def renderEdit(value):
 	return format_html('<img class="edit" src="/static/img/edit-icon.png" />',value)
-	
+
 
 
