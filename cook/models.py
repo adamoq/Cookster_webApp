@@ -5,7 +5,7 @@ from django.core.validators import RegexValidator
 
 class Currency(models.Model):
 	name = models.CharField(max_length=50, unique = True)
-	ab = models.CharField(max_length=10, unique = True)
+	ab = models.CharField(max_length=10, null = True)
 	value = models.DecimalField(decimal_places=2,max_digits=5)
 class Language(models.Model):
 	name = models.CharField(max_length=50, validators=[RegexValidator(regex='^[a-zA-Z]*$', message='Category name must be Alphanumeric', code='invalid_category_name' ),], unique = True)
@@ -77,21 +77,23 @@ class Dish(models.Model):
 	price = models.DecimalField(decimal_places=2,max_digits=5)
 	tax = models.DecimalField(decimal_places=2,max_digits=4)
 	products = models.ManyToManyField(Product)
-	description = models.CharField(max_length=300, null = True)
+	description = models.CharField(max_length=300, default = "...")
+	def __str__(self):
+		return str(self.name)
 
 class DishTranslation(models.Model):
 	dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
 	lang = models.ForeignKey(Language, on_delete=models.CASCADE)
-	name = models.CharField(max_length=50, unique = True, default = "...")
+	name = models.CharField(max_length=50, default = "...")
 	description = models.CharField(max_length=300, default = "...")
 class ProductTranslation(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
 	lang = models.ForeignKey(Language, on_delete=models.CASCADE)
-	name = models.CharField(max_length=50, unique = True, default = "...")
+	name = models.CharField(max_length=50, default = "...")
 class CategoryTranslation(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
 	lang = models.ForeignKey(Language, on_delete=models.CASCADE)
-	name = models.CharField(max_length=50, unique = True, default = "...")
+	name = models.CharField(max_length=50, default = "...")
 
 class WaiterTask(models.Model):
 	STATES = (

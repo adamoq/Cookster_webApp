@@ -1,12 +1,33 @@
 from tastypie.resources import ModelResource
 import datetime
 from datetime import timedelta
-from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, WaiterOrder, Currency, WaiterOrderDetails
+from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, WaiterOrder, Currency, WaiterOrderDetails, DishTranslation
+from cook.models import DishPrice, ProductTranslation, CategoryTranslation
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from itertools import chain
+
+
+
+class DishPriceResource(ModelResource):
+	class Meta:
+		queryset = DishPrice.objects.all()
+		resource_name = 'dishprice'
+		authentication = Authentication()
+		authorization = Authorization()
+		allowed_methods = ['get','put', 'post', 'delete']
+class LanguageResource(ModelResource):
+	class Meta:
+		queryset = DishTranslation.objects.all()
+		resource_name = 'lang'
+		authentication = Authentication()
+		authorization = Authorization()
+		allowed_methods = ['get','put', 'post', 'delete']
+
+		
+
 class CategoryResource(ModelResource):
 	class Meta:
 		queryset = Category.objects.all().order_by("order")
@@ -35,6 +56,10 @@ class DishResource(ModelResource):
 		filtering = {
             'av': ALL_WITH_RELATIONS,
         }
+	def dehydrate(self, bundle):
+		bundle.data['trans'] = list(chain(DishTranslation.objects.filter(dish = bundle.data['id']).values('name', 'description', 'lang__name', )))
+		bundle.data['currencies'] = list(chain(DishPrice.objects.filter(dish = bundle.data['id']).values('price', 'currency__id', )))
+		return bundle
 
 class EmployeeResource(ModelResource):
 	class Meta:
@@ -234,3 +259,30 @@ class WaiterCookResource(ModelResource):
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
+class DishTranslationResource(ModelResource):
+	lang = fields.ForeignKey(LanguageResource, 'lang',full=True)
+	dish = fields.ForeignKey(DishResource, 'dish',full=True)
+	class Meta:
+		queryset = DishTranslation.objects.all()
+		resource_name = 'dishtranslation'
+		authentication = Authentication()
+		authorization = Authorization()
+		allowed_methods = ['get','put', 'post', 'delete']
+class ProductranslationResource(ModelResource):
+	lang = fields.ForeignKey(LanguageResource, 'lang',full=True)
+	product = fields.ForeignKey(ProductResource, 'product',full=True)
+	class Meta:
+		queryset = ProductTranslation.objects.all()
+		resource_name = 'producttranslation'
+		authentication = Authentication()
+		authorization = Authorization()
+		allowed_methods = ['get','put', 'post', 'delete']
+class CategoryTranslationResource(ModelResource):
+	lang = fields.ForeignKey(LanguageResource, 'lang',full=True)
+	category = fields.ForeignKey(CategoryResource, 'category',full=True)
+	class Meta:
+		queryset = DishTranslation.objects.all()
+		resource_name = 'categorytranslation'
+		authentication = Authentication()
+		authorization = Authorization()
+		allowed_methods = ['get','put', 'post', 'delete']

@@ -81,7 +81,7 @@
 	$('form.update-form').submit( function(e) {
 		e.preventDefault();
 		var id = $(this).attr('id');
-		if( id.charAt(0) == 'c')
+		if( id.charAt(0) == 'c' || id.charAt(0) == 'p' || id.charAt(0) == 'd')
 			{
 			 id = id.substr(1);
 			}		
@@ -92,6 +92,7 @@
 		
 		var data = objectifyForm($(this).serializeArray())
 		data['id'] = id;
+		delete data['product'];delete data['dish'];
 		data = JSON.stringify(data);
 		console.log('data'+data);
 		

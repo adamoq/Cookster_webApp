@@ -5,16 +5,17 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Dish, Product, Employee, Category, WaiterTask, RestaurantDetail, LoginLog
+from .models import DishTranslation, Language,ProductTranslation, CategoryTranslation, Currency, DishPrice
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django import forms
-from .forms import ProductForm, CategoryForm, DishForm, EmployeeForm
+from .forms import ProductForm, CategoryForm, DishForm, EmployeeForm, ProductTransForm, CategoryTransForm, DishTransForm, LanguageForm, CurrencyForm
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
-from cook.tables import ProductTable, EmployeeTable, CategoryTable, DishTable
+from cook.tables import ProductTable, EmployeeTable, CategoryTable, DishTable,  ProductTransTable, CategoryTransTable, DishTransTable
 from django_tables2   import RequestConfig
 from django.utils.translation import gettext as _
 from random import randint
@@ -162,6 +163,125 @@ def menu(request):
 		'add_text2' :  _('Dodaj danie')
 	}
 	return HttpResponse(template.render(context, request))
+
+@login_required
+@csrf_exempt	
+def currencies(request):
+
+	if request.method == 'POST':
+		categoryform = CurrencyForm(request.POST)
+		if not categoryform.is_valid():
+			showError(request,_('Dane kategorii są niepoprawane.'))
+		else:
+			cur = Currency.objects.create(name=categoryform.cleaned_data['name'],value=categoryform.cleaned_data['value'],ab=categoryform.cleaned_data['ab'])			
+			cur.save()
+			value = cur.value
+			for object in Dish.objects.all():
+				trans = DishPrice.objects.create(dish_id = object.id, currency_id = cur.id, price =  object.price/value)
+	template = loader.get_template('currencies.html')
+	
+	map = {}
+	forms = {}
+	currency = RestaurantDetail.objects.all().first().default_currency.name
+	currency = Currency.objects.get(pk = request.GET.get('d')).name
+	for category in Category.objects.all().order_by('order'):
+		list = []
+		list.append(Category.objects.get(pk = category.id))
+
+		#table.columns.price = "zł"
+		map[CategoryTable(list, currency)] = DishTable(Dish.objects.filter(category = category), currency) 
+		forms["c"+str(category.id)]=CategoryForm(instance=category)
+		
+
+	context = {
+		'categoryList': map,#Category.objects.all(),
+		'form':CurrencyForm(),
+		'update_forms':forms,
+		'data_target' : 'api/category/',
+		'edit_text' : "Edytuj Kategorię",
+		'add_text' :  _('Dodaj kategorię'),
+		'formText': _('Dodaj kategorię'),#Category.objects.all(),
+		
+		'form2':DishForm(),
+		'add_text2' :  _('Dodaj danie')
+	}
+	return HttpResponse(template.render(context, request))
+
+
+
+
+@login_required
+@csrf_exempt	
+def trans(request):
+
+	if request.method == 'PUT':
+		try:
+			dishform = DishTranslation(request.POST)
+			if dishform.is_valid():
+				dishform.save()
+			 
+		except (IntegrityError,Error):
+			pass
+			
+	
+	elif request.method == 'PUT':
+		showError(request,_('Dane są niepoprawane.'))
+	elif request.method == 'POST':
+		langform = LanguageForm(request.POST)
+		if not langform.is_valid():
+			showError(request,_('Dane kategorii są niepoprawane.'))
+		else:
+			try:
+				language = Language.objects.create(name=langform.cleaned_data['name'])
+				language.save()
+				for object in Dish.objects.all().values_list('id', flat=True):
+					trans = DishTranslation.objects.create(dish_id = object, lang_id = language.id)
+					trans.save()
+				for object in Product.objects.all().values_list('id', flat=True):
+					trans = ProductTranslation.objects.create(product_id = object, lang_id = language.id)
+					trans.save()
+				for object in Category.objects.all().values_list('id', flat=True):
+					trans = CategoryTranslation.objects.create(category_id = object, lang_id = language.id)
+					trans.save()
+			except (IntegrityError,Error):
+				showError(request,_('Dane kategorii są niepoprawane.'))
+			
+	template = loader.get_template('translations.html')
+	
+	map = {}
+	forms = {}
+	forms2 = {}
+	currency = RestaurantDetail.objects.all().first().default_currency.name
+	for lang in Language.objects.all():
+		map[DishTransTable(DishTranslation.objects.filter(lang_id = lang.id).order_by('name'))] = ProductTransTable(ProductTranslation.objects.filter(lang_id = lang.id).order_by('name'))
+		for object in DishTranslation.objects.filter(lang_id = lang.id).order_by('name'): 
+			forms["d"+str(object.id)]=DishTransForm(instance=object)
+		for object in ProductTranslation.objects.filter(lang_id = lang.id).order_by('name'): 
+			forms2["p"+str(object.id)]=ProductTransForm(instance=object)
+		
+
+	context = {
+		'categoryList': map,#Category.objects.all(),
+		'form':LanguageForm(),
+		'update_forms':forms,
+		'data_target' : 'api/dishtranslation/',
+		'edit_text' : "Edytuj Kategorię",
+		'update_forms2':forms2,
+		'data_target2' : 'api/producttranslation/',
+		'add_text' :  _('Dodaj kategorię'),
+		'formText': _('Dodaj kategorię'),#Category.objects.all(),
+		
+		'form2':DishForm(),
+		'add_text2' :  _('Dodaj danie')
+	}
+	return HttpResponse(template.render(context, request))
+	
+	
+	
+	
+	
+	
+	
 @login_required
 @csrf_exempt		
 def category(request):
@@ -327,6 +447,8 @@ def changeproduct(request):
 						
 					return HttpResponse(serializers.serialize("json", dishes))
 	return HttpResponse("False")	
+
+
 	
 def product_chart(request):
 	template = loader.get_template('charts/chart.html')
