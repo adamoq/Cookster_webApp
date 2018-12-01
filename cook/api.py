@@ -1,8 +1,8 @@
-from tastypie.resources import ModelResource
+from datetime import timedelta, date
 import datetime
-from datetime import timedelta
+
 from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, WaiterOrder, Currency, WaiterOrderDetails, DishTranslation
-from cook.models import DishPrice, ProductTranslation, CategoryTranslation
+from cook.models import DishPrice, ProductTranslation, CategoryTranslation, Language
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
@@ -20,13 +20,13 @@ class DishPriceResource(ModelResource):
 		allowed_methods = ['get','put', 'post', 'delete']
 class LanguageResource(ModelResource):
 	class Meta:
-		queryset = DishTranslation.objects.all()
+		queryset = Language.objects.all()
 		resource_name = 'lang'
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
 
-		
+
 
 class CategoryResource(ModelResource):
 	class Meta:

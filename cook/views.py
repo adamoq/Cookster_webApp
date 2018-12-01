@@ -1,26 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Dish, Product, Employee, Category, WaiterTask, RestaurantDetail, LoginLog
 from .models import DishTranslation, Language,ProductTranslation, CategoryTranslation, Currency, DishPrice
 from django.template import loader
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
-from django import forms
 from .forms import ProductForm, CategoryForm, DishForm, EmployeeForm, ProductTransForm, CategoryTransForm, DishTransForm, LanguageForm, CurrencyForm
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from cook.tables import ProductTable, EmployeeTable, CategoryTable, DishTable,  ProductTransTable, CategoryTransTable, DishTransTable
 from django_tables2   import RequestConfig
 from django.utils.translation import gettext as _
-from random import randint
-from django.views.generic import TemplateView
-from chartjs.views.lines import BaseLineChartView
+
 
 def main(request):
 	if request.user.is_authenticated():
