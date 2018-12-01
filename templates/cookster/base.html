@@ -32,16 +32,16 @@
 <div class = "nav-bar left">
 <div class = "nav-logo">
 <img src="{% static 'img/cookster-logo.png' %}">
-</div> 
+</div>
 	<ul>
 		<a href="{% url 'menu' %}"><li><img src="{% static 'img/menu-icon.png' %}"><p>{% blocktrans %}Dania{% endblocktrans %}</p></li></a>
 		<a href="{% url 'employers' %}"><li><img src="{% static 'img/workers-icon.png' %}"><p>{% blocktrans %} Pracownicy{% endblocktrans %}</p></li></a>
 		<a href="{% url 'products' %}"><li><img src="{% static 'img/products-icon.png' %}"><p>{% blocktrans %}Produkty{% endblocktrans %}</p></li></a>
 		<a href="{% url 'administration' %}"><li><img src="{% static 'img/administration-icon.png' %}"><p>{% blocktrans %}Administracja{% endblocktrans %}</p></li></a>
 		<a href="{% url 'orders' %}"><li><img src="{% static 'img/orders-icon.png' %}"><p>{% blocktrans %}Zamówienia{% endblocktrans %}</p></li></a>
-		
+
 	</ul>
-	
+
 </div>
 <div class = "content">
 <div class="bar">
@@ -54,6 +54,10 @@
 	<div class="bar-add bar-item" data-toggle="modal" data-target="#cookmodal"><img src="{% static 'img/svg-icos/add.svg' %}">{{ add_text }}
 	</div>
 	 {% endif %}
+	 {% if data_target2 %}
+	 <div class="bar-add bar-item" data-toggle="modal" data-target="#cookmodal2"><img src="{% static 'img/svg-icos/add.svg' %}">{{ add_text2 }}
+	</div>
+	{% endif %}
 	<a href="/logout" class="bar-logout bar-item"><img src="{% static 'img/svg-icos/logout.svg' %}">{% blocktrans %}Wyloguj sie{% endblocktrans %}
 	</a>
 </div>
@@ -68,7 +72,7 @@
 </div>
  {% if form %}
  <div class="modal fade" id="cookmodal" role="dialog">
-    <div class="modal-dialog">    
+    <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -77,10 +81,10 @@
         </div>
 		<form method="POST">{% csrf_token %}
         <div class="modal-body">
-                  
+
         {{ form.as_p }}
-        
-   
+
+
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-default">{% blocktrans %}Zapisz{% endblocktrans %}</button>
@@ -88,12 +92,38 @@
         </div>
 		 </form>
       </div>
-      
+
+    </div>
+  </div>
+ {% endif %}
+  {% if form2 %}
+ <div class="modal fade" id="cookmodal2" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{ formText }}</h4>
+        </div>
+		<form method="POST" data-target="{{data_target2}}">{% csrf_token %}
+        <div class="modal-body">
+
+        {{ form2.as_p }}
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default">{% blocktrans %}Zapisz{% endblocktrans %}</button>
+		  <button type="button" class="btn btn-default" data-dismiss="modal">{% blocktrans %}Back{% endblocktrans %}</button>
+        </div>
+		 </form>
+      </div>
+
     </div>
   </div>
  {% endif %}
   {% if update_forms and edit_text %}
-{% for  id, form in update_forms.items  %} 
+{% for  id, form in update_forms.items  %}
  <div class="modal fade modal{{id}}" role="dialog">
     <div class="modal-dialog">
 		<div class="modal-content">
@@ -103,27 +133,27 @@
         </div>
 	<form method="PUT" data-target="{{data_target}}" class="update-form" id = "{{ id }}">
         <div class="modal-body">
-         
+
 		{{form.as_p}}
-		
-  
+
+
         </div>
         <div class="modal-footer">
 		  <button type="submit" class="btn btn-default">{% blocktrans %}Zaktualizuj{% endblocktrans %}</button>
 		  <button type="button" data-target="{{data_target}}" class="btn btn-default button-remove" id = {{id}}>{% blocktrans %}Usuń{% endblocktrans %}</button>
-          <button type="button" data-dismiss="modal" class="btn btn-default modal-close" id = {{id}}>{% blocktrans %}Wróć{% endblocktrans %}</button>		  
+          <button type="button" data-dismiss="modal" class="btn btn-default modal-close" id = {{id}}>{% blocktrans %}Wróć{% endblocktrans %}</button>
         </div>
 	 </form>
       </div>
-      
+
     </div>
   </div>
-    
+
 
 {% endfor %}
 {% endif %}
 {% if update_forms2 and edit_text and data_target2 %}
-{% for  id, form in update_forms2.items  %} 
+{% for  id, form in update_forms2.items  %}
  <div class="modal fade modal{{id}}" role="dialog">
     <div class="modal-dialog">
 		<div class="modal-content">
@@ -133,28 +163,28 @@
         </div>
 	<form method="PUT" data-target="{{data_target2}}" class="update-form" id = "{{ id }}">
         <div class="modal-body">
-         
+
 		{{form.as_p}}
-		
-  
+
+
         </div>
         <div class="modal-footer">
 		  <button type="submit" class="btn btn-default">{% blocktrans %}Zaktualizuj{% endblocktrans %}</button>
 		  <button type="button" data-target="{{data_target2}}" class="btn btn-default button-remove" id = {{id}}>{% blocktrans %}Usuń{% endblocktrans %}</button>
-          <button type="button" data-dismiss="modal" class="btn btn-default modal-close" id = {{id}}>{% blocktrans %}Wróć{% endblocktrans %}</button>		  
+          <button type="button" data-dismiss="modal" class="btn btn-default modal-close" id = {{id}}>{% blocktrans %}Wróć{% endblocktrans %}</button>
         </div>
 	 </form>
       </div>
-      
+
     </div>
-  </div>    
+  </div>
 {% endfor %}
  {% endif %}
 
 <script src="{% static 'js/main.js' %}"></script>
 
 </body>
-<script> 
+<script>
 (function() {
     $("#overlay").toggleClass('hidden');
 })(jQuery)
