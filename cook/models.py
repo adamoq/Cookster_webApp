@@ -8,7 +8,7 @@ class Currency(models.Model):
 	ab = models.CharField(max_length=10, null = True)
 	value = models.DecimalField(decimal_places=2,max_digits=5)
 class Language(models.Model):
-	name = models.CharField(max_length=50, validators=[RegexValidator(regex='^[a-zA-Z]*$', message='Category name must be Alphanumeric', code='invalid_category_name' ),], unique = True)
+	name = models.CharField(max_length=50, unique = True)
 
 class Category(models.Model):
 	category_name = models.CharField(max_length=50, validators=[RegexValidator(regex='^[a-zA-Z]*$', message='Category name must be Alphanumeric', code='invalid_category_name' ),])
@@ -18,6 +18,7 @@ class RestaurantDetail(models.Model):
 	name = models.CharField(max_length=50, unique = True)
 	users = models.OneToOneField(User, null = True)
 	default_currency = models.OneToOneField(Currency)
+	default_lang = models.OneToOneField(Language)
 
 class Employee(models.Model):
 	POSITIONS = (
