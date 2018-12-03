@@ -73,11 +73,32 @@
         return returnArray;
     }
 
-    $("form input.not-active").on('click', function() {
-        $(this).removeClass('not-active');
-    })
+
 	
 	//FORMULARZE!!!!!!!!!!
+		$('form.form2').submit( function(e) {
+		e.preventDefault();
+		var url;
+		if (typeof $(this).attr('data-target') !== 'undefined' ) url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target');
+
+		
+		var data = objectifyForm($(this).serializeArray())
+
+		data = JSON.stringify(data);
+		console.log('data'+data);
+		
+		console.log(id);
+		$.ajax({
+			url:url,
+			type: 'POST',
+			contentType: 'application/json',
+			data: data,
+			success: function() {
+					location.reload();
+				}
+			})
+	});
+	
 	$('form.update-form').submit( function(e) {
 		e.preventDefault();
 		var id = $(this).attr('id');
