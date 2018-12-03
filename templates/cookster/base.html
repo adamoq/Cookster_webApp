@@ -79,7 +79,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">{{ formText }}</h4>
         </div>
-		<form method="POST">{% csrf_token %}
+		<form method="POST" data-target="{{data_target}}">{% csrf_token %}
         <div class="modal-body">
 
         {{ form.as_p }}
@@ -103,9 +103,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">{{ formText }}</h4>
+          <h4 class="modal-title">{{ formText2 }}</h4>
         </div>
-		<form method="POST" data-target="{{data_target2}}">{% csrf_token %}
+		<form method="POST" class="form2" data-target="{{data_target2}}">{% csrf_token %}
         <div class="modal-body">
 
         {{ form2.as_p }}

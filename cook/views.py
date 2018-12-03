@@ -130,7 +130,8 @@ def menu(request):
 		if not categoryform.is_valid():
 			showError(request,_('Dane kategorii są niepoprawane.'))
 		else:
-			Category.objects.create(category_name=categoryform.cleaned_data['category_name'],order=categoryform.cleaned_data['order'])
+			categoryform.save()
+			#Category.objects.create(category_name=categoryform.cleaned_data['category_name'],order=categoryform.cleaned_data['order'])
 	template = loader.get_template('menu.html')
 
 	map = {}
