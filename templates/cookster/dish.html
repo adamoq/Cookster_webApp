@@ -14,7 +14,9 @@
  {% if dish %}
   <form class="dish-form" alt="Użyj przycisku CTRL" method="POST">{% csrf_token %}
         {{ dish.as_p }}
+		{% if dishId %}
 		<input type="text" class="hidden" name = "id" value = "{{dishId}}" >
+		{% endif %}
         <button type="submit" class="save btn btn-default">{% blocktrans %} zapisz {% endblocktrans %}</button>
     </form>
 {% endif %}

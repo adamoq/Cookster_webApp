@@ -38,6 +38,7 @@ class CategoryResource(ModelResource):
 
 class ProductResource(ModelResource):
 	class Meta:
+		limit = 0
 		queryset = Product.objects.all().order_by('name')
 		resource_name = 'products'
 		authentication = Authentication()
@@ -145,7 +146,7 @@ class OrderResourceGet(ModelResource):
 	class Meta:
 		always_return_data = True
 		limit = 0
-		today_min = datetime.date.today() + datetime.timedelta(days = 1)
+		today_min = datetime.date.today() + datetime.timedelta(days = 2)
 		today_minm = datetime.datetime.now() - datetime.timedelta(days = 1)
 		today_mind = datetime.date.today().strftime("%d")
 		queryset = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0)

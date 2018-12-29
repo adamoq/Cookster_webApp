@@ -153,10 +153,10 @@ def menu(request):
 		'data_target' : 'api/category/',
 		'edit_text' : "Edytuj Kategorię",
 		'add_text' :  _('Dodaj kategorię'),
-		'formText': _('Dodaj kategorię'),#Category.objects.all(),
-		'data_target2' : 'api/resdishes/',
-		'form2':DishForm(),
-		'add_text2' :  _('Dodaj danie')
+		'formText': _('Dodaj kategorię'),#Category.objects.all(),,
+		'add_text2' :  _('Dodaj danie'),
+		'data_target2' :  "/dish",
+
 	}
 	return HttpResponse(template.render(context, request))
 
@@ -309,24 +309,35 @@ def category(request):
 @csrf_exempt
 def dish(request):
 	template = loader.get_template('dish.html')
-
+	dish = None
+	if request.GET.get('d'): 
+		dish = Dish.objects.get(pk = request.GET.get('d'))
 	if request.method == 'POST':
-		dishForm = DishForm(request.POST, instance = Dish.objects.get(pk = request.POST.get('id')))
+		if dish: 
+			dishForm = DishForm(request.POST, instance = dish)
+		else: dishForm = DishForm(request.POST)
 		if not dishForm.is_valid():
 			showError(request,_('Dane kategorii są niepoprawane.'))
 		else:
 			dishForm.save()
+			redirect(products)
 		context = {
 			'dish':dishForm,
-			'dishId':request.POST.get('id')
+			'dishId':request.POST.get('id'),
+			'add_text2' :  _('Dodaj danie'),
 		}
+		return HttpResponse(template.render(context, request))
 
-	elif request.method == 'GET':
-		dish = Dish.objects.get(pk = request.GET.get('d'))
-		context = {
-			'dish':DishForm( instance = dish),
-			'dishId':dish.id
+	context = {
+		'add_text2' :  _('Dodaj danie'),
+		'data_target2' :  "/dish",
+		'dish':DishForm()
 		}
+	if dish:
+		context['dish']=DishForm(instance = dish)
+		context['dishId']=dish.id
+	
+
 
 	return HttpResponse(template.render(context, request))
 @login_required
@@ -359,6 +370,8 @@ def login_user(request):
 def showError(request, errorText):
 	template = loader.get_template('error.html')
 	HttpResponse(template.render({'errorText':errorText}, request))
+
+from django.db import transaction
 def login_mobile(request):
 	if request.method == 'GET':
 		login = request.GET.get('login')
@@ -369,8 +382,10 @@ def login_mobile(request):
 				return HttpResponse("False")
 			else:
 				if user[0].password == password:
-					user.status = '2';
-					return HttpResponse(serializers.serialize("json", user))
+					user.update(status = "2")
+					LoginLog.objects.create(employee=user.first(),status="2")
+				
+					return HttpResponse(serializers.serialize("json", [user[0], RestaurantDetail.objects.first()]))
 	return HttpResponse("False")
 
 
@@ -379,10 +394,10 @@ def login_mobile_status(request):
 		login = request.GET.get('login')
 		status = request.GET.get('status')
 		if login and status :
-			employee = Employee.objects.all().filter(login = login).first()
+			employee = Employee.objects.all().filter(login = login)
 			if employee is not None:
-				employee.status = status
-				LoginLog.objects.create(employee=employee,status=status)
+				employee.update(status = status)
+				LoginLog.objects.create(employee=employee.first(),status=status)
 				return HttpResponse("True")
 	return HttpResponse("False")
 

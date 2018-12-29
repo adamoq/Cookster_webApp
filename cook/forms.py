@@ -86,8 +86,9 @@ class DishForm(forms.ModelForm):
         }
 	def __init__(self, *args, **kwargs):
 		super(DishForm, self).__init__(*args, **kwargs)
-		self.fields['products'].label_from_instance = lambda obj: "%s" % obj.name		
+		self.fields['products'].label_from_instance = lambda obj: "%s" % obj.name
 		self.fields['category'].label_from_instance = lambda obj: "%s" % obj.category_name
+		self.fields['products'].queryset = Product.objects.all().order_by('name')  # for example
 		
 class EmployeeForm(forms.ModelForm):
 	POSITIONS = (
