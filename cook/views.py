@@ -370,6 +370,8 @@ def login_user(request):
 def showError(request, errorText):
 	template = loader.get_template('error.html')
 	HttpResponse(template.render({'errorText':errorText}, request))
+
+from django.db import transaction
 def login_mobile(request):
 	if request.method == 'GET':
 		login = request.GET.get('login')
@@ -380,9 +382,9 @@ def login_mobile(request):
 				return HttpResponse("False")
 			else:
 				if user[0].password == password:
-					user.status = '2';
-					user[0].save()
-
+					user.update(status = "2")
+					LoginLog.objects.create(employee=user.first(),status="2")
+				
 					return HttpResponse(serializers.serialize("json", [user[0], RestaurantDetail.objects.first()]))
 	return HttpResponse("False")
 
@@ -392,10 +394,10 @@ def login_mobile_status(request):
 		login = request.GET.get('login')
 		status = request.GET.get('status')
 		if login and status :
-			employee = Employee.objects.all().filter(login = login).first()
+			employee = Employee.objects.all().filter(login = login)
 			if employee is not None:
-				employee.status = status
-				LoginLog.objects.create(employee=employee,status=status)
+				employee.update(status = status)
+				LoginLog.objects.create(employee=employee.first(),status=status)
 				return HttpResponse("True")
 	return HttpResponse("False")
 
