@@ -168,6 +168,10 @@ class DishPrice(models.Model):
 	currency = models.ForeignKey(Currency)
 	price = models.DecimalField(decimal_places=2,max_digits=5)
 
+class Notification(models.Model):
+	employee = models.ForeignKey(Employee)
+	title = models.CharField(max_length=300, null = True)
+	desc = models.CharField(max_length=300, null = True)
 
 
 
