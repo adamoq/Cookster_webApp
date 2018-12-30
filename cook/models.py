@@ -169,9 +169,14 @@ class DishPrice(models.Model):
 	price = models.DecimalField(decimal_places=2,max_digits=5)
 
 class Notification(models.Model):
+	activities = (
+		('0', 'active'),
+		('1', 'notactive')
+	)
 	employee = models.ForeignKey(Employee)
 	title = models.CharField(max_length=300, null = True)
 	desc = models.CharField(max_length=300, null = True)
+	active = models.CharField(max_length=1, choices=activities, default = '0')
 
 
 

@@ -3,7 +3,7 @@
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Dish, Product, Employee, Category, WaiterTask, RestaurantDetail, LoginLog
+from .models import Dish, Product, Employee, Category, WaiterTask, RestaurantDetail, LoginLog, Notification
 from .models import DishTranslation, Language,ProductTranslation, CategoryTranslation, Currency, DishPrice
 from django.template import loader
 from django.contrib.auth.decorators import login_required
@@ -401,6 +401,19 @@ def login_mobile_status(request):
 				return HttpResponse("True")
 	return HttpResponse("False")
 
+def checknotif(request):
+	if request.method == 'GET':
+		userid = request.GET.get('id')
+
+		if userid:
+			employee = Employee.objects.all().filter(pk = userid)
+			if employee is not None:
+				notifications = Notification.objects.all().filter( employee = employee, active='0')
+				for notification in notifications:
+					notification.active = '1'
+					notification.save()
+				return HttpResponse(serializers.serialize("json", notifications))
+	return HttpResponse("False")
 
 def resetpassword(request):
 	if request.method == 'GET':
