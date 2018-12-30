@@ -18,7 +18,7 @@ from . import settings
 from django.conf import settings
 from django.conf.urls.static import static
 from cook.views import main, products, administration, employers, menu, orders, login_user, category, dish, orders_waiter, login_mobile
-from cook.views import changepassword,resetpassword,changephone, changeproduct, login_mobile_status, product_chart, trans, currencies
+from cook.views import changepassword,resetpassword,changephone, changeproduct, login_mobile_status, product_chart, trans, currencies, checknotif
 from cook.charts import category_chart_json,category_chart_json2, dish_chart_json,category_chart_json1
 from django.contrib import admin
 from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource, DishPriceResource, LanguageResource
@@ -68,6 +68,7 @@ urlpatterns = [
 	url(r'^reset/password/$', resetpassword),
 	url(r'^mobilereset/phone/$', changephone),
 	url(r'^mobilereset/product/$', changeproduct),
+	url(r'^mobileapi/notif/$', checknotif),
 
 
 	url(r'^menu/raport/$', product_chart, name='product_chart'),
