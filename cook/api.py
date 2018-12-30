@@ -78,16 +78,16 @@ class CookTaskResource(ModelResource):
 	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
 	#orders = fields.ManyToManyField(OrderCookResource, 'cookorders',full=True, null = True)
 
-    def dispatch_list(self, request, **kwargs):
+	def dispatch_list(self, request, **kwargs):
         # TODO: Refactor this
-        if request.method == "POST":
-        	 orders = CookOrder.objects.filter(task = bundle.data['id']).values('count', 'product__name', 'product__unit')
-        	 orderDesc = ""
-        	 for order in orders:
-        	 	orderDesc += order.product__name + " x " + order.count + " " + order.product__unit
-        	Notification.objects.create(employee=bundle.data['cook'], title = "Dostales nowe zamowienie", desc = orderDesc)
-            return super(CookTaskResource, self).dispatch_list(request, **kwargs)
-        return super(CookTaskResource, self).dispatch_list(request, **kwargs)
+		if request.method == "POST":
+			orders = CookOrder.objects.filter(task = bundle.data['id']).values('count', 'product__name', 'product__unit')
+			orderDesc = ""
+			for order in orders:
+				orderDesc += order.product__name + " x " + order.count + " " + order.product__unit
+				Notification.objects.create(employee=bundle.data['cook'], title = "Dostales nowe zamowienie", desc = orderDesc)
+			return super(CookTaskResource, self).dispatch_list(request, **kwargs)
+		return super(CookTaskResource, self).dispatch_list(request, **kwargs)
 
 	class Meta:
 		always_return_data = True
