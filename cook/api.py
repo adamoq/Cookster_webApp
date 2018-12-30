@@ -2,7 +2,7 @@ from datetime import timedelta, date
 import datetime
 
 from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, WaiterOrder, Currency, WaiterOrderDetails, DishTranslation
-from cook.models import DishPrice, ProductTranslation, CategoryTranslation, Language
+from cook.models import DishPrice, ProductTranslation, CategoryTranslation, Language, Notification
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
@@ -78,13 +78,24 @@ class CookTaskResource(ModelResource):
 	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
 	#orders = fields.ManyToManyField(OrderCookResource, 'cookorders',full=True, null = True)
 
+    def dispatch_list(self, request, **kwargs):
+        # TODO: Refactor this
+        if request.method == "POST":
+        	 orders = CookOrder.objects.filter(task = bundle.data['id']).values('count', 'product__name', 'product__unit')
+        	 orderDesc = ""
+        	 for order in orders:
+        	 	orderDesc += order.product__name + " x " + order.count + " " + order.product__unit
+        	Notification.objects.create(employee=bundle.data['cook'], title = "Dostales nowe zamowienie", desc = orderDesc)
+            return super(CookTaskResource, self).dispatch_list(request, **kwargs)
+        return super(CookTaskResource, self).dispatch_list(request, **kwargs)
+
 	class Meta:
 		always_return_data = True
 		limit = 0
 		today_min = datetime.date.today().strftime("%Y")
 		today_minm = datetime.date.today().strftime("%m")
 		today_mind = datetime.date.today().strftime("%d")
-		queryset = CookTask.objects.filter(created_at__year = today_min, created_at__month = today_minm, created_at__day = today_mind)
+		queryset = CookTask.objects.filter(created_at__year = today_min, created_at__month = today_minm)
 
 		resource_name = 'cooktasks'
 		allowed_methods = ['get','put', 'post', 'delete']
