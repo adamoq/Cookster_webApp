@@ -4,6 +4,8 @@
 {% block content %}
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/charts.css' %}">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
 <script>
 (function($){
 	$('.nav-bar.left a:nth-child(2) li').addClass('active');
@@ -28,8 +30,6 @@
  <div class="small-chart">
 <canvas id="small-chart2"></canvas>
 
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-        <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
         <script type="text/javascript">
             $.get('{% url url_json1 %}', function(data) {
 			{% if chart_type %}
@@ -41,8 +41,8 @@
                     type: chart_type , data: data,
 					options: {
 						legend: {
-							display: true,
-							position: 'right',
+							display: false,
+							position: 'bottom',
 							labels: {
 								fontSize: 15,
 								fontFamily: 'Roboto',
@@ -66,8 +66,7 @@
  <div class="small-chart">
 <canvas  id="small-chart3"></canvas>
 
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-        <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+
         <script type="text/javascript">
             $.get('{% url url_json2 %}', function(data) {
 			{% if chart_type %}
@@ -79,8 +78,8 @@
                     type: chart_type , data: data,
 					options: {
 						legend: {
-							display: true,
-							position: 'right',
+							display: false,
+							position: 'bottom',
 							labels: {
 								fontSize: 15,
 								fontFamily: 'Roboto',
@@ -102,8 +101,7 @@
  <div class="small-chart">
 <canvas  id="small-chart4"></canvas>
 
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-        <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+
         <script type="text/javascript">
             $.get('{% url url_json3 %}', function(data) {
 			{% if chart_type %}
@@ -115,11 +113,12 @@
                     type: chart_type , data: data,
 					options: {
 						legend: {
-							display: true,
-							position: 'right',
+							display: false,
+							position: 'bottom',
 							labels: {
 								fontSize: 15,
 								fontFamily: 'Roboto',
+								float: 'left',
 							}
 						},
 						title: {
@@ -141,8 +140,7 @@
  <div class="big-chart">
 <canvas id="big-chart"></canvas>
 
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-        <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+
         <script type="text/javascript">
             $.get('{% url url_json %}', function(data) {
 			{% if chart_type %}
@@ -157,7 +155,7 @@
 						legend: {
 							display: true,
 							backgroundColor: backgroundColors,
-							position: 'right',
+							position: 'bottom',
 							labels: {
 								fontSize: 17,
 								fontFamily: 'Roboto',

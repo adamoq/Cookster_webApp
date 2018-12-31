@@ -6,6 +6,7 @@
 }
 .big-chart {
 	 width:85vw; display: inline-flex;
+	 margin-top: 50px;
 }
 .small-chart {
 	 height:48vh; width:26vw; margin-right: 20px;

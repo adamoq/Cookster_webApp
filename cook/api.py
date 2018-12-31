@@ -78,18 +78,18 @@ class CookTaskResource(ModelResource):
 	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
 	#orders = fields.ManyToManyField(OrderCookResource, 'cookorders',full=True, null = True)
 	def obj_create(self, bundle, **kwargs):
-		orderDesc = "Zamówienie od kelnera"
-		empId = bundle.data.get('provider').rsplit('/')[3]
-		employee = Employee.objects.filter(pk = empId).first()
+
+		employee = Employee.objects.filter(pk = bundle.data.get('cook').rsplit('/')[3]).first()
+		orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
+		employee = Employee.objects.filter(pk = bundle.data.get('provider').rsplit('/')[3]).first()
 		Notification.objects.create(employee=employee, title = "Dostales nowe zamowienie", desc = orderDesc)
 		return super(CookTaskResource, self).obj_create(bundle, **kwargs)
 
 	def obj_update(self, bundle, **kwargs):
-		orders = CookOrder.objects.filter(task = bundle.data['id']).values('count', 'product__name', 'product__unit')
-		orderDesc = ""
-		for order in orders:
-			orderDesc += order.product__name + " x " + order.count + " " + order.product__unit
-		Notification.objects.create(employee=bundle.data['cook'], title = "Dostales nowe zamowienie", desc = orderDesc)
+		employee = Employee.objects.filter(pk = bundle.data.get('cook').rsplit('/')[3]).first()
+		orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
+		employee = Employee.objects.filter(pk = bundle.data.get('provider').rsplit('/')[3]).first()
+		Notification.objects.create(employee=employee, title = "Dostales nowe zamowienie", desc = orderDesc)
 		return super(CookTaskResource, self).obj_update(bundle, **kwargs)
 
 	class Meta:
@@ -143,6 +143,13 @@ class OrderResource(ModelResource):
 	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)
 	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
 	currency = fields.ForeignKey(CurrencyResource, 'currency',full=True)
+	def obj_create(self, bundle, **kwargs):
+
+		employee = Employee.objects.filter(pk = bundle.data.get('waiter').rsplit('/')[3]).first()
+		orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
+		employee = Employee.objects.filter(pk = bundle.data.get('cook').rsplit('/')[3]).first()
+		Notification.objects.create(employee=employee, title = "Dostales nowe zamowienie", desc = orderDesc)
+		return super(OrderResource, self).obj_create(bundle, **kwargs)
 	class Meta:
 		always_return_data = True
 		limit = 0
