@@ -3,11 +3,11 @@ from .models import Category, Product, WaiterOrder
 
 class DishChartJSONView(BaseLineChartView):
 	def get_providers(self):
-		list = []
+		namesList = []
 		for task in WaiterOrder.objects.all():
 			dish = task.dish.name
-			list.append(dish)
-		return list
+			namesList.append(dish)
+		return list(set(namesList))
 
 	def get_labels(self):
 		list = []
@@ -19,42 +19,44 @@ class DishChartJSONView(BaseLineChartView):
 	def get_data(self):
 		"""Return 3 datasets to plot."""
 		
-		list = []
+		namesList = []
+		dishesList = []
 		x = 2
 		map = {}
 		for task in WaiterOrder.objects.all():
 			dish = task.dish.name
 			if dish in map : map[dish] =+ task.count
 			else : map[dish] = task.count
-		for task in WaiterOrder.objects.all():
-			dish = task.dish.name
-			list.append([map[dish],])
-		return list	
+			namesList.append(dish)
+		for task in list(set(namesList)):
+			dishesList.append([map[task],])
+		return dishesList	
 
 class CategoryChartJSONView1(BaseLineChartView):
 
 	def get_labels(self):
-		list = []
+		namesList = []
 		for task in WaiterOrder.objects.all():
 			dish = task.dish.name
-			list.append(dish)
-		return list
+			namesList.append(dish)
+		return list(set(namesList))
 
 
 	def get_data(self):
 		"""Return 3 datasets to plot."""
 		
-		list = []
+		tasklist = []
+		namesList = []
 		x = 2
 		map = {}
 		for task in WaiterOrder.objects.all():
 			dish = task.dish.name
 			if dish in map : map[dish] =+ task.count
 			else : map[dish] = task.count
-		for task in WaiterOrder.objects.all():
-			dish = task.dish.name
-			list.append(map[dish])
-		return [list,]	
+			namesList.append(dish)
+		for task in list(set(namesList)):
+			tasklist.append(map[task])
+		return [tasklist]	
 
 class CategoryChartJSONView(BaseLineChartView):
 
@@ -78,8 +80,7 @@ class CategoryChartJSONView(BaseLineChartView):
 		
 		for category in Category.objects.all():
 			try:
-				el = map[category.category_name]
-				list2.append(el)
+				list2.append(map[category.category_name])
 			except KeyError:
 				list2.append(0)
 		return [list2]		

@@ -145,7 +145,7 @@ class OrderResource(ModelResource):
 	currency = fields.ForeignKey(CurrencyResource, 'currency',full=True)
 	def obj_create(self, bundle, **kwargs):
 
-		employee = Employee.objects.filter(pk = bundle.data.get('provider').rsplit('/')[3]).first()
+		employee = Employee.objects.filter(pk = bundle.data.get('waiter').rsplit('/')[3]).first()
 		orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
 		employee = Employee.objects.filter(pk = bundle.data.get('cook').rsplit('/')[3]).first()
 		Notification.objects.create(employee=employee, title = "Dostales nowe zamowienie", desc = orderDesc)
