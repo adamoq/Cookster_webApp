@@ -48,13 +48,15 @@
 	<div class="bar-name">
 		{{user.restaurant.name}} {{user.get_restaurant_name}} - {{user.get_full_name}}
 	</div>
-	 {% if add_text %}
-	<a class="bar-raport bar-item" href="{% url 'product_chart' %}"><div><img src="{% static 'img/svg-icos/report.svg' %}">{% blocktrans %}Generuj raport{% endblocktrans %}
+	 {% if charturl %}
+	<a class="bar-raport bar-item" href="{{ charturl }}"><div><img src="{% static 'img/svg-icos/report.svg' %}">{% blocktrans %}Generuj raport{% endblocktrans %}
 	</div></a>
+  {% endif %}
+   {% if add_text %}
 	<div class="bar-add bar-item" data-toggle="modal" data-target="#cookmodal"><img src="{% static 'img/svg-icos/add.svg' %}">{{ add_text }}
 	</div>
 	 {% endif %}
-	 {% if data_target2 %}
+	 {% if data_target2 and add_text2 %}
 	 <a href ="{{data_target2}}" class="bar-raport bar-item" data-toggle="modal"><img src="{% static 'img/svg-icos/add.svg' %}">{{ add_text2 }}
 	</a>
 	{% endif %}

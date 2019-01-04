@@ -22,6 +22,7 @@ a:hover{
 }
 .fade.in{
 	display: block;
+	overflow-y: auto;
 	background-color: rgba(0,0,0,.7);
 }
 .content {
@@ -485,70 +486,7 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 .category-container .form-group{
 	width: 200px!important;
 }
-.orders-container {
-	text-align: center;
-}
-.orders-container h2 {
-	font-size: 50px;
-	margin-top: 40px;
-	margin-bottom: 10px;
-}
-.orders-container h3 {
-	width: 33.3%;
-    padding: 0;
-    margin: 20px 0 50px 0;
-    display: inline-block;
-    z-index: 999;
-    position: relative;
-}
-.orders-container .block{
-	width: 80%;
-	margin: 1% 10%;
-	color: #fff;
 
-}
-.orders-container .block img{
-    animation-name: move;
-    animation-duration: 2s;
-	animation-direction: reverse;
-}
-.orders-container .block:hover img{
-	animation-name: move2;
-    animation-duration: 2s;
- }
-.orders-container .block p{
-	display:inline;
-	font-size: 50px; 
-	margin: 0 30px;
-}
-.orders-container a {
-	text-decoration: none;
-}
-.orders-container .block--delivery{
-	background-color: var(--colorAccent1);
-}
-.orders-container .block--orders{
-	background-color: var(--colorAccent5);
-}
-.ordermodal label {
-	width: 170px!important;
-	padding-left: 15px;
-	
-}
-.ordermodal p.dishes-string{
-	width: 55%;
-	display: inline-block;
-    float: left;
-	
-}
-.ordermodal p{
-	text-align: left;
-	
-}
-.modal-footer button.button-remove{
-	background-color: #ff3333;
-	color: #fff;
-}
 /* Standard syntax */
 @keyframes move {
     from {margin: 0;}
@@ -714,22 +652,7 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 .col-sm-12:hover{
 	background-color: white;
 }
-/*ZAMÓWIENIA KUCHARZY*/
 
-.stage{
-	height:80%;
-	background-color: #ddd;
-	margin-top: -40px;
-}
-.stage .col-md-6{
-	padding: 0;
-}
-.stage .order{
-	padding: 10px 0;
-	background-color: #aaa;
-	margin: 5px;
-	border-radius: 5px;
-}
 /*modal*/
 .modal{
 	font-family: 'Roboto'!important;

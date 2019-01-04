@@ -1,6 +1,7 @@
 (function() {
     //szablon
 	
+
     function createCookie(name, value, days) {
         var expires;
 

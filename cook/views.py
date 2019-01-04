@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Dish, Product, Employee, Category, WaiterTask, RestaurantDetail, LoginLog, Notification
 from .models import DishTranslation, Language,ProductTranslation, CategoryTranslation, Currency, DishPrice
+from .models import WaiterOrderDetails, WaiterOrder, CookTask, CookOrder
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
@@ -67,7 +68,8 @@ def products(request):
 			'update_forms': forms,
 			'data_target': 'api/products/',
 			'add_text': _('Add product'),
-			'edit_text': _('Edit product\'s description')
+			'edit_text': _('Edit product\'s description'),
+			'charturl': '/products/raport/'
 		}
 		return HttpResponse(template.render(context, request))
 		#return render(request, 'products.html', context)
@@ -156,6 +158,7 @@ def menu(request):
 		'formText': _('Dodaj kategorię'),#Category.objects.all(),,
 		'add_text2' :  _('Dodaj danie'),
 		'data_target2' :  "/dish",
+		'charturl' : "/menu/raport",
 
 	}
 	return HttpResponse(template.render(context, request))
@@ -320,7 +323,7 @@ def dish(request):
 			showError(request,_('Dane kategorii są niepoprawane.'))
 		else:
 			dishForm.save()
-			redirect(products)
+			return redirect("/menu")
 		context = {
 			'dish':dishForm,
 			'dishId':request.POST.get('id'),
@@ -328,18 +331,14 @@ def dish(request):
 		}
 		return HttpResponse(template.render(context, request))
 
-	context = {
-		'add_text2' :  _('Dodaj danie'),
-		'data_target2' :  "/dish",
-		'dish':DishForm()
-		}
-	if dish:
-		context['dish']=DishForm(instance = dish)
-		context['dishId']=dish.id
-	
 
+	context = {
+		'dish':DishForm(instance = dish),
+	}
 
 	return HttpResponse(template.render(context, request))
+
+
 @login_required
 @csrf_exempt
 def orders(request):
@@ -347,12 +346,73 @@ def orders(request):
 @login_required
 @csrf_exempt
 def orders_waiter(request):
+
 	template = loader.get_template('orders-waiter.html')
-	tasks = WaiterTask.objects.all()
+	waitertasks = WaiterTask.objects.all()
+	tasks = []
+	dishesList = ""
+	currency = RestaurantDetail.objects.all().first().default_currency.ab
+	order_currency = currency
+	for task in waitertasks:
+		status = "0"
+		order_currency = currency
+		if task.currency.ab is not order_currency:
+			order_currency = task.currency.ab
+		for order in WaiterOrderDetails.objects.all().filter(task = task):
+
+			if (status is "0" or "1") and (order.state is "1" or order.state is "2") : status = order.state
+			for orderdetail in WaiterOrder.objects.all().filter(task = order):
+				
+				dishesList += str(orderdetail.count) + " x " + orderdetail.dish.name + " - " + str(orderdetail.price_default) + currency +"\n"
+
+		orderMap = {}
+		orderMap["id"] = task.id
+		orderMap["waiter"] = task.waiter.name + " " + task.waiter.surname
+		orderMap["cook"] = task.cook.name +" "+ task.cook.surname
+		orderMap["price_default"] = str(task.price_default) +" "+ currency
+		orderMap["created_at"] = task.created_at
+		orderMap["dishes"] = dishesList
+		orderMap["state"] = status
+		orderMap["table"] = task.table
+		orderMap["updated_at"] = "task.created_at"
+		orderMap["comment"] = task.comment
+		if order_currency != currency:
+			orderMap["price"] = str(task.price) + " " +order_currency
+		tasks.append(orderMap)
 	context = {
 		'tasks': tasks,
+		'charturl' : "/orders-waiter/raport",
 	}
 	return HttpResponse(template.render(context, request))
+@login_required
+@csrf_exempt
+def orders_cook(request):
+
+	template = loader.get_template('orders-waiter.html')
+	waitertasks = CookTask.objects.all()
+	tasks = []
+	dishesList = ""
+	for task in waitertasks:
+		for order in CookOrder.objects.all().filter(task = task):				
+			dishesList += str(order.count) + " x " + order.product.name + "\n"
+			orderMap = {}
+			orderMap["id"] = task.id
+			orderMap["provider"] = task.provider.name + " " + task.provider.surname
+			orderMap["cook"] = task.cook.name +" "+ task.cook.surname
+			orderMap["created_at"] = task.created_at
+			orderMap["products"] = dishesList
+			orderMap["state"] = task.state
+			orderMap["updated_at"] = "task.created_at"
+			orderMap["comment"] = task.comment
+		tasks.append(orderMap )
+	context = {
+		'tasks': tasks,
+		'charturl' : "/orders-cook/raport",
+	}
+	return HttpResponse(template.render(context, request))
+
+
+
 @csrf_exempt
 def login_user(request):
 	logout(request)
@@ -475,17 +535,76 @@ def changeproduct(request):
 
 
 def product_chart(request):
-	template = loader.get_template('charts/chart.html')
+	template = loader.get_template('charts/menu-chart.html')
 	context = {
-			'url_json':'dish_chart_json',
 			'chart_type':'bar',
-			'url_json1':'category_chart_json1',
-			'url_json2':'category_chart_json',
 			'chart_type2':'doughnut',
-			'url_json3':'category_chart_json2'
+			'url_json':'dish_chart_json',
+			'url_json1':'category_chart_json1',
+			'url_json2':'category_chart_json',			
+			'url_json3':'category_chart_json2',
+			'charttitle' : '"Ilość zamówionych dań"',
+			'charttitle1' : '"Ilość zamówionych dań"',
+			'charttitle2' : '"Ilość zamówionych dań z podziałem na kategorie"',
+			'charttitle3' : '"Wartość zamówień z podziałem na kategorie (w '+RestaurantDetail.objects.all().first().default_currency.name+')"'
 		}
 	return HttpResponse(template.render(context, request))
 
+def cookorders_chart(request):
+	template = loader.get_template('charts/orders-chart.html')
+	context = {
+			'chart_type':'bar',
+			'chart_type2':'doughnut',
+			'url_json':'cookorders_chart_json',
+			'url_json1':'cookorders_chart_json2',
+			'url_json2':'cookorders_chart_json3',			
+			'url_json3':'cookorders_chart_json4',
+			'charttitle' : '"Ilość złożonych zamówień każdego dnia"',
+			'charttitle1' : '"Ilość złożonych zamówień przez kucharzy"',
+			'charttitle2' : '"Ilość zamówień przydzielonych do dostawców"',
+			'charttitle3' : '"Ilość złożonych zamówień przez kucharzy"',
+			'backgroundColors':"['rgba(255, 99, 132, 1)',"+
+			"'rgba(54, 162, 235, 1)',"+
+			"'rgba(255, 206, 86, 1)',"+
+			"'rgba(75, 192, 192, 1)',"+
+			"'rgba(153, 102, 255, 1)',"+
+			"'rgba(255, 159, 64, 1)']"
+			}
+	return HttpResponse(template.render(context, request))
+
+def waiterorders_chart(request):
+	template = loader.get_template('charts/orders-chart.html')
+	context = {
+			'chart_type':'bar',
+			'chart_type2':'doughnut',
+			'url_json':'waiterorders_chart_json',
+			'url_json1':'waiterorders_chart_json2',
+			'url_json2':'waiterorders_chart_json3',			
+			'url_json3':'waiterorders_chart_json4',
+			'charttitle' : '"Ilość złożonych zamówień każdego dnia"',
+			'charttitle1' : '"Ilość złożonych zamówień przez danego kelnera"',
+			'charttitle2' : '"Ilość zamówień przydzielonych do danego kucharza"',
+			'charttitle3' : '"Ilość złożonych zamówień w danym dniu"',
+			'backgroundColors':"['rgba(255, 99, 132, 1)',"+
+			"'rgba(54, 162, 235, 1)',"+
+			"'rgba(255, 206, 86, 1)',"+
+			"'rgba(75, 192, 192, 1)',"+
+			"'rgba(153, 102, 255, 1)',"+
+			"'rgba(255, 159, 64, 1)']"
+			}
+	return HttpResponse(template.render(context, request))
+def products_chart(request):
+	template = loader.get_template('charts/products-chart.html')
+	context = {
+			'chart_type':'bar',
+			'chart_type2':'line',
+			'url_json':'products_chart_json',
+			'url_json1':'products_chart_json2',
+			'charttitle' : '"Ilość złożonych zamówień każdego dnia"',
+			'charttitle1' : '"Ilość złożonych zamówień przez danego kelnera"',
+
+			}
+	return HttpResponse(template.render(context, request))
 def employees_chart(request):
 	template = loader.get_template('charts/twocharts.html')
 	context = {
@@ -493,6 +612,10 @@ def employees_chart(request):
 			'chart_type':'bar',
 			'url_json1':'category_chart_json1',
 			'chart_type2':'bar',
+			'charttitle' : 'Ilość złożonych zamówień każdego dnia',
+			'charttitle1' : 'Ilość złożonych zamówień przez kucharzy',
+			'charttitle2' : 'Ilość zamówień przydzielonych do dostawców',
+			'charttitle3' : 'Ilość złożonych zamówień każdego dnia',
 		}
 	return HttpResponse(template.render(context, request))
 

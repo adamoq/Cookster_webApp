@@ -19,7 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from cook.views import main, products, administration, employers, menu, orders, login_user, category, dish, orders_waiter, login_mobile
 from cook.views import changepassword,resetpassword,changephone, changeproduct, login_mobile_status, product_chart, trans, currencies, checknotif
-from cook.charts import category_chart_json,category_chart_json2, dish_chart_json,category_chart_json1
+from cook.views import orders_cook, cookorders_chart, waiterorders_chart, products_chart
+from cook.charts import category_chart_json,category_chart_json2, dish_chart_json,category_chart_json1, cookorders_chart_json, cookorders_chart_json2, cookorders_chart_json3, cookorders_chart_json4
+from cook.charts import waiterorders_chart_json, waiterorders_chart_json2, waiterorders_chart_json3, waiterorders_chart_json4, products_chart_json, products_chart_json2
 from django.contrib import admin
 from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource, DishPriceResource, LanguageResource
 from cook.api import ProductranslationResource, DishTranslationResource, CategoryTranslationResource, WaiterOrderDetailsResource, WaiterCookResource, OrderResourceGet,OrderResourceGet1,OrderResourceGet2, CurrencyResource
@@ -40,6 +42,7 @@ urlpatterns = [
 	url(r'^trans/$', trans, name = 'trans'),
 	url(r'^orders-waiter/$', orders_waiter),
 	url(r'^orders/$', orders, name = 'orders'),
+	url(r'^orders-cook/$', orders_cook, name = 'orderscook'),
 	url(r'^currencies/$', currencies, name = 'currencies'),
 	url(r'^category/$', category),
 	url(r'^dish/$', dish),
@@ -70,12 +73,30 @@ urlpatterns = [
 	url(r'^mobilereset/product/$', changeproduct),
 	url(r'^mobileapi/notif/$', checknotif),
 
-
+#raporty - menu
 	url(r'^menu/raport/$', product_chart, name='product_chart'),
 	url(r'^products/raport-json/$', dish_chart_json, name='dish_chart_json'),
 	url(r'^category/raport-json/$', category_chart_json, name='category_chart_json'),
 	url(r'^category/raport-json1/$', category_chart_json1, name='category_chart_json1'),
 	url(r'^category/raport-json2/$', category_chart_json2, name='category_chart_json2'),
+#raporty - zamówienia kucharzy
+	url(r'^orders-cook/raport/$', cookorders_chart, name='cookorders_chart'),
+	url(r'^orders-cook/raport-json/$', cookorders_chart_json, name='cookorders_chart_json'),
+	url(r'^orders-cook2/raport-json/$', cookorders_chart_json2, name='cookorders_chart_json2'),
+	url(r'^orders-cook3/raport-json/$', cookorders_chart_json3, name='cookorders_chart_json3'),
+	url(r'^orders-cook4/raport-json/$', cookorders_chart_json4, name='cookorders_chart_json4'),
+
+#raporty - zamówienia kelnerów
+	url(r'^orders-waiter/raport/$', waiterorders_chart, name='waiterorders_chart'),
+	url(r'^orders-waiter/raport-json/$', waiterorders_chart_json, name='waiterorders_chart_json'),
+	url(r'^orders-waiter2/raport-json/$', waiterorders_chart_json2, name='waiterorders_chart_json2'),
+	url(r'^orders-waiter3/raport-json/$', waiterorders_chart_json3, name='waiterorders_chart_json3'),
+	url(r'^orders-waiter4/raport-json/$', waiterorders_chart_json4, name='waiterorders_chart_json4'),
+#raporty - produkty
+	url(r'^products/raport/$', products_chart, name='products_chart'),
+	url(r'^products1/raport-json/$', products_chart_json, name='products_chart_json'),
+	url(r'^products2/raport-json/$', products_chart_json2, name='products_chart_json2'),
+
 
 
 

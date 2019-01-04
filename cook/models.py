@@ -66,6 +66,8 @@ class Product(models.Model):
 	unit = models.CharField(max_length=8)
 	def __str__(self):
 		return str(self.name)
+	class Meta:
+		ordering = ['name']
 
 class Dish(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -81,6 +83,8 @@ class Dish(models.Model):
 	description = models.CharField(max_length=300, default = "...")
 	def __str__(self):
 		return str(self.name)
+	class Meta:
+		ordering = ['name']
 
 class DishTranslation(models.Model):
 	dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
@@ -111,6 +115,7 @@ class WaiterTask(models.Model):
 	comment = models.CharField(max_length=200, null = True)
 	levels = models.DecimalField(decimal_places=0,max_digits=2)
 	created_at = models.DateTimeField(auto_now_add=True)
+	#updated_at = models.DateTimeField(auto_now=True, auto_now_add=True)
 
 class WaiterOrderDetails(models.Model):
 	STATES = (
