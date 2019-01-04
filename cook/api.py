@@ -86,10 +86,10 @@ class CookTaskResource(ModelResource):
 		return super(CookTaskResource, self).obj_create(bundle, **kwargs)
 
 	def obj_update(self, bundle, **kwargs):
-		employee = Employee.objects.filter(pk = bundle.data.get('cook').rsplit('/')[3]).first()
-		orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
 		employee = Employee.objects.filter(pk = bundle.data.get('provider').rsplit('/')[3]).first()
-		Notification.objects.create(employee=employee, title = "Dostales nowe zamowienie", desc = orderDesc)
+		orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
+		employee = Employee.objects.filter(pk = bundle.data.get('cook').rsplit('/')[3]).first()
+		Notification.objects.create(employee=employee, title = "Zmiana statusu zamówienia", desc = orderDesc)
 		return super(CookTaskResource, self).obj_update(bundle, **kwargs)
 
 	class Meta:
@@ -98,7 +98,7 @@ class CookTaskResource(ModelResource):
 		today_min = datetime.date.today().strftime("%Y")
 		today_minm = datetime.date.today().strftime("%m")
 		today_mind = datetime.date.today().strftime("%d")
-		queryset = CookTask.objects.filter(created_at__year = today_min, created_at__month = today_minm)
+		queryset = CookTask.objects.filter(created_at__year = today_min, created_at__month = today_minm, created_at__day = today_mind)
 
 		resource_name = 'cooktasks'
 		allowed_methods = ['get','put', 'post', 'delete']

@@ -7,10 +7,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
 <script>
-(function($){
-	$('.nav-bar.left a:nth-child(2) li').addClass('active');
-	
-   })(jQuery);
+
    var backgroundColors = [
 	'rgba(255, 99, 132, 1)',
 	'rgba(54, 162, 235, 1)',
@@ -26,6 +23,56 @@
  <br>
  
 <div class="raports-container">
+{% autoescape off %}
+	 <div class="big-chart">
+<canvas id="big-chart"></canvas>
+
+
+        <script type="text/javascript">
+            $.get('{% url url_json %}', function(data) {
+			{% if chart_type %}
+			var chart_type = '{{chart_type}}';
+			{% endif%}
+                var ctx = $("#big-chart").get(0).getContext("2d");				
+			
+                new Chart(ctx, {
+                    type: chart_type , data: data,
+					options: {
+						backgroundColor: backgroundColors,
+						legend: {
+							display: false,
+							backgroundColor: backgroundColors,
+							position: 'bottom',
+							labels: {
+								fontSize: 17,
+								fontFamily: 'Roboto',
+							}							
+						},
+						title: {
+							display: true,
+							text: {{charttitle}},
+							fontSize: 19,
+							fontFamily: 'Roboto',
+							fontStyle: 'normal',
+						}
+					}
+                });
+            });
+</script>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
  <div class="small-chart">
 <canvas id="small-chart2"></canvas>
@@ -36,7 +83,9 @@
 			var chart_type = '{{chart_type2}}';
 			{% endif%}
                 var ctx = $("#small-chart2").get(0).getContext("2d");
+                
 				data.datasets[0]['backgroundColor'] = backgroundColors;
+				
                 new Chart(ctx, {
                     type: chart_type , data: data,
 					options: {
@@ -50,7 +99,7 @@
 						},
 						title: {
 							display: true,
-							text: 'Ilość zamówionych dań',
+							text: {{charttitle1}},
 							fontSize: 19,
 							fontFamily: 'Roboto',
 							fontStyle: 'normal',
@@ -65,8 +114,6 @@
 
  <div class="small-chart">
 <canvas  id="small-chart3"></canvas>
-
-
         <script type="text/javascript">
             $.get('{% url url_json2 %}', function(data) {
 			{% if chart_type %}
@@ -87,7 +134,7 @@
 						},
 						title: {
 							display: true,
-							text: 'Ilość zamówionych dań z podziałem na kategorie',
+							text: {{charttitle2}},
 							fontSize: 19,
 							fontFamily: 'Roboto',
 							fontStyle: 'normal',
@@ -100,12 +147,10 @@
 
  <div class="small-chart">
 <canvas  id="small-chart4"></canvas>
-
-
         <script type="text/javascript">
             $.get('{% url url_json3 %}', function(data) {
 			{% if chart_type %}
-			var chart_type = '{{chart_type2}}';
+			var chart_type = 'pie';
 			{% endif%}
                 var ctx = $("#small-chart4").get(0).getContext("2d");				
 				data.datasets[0]['backgroundColor'] = backgroundColors;
@@ -123,47 +168,7 @@
 						},
 						title: {
 							display: true,
-							text: 'Wartość zamówień z podziałem na kategorie (w {{user.get_restaurant_current_currency}})',
-							fontSize: 19,
-							fontFamily: 'Roboto',
-							fontStyle: 'normal',
-						}
-					}
-                });
-            });
-</script>
-</div>
-
-
-
-
- <div class="big-chart">
-<canvas id="big-chart"></canvas>
-
-
-        <script type="text/javascript">
-            $.get('{% url url_json %}', function(data) {
-			{% if chart_type %}
-			var chart_type = '{{chart_type}}';
-			{% endif%}
-                var ctx = $("#big-chart").get(0).getContext("2d");				
-				data.datasets[0]['backgroundColor'] = backgroundColors;
-                new Chart(ctx, {
-                    type: chart_type , data: data,
-					options: {
-						backgroundColor: backgroundColors,
-						legend: {
-							display: true,
-							backgroundColor: backgroundColors,
-							position: 'bottom',
-							labels: {
-								fontSize: 17,
-								fontFamily: 'Roboto',
-							}							
-						},
-						title: {
-							display: true,
-							text: 'Ilość zamówionych dań',
+							text: {{charttitle3}},
 							fontSize: 19,
 							fontFamily: 'Roboto',
 							fontStyle: 'normal',
@@ -176,7 +181,7 @@
 
 
 </div>
-
+{% endautoescape %}
 
 
 </div>

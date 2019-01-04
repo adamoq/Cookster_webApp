@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/orders.css' %}">
 <script>
 (function($){
 	$('.nav-bar.left a:nth-child(5) li').addClass('active');
@@ -50,8 +51,11 @@
 	<div class="col-md-6 orderdrag" id = "{{task.id}}.{{task.state}}" draggable="true" ondragstart="drag(event)" >
 	  <div class="order" id = {{task.id}} > 
 		<p> Zamówienie {{task.id}} </p>
+		{% if task.table2 %}
 		<p> Stół: {{task.table}} </p>
-		<p> Kelner: {{task.waiter.name}} {{task.waiter.surname}}</p>
+		{% endif %}
+		<p> Data: {{task.created_at}} </p>
+		<p> Kucharz: {{task.cook}}</p>
 		
 	  </div>
 	</div>
@@ -67,8 +71,6 @@
 <div class = "col-md-4">
 <div id="stage--step2" class="stage" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 </div>
-{% endif %}
-{%if tasks%}
 {%for task in tasks%}
  <div class="modal fade ordermodal ordermodal{{task.id}}" id="" role="dialog">
     <div class="modal-dialog">
@@ -79,14 +81,31 @@
         </div>
 	
         <div class="modal-body">
-                  
-		<p><label> Kelner: </label> {{task.waiter.name}} {{task.waiter.surname}} </p>
-		<p><label> Data utworzenia: </label> {{task.created_at}} </p>
-		<p><label> Data zmiany statusu: </label> {{task.updated_at}} </p>
-		<p><label> Stół: </label> {{task.table}} </p>
-		<p><label> Status: </label> {{task.state}} </p>
-		<p style = "display: inline-block;float: left;"><label> Dania: </label></p> <p class="dishes-string">{% for dish in task.dishes.all%}{{dish.name}}, {%endfor%}</p>
-		<p style = "display: inline-block;float: left;"><label> Komentarz: </label> </p><p class="dishes-string"> {{task.comment}} </p>
+         {% if task.waiter|length %}
+		<p><label> Kelner </label> {{task.waiter}} </p>
+		{% endif %}   
+		{% if task.provider|length %}
+		<p><label> Dostawca: </label> {{task.provider}} </p>
+		{% endif %}        
+		<p><label> Kucharz </label> {{task.cook}} </p>
+		<p><label> Data utworzenia </label> {{task.created_at}} </p>
+		<p><label> Data zmiany statusu </label> {{task.updated_at}} </p>
+		{% if task.table|length %}
+		<p><label> Stół </label> {{task.table}} </p>
+		{% endif %}		
+		<p><label> Status </label> {{task.state}} </p>
+		{% if task.dishes|length %}
+		<p><label> Dania </label></p><p class="dishesList"><pre>{{task.dishes}}</pre></p>
+		{% endif %}	
+		{% if task.products|length %}
+		<p><label> Produkty </label></p><p class="dishesList"><pre>{{task.products}}</pre></p>
+		{% endif %}			
+		{% if task.price_default|length %}
+		<p><label> Cena </label> {{task.price_default}} </p>
+		{% if task.price|length %}
+		<p><label> Cena zaksięgowana</label> {{task.price}} </p>
+		{% endif %} {% endif %} 
+		<p><label> Komentarz </label>{{task.comment}} </p>
 		        
    
         </div>

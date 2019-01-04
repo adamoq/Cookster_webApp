@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/orders.css' %}">
 <script>
 (function($){
 	$('.nav-bar.left a:nth-child(5) li').addClass('active');
@@ -9,7 +10,7 @@
 
 <div class="orders-container">
 <h2> Wybierz rodzaj zamówień </h2>
-<a href="">
+<a href="/orders-cook">
 <div class="block block--delivery">
 <img src="{% static 'img/delivery-icon.png' %}">
 <p>Zasobowe</p>

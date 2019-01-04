@@ -1,5 +1,96 @@
 /*ZAMÓWIENIA KUCHARZY*/
+
+.stage .col-md-6{
+	padding: 0;
+}
+.stage .order{
+	padding: 10px 0;
+	background-color: #aaa;
+	margin: 5px;
+	border-radius: 5px;
+}
+
 .stage{
-	height:100vh;
-	background-color: #ddd;
+	height: 100vh;
+	margin-top: -40px;
+	background-image: linear-gradient(to bottom, #eee , transparent);
+}
+.dishesList{
+	
+}
+
+pre {
+	text-align: left;
+	font-family: 'Roboto', sans-serif;
+	padding-left: 50px;
+	font-size: 19px;
+	font-weight: 200!important;
+}
+
+.orders-container {
+	text-align: center;
+	overflow-y: auto;
+
+    height: 100vh;
+}
+.orders-container h2 {
+	font-size: 50px;
+	margin-top: 40px;
+	margin-bottom: 10px;
+}
+.orders-container h3 {
+	width: 33.3%;
+    padding: 0;
+    margin: 20px 0 50px 0;
+    display: inline-block;
+    z-index: 999;
+    position: relative;
+}
+.orders-container .block{
+	width: 80%;
+	margin: 1% 10%;
+	color: #fff;
+
+}
+.orders-container .block img{
+    animation-name: move;
+    animation-duration: 2s;
+	animation-direction: reverse;
+}
+.orders-container .block:hover img{
+	animation-name: move2;
+    animation-duration: 2s;
+ }
+.orders-container .block p{
+	display:inline;
+	font-size: 50px; 
+	margin: 0 30px;
+}
+.orders-container a {
+	text-decoration: none;
+}
+.orders-container .block--delivery{
+	background-color: var(--colorAccent1);
+}
+.orders-container .block--orders{
+	background-color: var(--colorAccent5);
+}
+.ordermodal label {
+	width: 170px!important;
+	padding-left: 15px;
+	
+}
+.ordermodal p.dishes-string{
+	width: 55%;
+	display: inline-block;
+    float: left;
+	
+}
+.ordermodal p{
+	text-align: left;
+	
+}
+.modal-footer button.button-remove{
+	background-color: #ff3333;
+	color: #fff;
 }
