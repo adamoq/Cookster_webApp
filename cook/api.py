@@ -49,7 +49,7 @@ class DishResource(ModelResource):
 	category = fields.ForeignKey(CategoryResource, 'category',full=True)
 	products = fields.ManyToManyField(ProductResource, 'products',full=True)
 	class Meta:
-		queryset = Dish.objects.all().order_by("category__order")
+		queryset = Dish.objects.all().order_by("category__order", "name")
 		resource_name = 'resdishes'
 		authentication = Authentication()
 		authorization = Authorization()
@@ -86,9 +86,15 @@ class CookTaskResource(ModelResource):
 		return super(CookTaskResource, self).obj_create(bundle, **kwargs)
 
 	def obj_update(self, bundle, **kwargs):
-		employee = Employee.objects.filter(pk = bundle.data.get('provider').rsplit('/')[3]).first()
+# update an existing row
+		pk = int(kwargs['pk'])
+
+
+		obj = CookTask.objects.filter(pk = pk).first()
+
+		employee = Employee.objects.filter(pk = obj.provider.id).first()
 		orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
-		employee = Employee.objects.filter(pk = bundle.data.get('cook').rsplit('/')[3]).first()
+		employee = Employee.objects.filter(pk = obj.cook.id).first()
 		Notification.objects.create(employee=employee, title = "Zmiana statusu zamówienia", desc = orderDesc)
 		return super(CookTaskResource, self).obj_update(bundle, **kwargs)
 
@@ -98,7 +104,7 @@ class CookTaskResource(ModelResource):
 		today_min = datetime.date.today().strftime("%Y")
 		today_minm = datetime.date.today().strftime("%m")
 		today_mind = datetime.date.today().strftime("%d")
-		queryset = CookTask.objects.filter(created_at__year = today_min, created_at__month = today_minm, created_at__day = today_mind)
+		queryset = CookTask.objects.filter(created_at__year = today_min, created_at__month = today_minm)#, created_at__day = today_mind)
 
 		resource_name = 'cooktasks'
 		allowed_methods = ['get','put', 'post', 'delete']
@@ -110,7 +116,8 @@ class CookTaskResource(ModelResource):
 			'provider':ALL_WITH_RELATIONS
         }
 	def dehydrate(self, bundle):
-		bundle.data['orders'] = CookOrder.objects.filter(task = bundle.data['id']).values('count', 'product__name', 'product__unit')
+		bundle.data['orders'] = list(CookOrder.objects.filter(task = bundle.data['id']).values('count', 'product__name', 'product__unit'))
+		bundle.data['created_at'] = bundle.data['created_at'].strftime("%H:%M")
 		return bundle
 
 
