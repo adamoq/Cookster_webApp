@@ -14,12 +14,16 @@
 <p>Edytuj swoje kategorie, dodawaj nowe, oraz sprawdź jakie dania do nich należą.</p>
   
 
-{% for  category, table in categoryList.items %}
-{%render_table category%}
-{% if table %}
+{% for  language, tables in categoryList.items %}
+{{language}}
+{% if tables %}
+{% for table in tables %}
 {% render_table table %}
+{%endfor%}
 {% endif %}
 
 {%endfor%}
 </div>
+
+
 {% endblock %}

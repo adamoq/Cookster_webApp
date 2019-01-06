@@ -13,6 +13,8 @@ class Language(models.Model):
 class Category(models.Model):
 	category_name = models.CharField(max_length=50, validators=[RegexValidator(regex='^[a-zA-Z]*$', message='Category name must be Alphanumeric', code='invalid_category_name' ),])
 	order = models.DecimalField(decimal_places=0,max_digits=2)
+	def __str__(self):
+		return str(self.category_name)
 
 class RestaurantDetail(models.Model):
 	name = models.CharField(max_length=50, unique = True)

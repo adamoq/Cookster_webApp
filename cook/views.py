@@ -33,21 +33,23 @@ def products(request):
 				showError(request,_('Dane produktu są niepoprawane.'))
 			else:
 				form.save()
-				id = form.cleaned_data['name']
+				id = form.cleaned_data['id']
 				state = form.cleaned_data['av']
-
-				product = Product.objects.all().filter(name = id)
+		
+				product = Product.objects.all().filter(pk2 = id)
+				#product.update(av=state)
 				if product is not None:
-					dishes = Dish.objects.all().filter(products__in = [product])
+					dishes = Dish.objects.all().filter(products = product)
 					if dishes[0]:
-						if state == "0":
+						if state == 'small':
 							dishes.update(av='1')
-						elif state == "1" or state == "2":
+						elif state == '1' or state == '2':
 							dishes.update(av='0')
 							for i in range(len(dishes)):
 								for product in dishes[i].products.all():
 									if product.av == '0':
 										dishes[i].av='1'
+										dishes[i].save()
 										break
 		elif request.method == 'POST':
 			form = ProductForm(request.POST)
@@ -55,6 +57,24 @@ def products(request):
 				showError(request,_('Dane produktu są niepoprawane.'))
 			else:
 				form.save()
+				id = form.cleaned_data['name']
+				state = form.cleaned_data['av']
+		
+				product = Product.objects.all().filter(namea = id)
+				#product.update(av=state)
+				if product is not None:
+					dishes = Dish.objects.all().filter(products = product)
+					if dishes[0]:
+						if state == "small":
+							dishes.update(av='1')
+						elif state == "medium" or state == "large":
+							dishes.update(av='0')
+							for i in range(len(dishes)):
+								for product in dishes[i].products.all():
+									if product.av == '0':
+										dishes[i].av='1'
+										dishes[i].save()
+										break
 		template = loader.get_template('products.html')
 		table = ProductTable(Product.objects.all())
 		RequestConfig(request).configure(table)
@@ -138,7 +158,7 @@ def menu(request):
 
 	map = {}
 	forms = {}
-	currency = RestaurantDetail.objects.all().first().default_currency.name
+	currency = RestaurantDetail.objects.all().first().default_currency.ab
 	for category in Category.objects.all().order_by('order'):
 		list = []
 		list.append(Category.objects.get(pk = category.id))
@@ -252,7 +272,9 @@ def trans(request):
 	forms2 = {}
 	currency = RestaurantDetail.objects.all().first().default_currency.name
 	for lang in Language.objects.all():
-		map[DishTransTable(DishTranslation.objects.filter(lang_id = lang.id).order_by('name'))] = ProductTransTable(ProductTranslation.objects.filter(lang_id = lang.id).order_by('name'))
+		map[lang.name] = [DishTransTable(DishTranslation.objects.filter(lang_id = lang.id).order_by('name')),
+						ProductTransTable(ProductTranslation.objects.filter(lang_id = lang.id).order_by('name')),
+						CategoryTransTable(CategoryTranslation.objects.filter(lang_id = lang.id))]
 		for object in DishTranslation.objects.filter(lang_id = lang.id).order_by('name'):
 			forms["d"+str(object.id)]=DishTransForm(instance=object)
 		for object in ProductTranslation.objects.filter(lang_id = lang.id).order_by('name'):
@@ -262,12 +284,12 @@ def trans(request):
 	context = {
 		'categoryList': map,#Category.objects.all(),
 		'form':LanguageForm(),
+		'add_text' :  _('Dodaj kategorię'),
 		'update_forms':forms,
 		'data_target' : 'api/dishtranslation/',
 		'edit_text' : "Edytuj Kategorię",
 		'update_forms2':forms2,
 		'data_target2' : 'api/producttranslation/',
-		'add_text' :  _('Dodaj kategorię'),
 		'formText': _('Dodaj kategorię'),#Category.objects.all(),
 
 		'form2':DishForm(),
@@ -520,13 +542,14 @@ def changeproduct(request):
 				dishes = Dish.objects.all().filter(products = product)
 				if dishes[0]:
 					if state == "0":
-						dishes.update(av='0')
-					elif state == "1" or state == "2":
 						dishes.update(av='1')
+					elif state == "1" or state == "2":
+						dishes.update(av='0')
 						for i in range(len(dishes)):
 							for product in dishes[i].products.all():
 								if product.av == '0':
-									dishes[i].av='0'
+									dishes[i].av='1'
+									dishes[i].save()
 									break
 
 					return HttpResponse(serializers.serialize("json", dishes))

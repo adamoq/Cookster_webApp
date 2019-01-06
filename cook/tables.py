@@ -45,9 +45,13 @@ class ProductTransTable(tables.Table):
 	def render_id(self, value):
 		return format_html("p"+str(value),value)
 class CategoryTransTable(tables.Table):
-	category = tables.Column( verbose_name='',attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
-	name = tables.Column(verbose_name = _('Name'), attrs={'td': {'class': 'name'},'th': {'class': 'name'}})
-	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
+	category = tables.Column( verbose_name='',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
+	name = tables.Column( verbose_name='',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
+	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})	
+	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'size22'}})
+
+	def render_id(self, value):
+		return format_html("c"+str(value),value)
 
 	def render_edit(self, value):
 		return renderEdit(value)

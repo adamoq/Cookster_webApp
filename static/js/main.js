@@ -73,6 +73,11 @@
         for (var i = 0; i < formArray.length; i++) returnArray[formArray[i]['name']] = formArray[i]['value'];
         return returnArray;
     }
+$('.nav-bar.left a').on('click', function(e) {
+	
+    $("#overlay").toggleClass('hidden');
+
+});
 
 
 	

@@ -1,0 +1,32 @@
+	:root {
+  --grey1: #ddd;
+  --grey2: #bbb;
+
+}
+	body{
+		display: block;
+		position: absolute;
+		top:0;
+		bottom: 0;
+		right: 0;
+		left: 0;    
+		background: -webkit-linear-gradient(var(--grey1), var(--grey2)); /* For Safari 5.1 to 6.0 */
+	    background: -o-linear-gradient(var(--grey1), var(--grey2)); /* For Opera 11.1 to 12.0 */
+	    background: -moz-linear-gradient(var(--grey1), var(--grey2)); /* For Firefox 3.6 to 15 */
+	    background: linear-gradient(var(--grey1), var(--grey2)); /* Standard syntax */
+		text-align: center;
+		z-index: 99;
+	    font-size: 6vh;
+	    padding-top: 4%;
+	    z-index: 99;
+	    font-family: 'Roboto', sans-serif;
+	}
+	img{
+		display: block;
+		margin: 0 auto;
+	}
+	p{
+
+	    font-size: 4vh;
+
+	}
