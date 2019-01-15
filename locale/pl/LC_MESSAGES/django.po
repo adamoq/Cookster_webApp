@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-06 19:29+0200\n"
+"POT-Creation-Date: 2019-01-15 17:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,164 +20,445 @@ msgstr ""
 "%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: .\cook\forms.py:9 .\cook\forms.py:18 .\cook\forms.py:26
-msgid "Nazwa"
-msgstr ""
+#: .\cook\forms.py:7 .\cook\forms.py:90
+msgid "not available"
+msgstr "Nie dostępne"
 
-#: .\cook\forms.py:10 .\cook\tables.py:19
-msgid "Dostępność"
-msgstr ""
+#: .\cook\forms.py:8
+msgid "small"
+msgstr "Niskie"
 
-#: .\cook\forms.py:27 .\templates\cookster\base.html:41
-msgid "Produkty"
-msgstr ""
+#: .\cook\forms.py:9
+msgid "high"
+msgstr "Wysokie"
 
-#: .\cook\forms.py:28
-msgid "Kategoria"
-msgstr ""
-
-#: .\cook\forms.py:29
-msgid "Dostepność"
-msgstr ""
-
-#: .\cook\forms.py:41
-msgid "Imię"
-msgstr ""
-
-#: .\cook\forms.py:42
-msgid "Nazwisko"
-msgstr ""
-
-#: .\cook\forms.py:43
-msgid "Stanowisko"
-msgstr ""
-
-#: .\cook\forms.py:44
-msgid "Login"
-msgstr "Login"
-
-#: .\cook\forms.py:45
-msgid "Hasło"
-msgstr ""
-
-#: .\cook\tables.py:17
-msgid "Id"
-msgstr "ID"
-
-#: .\cook\tables.py:18
-msgid "Name"
+#: .\cook\forms.py:15 .\cook\forms.py:32 .\cook\forms.py:41 .\cook\forms.py:66
+#: .\cook\forms.py:99 .\cook\tables.py:27 .\cook\tables.py:33
+#: .\cook\tables.py:40 .\cook\tables.py:60 .\cook\tables.py:61
+#: .\cook\tables.py:71 .\cook\tables.py:109 .\cook\tables.py:128
+#: .\cook\tables.py:166
+msgid "name"
 msgstr "Nazwa"
 
-#: .\cook\tables.py:20
+#: .\cook\forms.py:16 .\cook\forms.py:101 .\cook\tables.py:127
+#: .\cook\tables.py:165
+msgid "av"
+msgstr "Dostępność"
+
+#: .\cook\forms.py:17
+msgid "unit"
+msgstr "Miara"
+
+#: .\cook\forms.py:25
+msgid "product"
+msgstr "Produkt"
+
+#: .\cook\forms.py:33
+msgid "sequence"
+msgstr "Kolejność"
+
+#: .\cook\forms.py:42
+msgid "ab"
+msgstr "Skrót"
+
+#: .\cook\forms.py:43
+msgid "value"
+msgstr "Wartość"
+
+#: .\cook\forms.py:51 .\cook\forms.py:102 .\cook\tables.py:131
+#: .\cook\tables.py:169 .\templates\cookster\orders-waiter.html:105
+msgid "price"
+msgstr "Cena"
+
+#: .\cook\forms.py:59 .\cook\forms.py:74 .\cook\forms.py:81
+msgid "translation"
+msgstr "Opis podstrony"
+
+#: .\cook\forms.py:82
+msgid "description"
+msgstr "Opis"
+
+#: .\cook\forms.py:89
+msgid "available"
+msgstr "Dostępny"
+
+#: .\cook\forms.py:100
+msgid "category"
+msgstr "Kategoria"
+
+#: .\cook\forms.py:110 .\templates\cookster\orders-waiter.html:86
+msgid "waiter"
+msgstr "Kelner"
+
+#: .\cook\forms.py:111 .\templates\cookster\orders-waiter.html:59
+#: .\templates\cookster\orders-waiter.html:91
+msgid "cook"
+msgstr "Kucharz"
+
+#: .\cook\forms.py:112
+msgid "provaider"
+msgstr "Zaopatrzeniowiec"
+
+#: .\cook\forms.py:115
+msgid "active"
+msgstr "Aktywny"
+
+#: .\cook\forms.py:116
+msgid "notactive"
+msgstr "Nieaktywny"
+
+#: .\cook\forms.py:125 .\cook\tables.py:83
+msgid "fname"
+msgstr "Imię"
+
+#: .\cook\forms.py:126 .\cook\tables.py:84
+msgid "surname"
+msgstr "Nazwisko"
+
+#: .\cook\forms.py:127 .\cook\tables.py:85
+msgid "position"
+msgstr "Stanowisko"
+
+#: .\cook\forms.py:128 .\cook\tables.py:86
+msgid "phonenumber"
+msgstr "Telefon"
+
+#: .\cook\forms.py:129
+msgid "login"
+msgstr "Login"
+
+#: .\cook\forms.py:130
+msgid "password"
+msgstr "Hasło"
+
+#: .\cook\tables.py:28 .\cook\tables.py:34 .\cook\tables.py:41
+#: .\cook\tables.py:50
 msgid "Edit"
 msgstr "Edytuj"
 
-#: .\cook\views.py:32 .\cook\views.py:38 .\cook\views.py:74
-msgid "Dane produktu są niepoprawane."
-msgstr ""
+#: .\cook\tables.py:42 .\cook\tables.py:51 .\cook\tables.py:63
+#: .\cook\tables.py:69 .\cook\tables.py:81 .\cook\tables.py:111
+#: .\cook\tables.py:129 .\cook\tables.py:167
+msgid "id"
+msgstr "ID"
 
-#: .\cook\views.py:50
-msgid "Dodaj produkt"
-msgstr ""
+#: .\cook\tables.py:62 .\cook\tables.py:73 .\cook\tables.py:133
+#: .\cook\tables.py:171
+msgid "edit"
+msgstr "Edytuj"
 
-#: .\cook\views.py:86
-msgid "Dodaj pracownika"
-msgstr ""
+#: .\cook\tables.py:130 .\cook\tables.py:168 .\templates\cookster\base.html:43
+#: .\templates\cookster\dish.html:33
+#: .\templates\cookster\orders-waiter.html:102
+msgid "products"
+msgstr "Produkty"
 
-#: .\cook\views.py:96 .\cook\views.py:102 .\cook\views.py:145
-msgid "Dane kategorii są niepoprawane."
-msgstr ""
+#: .\cook\views.py:34 .\cook\views.py:58 .\cook\views.py:136
+#: .\cook\views.py:172 .\cook\views.py:176 .\cook\views.py:237
+#: .\cook\views.py:289
+msgid "data-invalid"
+msgstr "Dane są niepoprawne"
 
-#: .\cook\views.py:109
-msgid "Dodaj kategorię"
-msgstr ""
+#: .\cook\views.py:108
+msgid "add-product-form"
+msgstr "Wpisz dane produktu"
 
-#: .\cook\views.py:125 .\cook\views.py:132
-msgid "Dodaj danie"
-msgstr ""
+#: .\cook\views.py:111
+msgid "add-product"
+msgstr "Dodaj produkt"
 
-#: .\cook\views.py:135
-msgid "Dane dania są niepoprawane."
-msgstr ""
+#: .\cook\views.py:112
+msgid "edit-product"
+msgstr "Edytuj produkty"
 
-#: .\templates\cookster\base.html:39
-msgid "Dania"
-msgstr ""
+#: .\cook\views.py:151
+msgid "add-employee-form"
+msgstr "Uzupełnij dane nowego pracownika"
 
-#: .\templates\cookster\base.html:40
-msgid " Pracownicy"
-msgstr ""
+#: .\cook\views.py:153
+msgid "add-employee"
+msgstr "Dodaj pracownika"
+
+#: .\cook\views.py:154
+msgid "edit-employee"
+msgstr "Edytuj dane pracownika"
+
+#: .\cook\views.py:221
+msgid "edit-category"
+msgstr "Edytuj kategorię"
+
+#: .\cook\views.py:222
+msgid "add-category"
+msgstr "Dodaj kategorię"
+
+#: .\cook\views.py:223
+msgid "add-category-form"
+msgstr "Uzupełnij dane kategorii"
+
+#: .\cook\views.py:224 .\cook\views.py:269 .\cook\views.py:296
+msgid "add-dish"
+msgstr "Dodaj danie"
+
+#: .\cook\views.py:264
+msgid "edit-currency-form"
+msgstr "Uzupełnij dane nowej waluty"
+
+#: .\cook\views.py:265
+msgid "add-currency-form"
+msgstr "Uzupełnij dane nowej waluty"
+
+#: .\cook\views.py:266
+msgid "add-currency"
+msgstr "Dodaj walutę"
+
+#: .\cook\views.py:311
+msgid "language"
+msgstr "Język"
+
+#: .\cook\views.py:540
+msgid "product-chart-1"
+msgstr "Ilość zamówionych dań"
+
+#: .\cook\views.py:541
+msgid "product-chart-2"
+msgstr "Ilość zamówionych dań"
+
+#: .\cook\views.py:542
+msgid "product-chart-3"
+msgstr "Ilość zamówionych dań z podziałem na kategorie"
+
+#: .\cook\views.py:543
+msgid "product-chart-4"
+msgstr "Wartość zamówień z podziałem na kategorie w "
+
+#: .\cook\views.py:556
+msgid "cookorders-chart\""
+msgstr "Ilość złożonych zamówień każdego dnia"
+
+#: .\cook\views.py:557
+msgid "cookorders-chart-1\""
+msgstr "Ilość złożonych zamówień przez kucharzy"
+
+#: .\cook\views.py:558
+msgid "cookorders-chart-2"
+msgstr "Ilość zamówień przydzielonych do dostawców"
+
+#: .\cook\views.py:559
+msgid "cookorders-chart-3"
+msgstr "Ilość złożonych zamówień przez kucharzy"
+
+#: .\cook\views.py:578
+msgid "waiterorders-chart"
+msgstr "Ilość złożonych zamówień każdego dnia"
+
+#: .\cook\views.py:579
+msgid "waiterorders-chart-1"
+msgstr "Ilość złożonych zamówień przez danego kelnera"
+
+#: .\cook\views.py:580
+msgid "waiterorders-chart-2"
+msgstr "Ilość zamówień przydzielonych do danego kucharza"
+
+#: .\cook\views.py:581
+msgid "waiterorders-chart-3"
+msgstr "Ilość złożonych zamówień w danym dniu"
+
+#: .\cook\views.py:597
+msgid "products-chart"
+msgstr "Ilość złożonych zamówień każdego dnia"
+
+#: .\cook\views.py:598
+msgid "products-chart-1"
+msgstr "Ilość złożonych zamówień przez danego kelnera"
+
+#: .\cook\views.py:609
+msgid "employee-chart"
+msgstr "Ilość złożonych zamówień każdego dnia"
+
+#: .\cook\views.py:610
+msgid "employee-chart-1"
+msgstr "Ilość złożonych zamówień przez kucharzy"
+
+#: .\cook\views.py:611
+msgid "employee-chart-2"
+msgstr "Ilość zamówień przydzielonych do dostawców"
+
+#: .\cook\views.py:612
+msgid "employee-chart-3"
+msgstr "Ilość złożonych zamówień każdego dnia"
+
+#: .\project\settings.py:66
+msgid "english"
+msgstr "Angielski"
+
+#: .\project\settings.py:67
+msgid "polish"
+msgstr "Polski"
+
+#: .\templates\cookster\404.html:18
+msgid "small-screen"
+msgstr "Twój ekran jest za mały"
+
+#: .\templates\cookster\404.html:19
+msgid "small-screen-desc"
+msgstr "Spróbuj na większym urządzeniu."
+
+#: .\templates\cookster\base.html:41 .\templates\cookster\orders-waiter.html:99
+msgid "dishes"
+msgstr "Menu"
 
 #: .\templates\cookster\base.html:42
-msgid "Administracja"
-msgstr ""
+msgid "employees"
+msgstr "Pracownicy"
 
-#: .\templates\cookster\base.html:43
-msgid "Zamówienia"
-msgstr ""
+#: .\templates\cookster\base.html:44
+msgid "administration"
+msgstr "Administracja"
+
+#: .\templates\cookster\base.html:45 .\templates\cookster\orders-waiter.html:46
+msgid "orders"
+msgstr "Zamówienia"
 
 #: .\templates\cookster\base.html:56
-msgid "Wyloguj sie"
+msgid "generate-raport"
+msgstr "Generuj raport"
+
+#: .\templates\cookster\base.html:67
+msgid "log-out"
 msgstr "Wyloguj się"
 
-#: .\templates\cookster\base.html:85
-msgid "Zapisz"
-msgstr ""
+#: .\templates\cookster\base.html:94 .\templates\cookster\dish.html:22
+msgid "save"
+msgstr "Zapisz"
 
-#: .\templates\cookster\base.html:86
-msgid "Back"
-msgstr "Wróć"
+#: .\templates\cookster\base.html:95 .\templates\cookster\base.html:138
+#: .\templates\cookster\orders-waiter.html:115
+msgid "back"
+msgstr "Wróc"
 
-#: .\templates\cookster\base.html:101
-msgid "Zamówienie"
-msgstr "Zamówienie"
-
-#: .\templates\cookster\base.html:107
-msgid "Zaktualizuj"
+#: .\templates\cookster\base.html:135
+msgid "update"
 msgstr "Zaktualizuj"
 
-#: .\templates\cookster\base.html:111
-msgid "Wróć"
-msgstr "Wróć"
-
-#: .\templates\cookster\base.html:112
-msgid "Usuń"
+#: .\templates\cookster\base.html:137
+#: .\templates\cookster\orders-waiter.html:114
+msgid "delete"
 msgstr "Usuń"
 
-#: .\templates\cookster\dish.html:12
-msgid " Edycja dania"
-msgstr ""
+#: .\templates\cookster\charts\products-chart.html:21
+msgid "reports"
+msgstr "Raporty"
 
-#: .\templates\cookster\dish.html:13 .\templates\cookster\products.html:17
-msgid "Składniki, z których składają się Twoje dania."
-msgstr "Składniki, z których składają się Twoje dania."
+#: .\templates\cookster\dish.html:16
+msgid "dish-title"
+msgstr "Menu"
 
-#: .\templates\cookster\dish.html:14
-#, fuzzy
-#| msgid "Mozesz dodawać nowe elementy oraz je modyfikować."
-msgid " Mozesz dodawać nowe elementy oraz je modyfikować."
-msgstr "Mozesz dodawać nowe elementy oraz je modyfikować."
-
-#: .\templates\cookster\dish.html:20
-msgid " zapisz "
-msgstr ""
+#: .\templates\cookster\dish.html:17
+msgid "dish-desc"
+msgstr "Opis podstrony"
 
 #: .\templates\cookster\employers.html:13
-msgid "Pracownicy"
+msgid "employees-title"
 msgstr "Pracownicy"
 
 #: .\templates\cookster\employers.html:14
-msgid "Użytkownicy, którzy korzystają z aplikacji CookSter."
-msgstr ""
+msgid "employees-desc"
+msgstr "Opis podstrony"
 
-#: .\templates\cookster\employers.html:15
-msgid "Mozesz dodawać nowych pracowników oraz modyfikować ich dane."
-msgstr ""
+#: .\templates\cookster\error.html:4
+msgid "error-title"
+msgstr "Błąd"
+
+#: .\templates\cookster\error.html:5
+msgid "error-desc"
+msgstr "Opis podstrony"
+
+#: .\templates\cookster\login.html:18 .\templates\cookster\login.html:32
+msgid "log-in"
+msgstr "Zaloguj się"
+
+#: .\templates\cookster\login.html:25
+msgid "invalid-data"
+msgstr "Dane nie są poprawne"
+
+#: .\templates\cookster\login.html:30
+msgid "no-access"
+msgstr "Brak dostępu"
+
+#: .\templates\cookster\logout.html:16
+msgid "login-succesful"
+msgstr "Zostałeś poprawnie wylogowany. Aby ponownie się zalogować"
+
+#: .\templates\cookster\logout.html:16
+msgid "click"
+msgstr "kliknij"
+
+#: .\templates\cookster\logout.html:16
+msgid "here"
+msgstr "tutaj"
+
+#: .\templates\cookster\menu.html:14
+msgid "menu-title"
+msgstr "Menu"
+
+#: .\templates\cookster\menu.html:15
+msgid "menu-desc"
+msgstr "Opis podstrony"
+
+#: .\templates\cookster\orders-waiter.html:54
+#: .\templates\cookster\orders-waiter.html:81
+msgid "order"
+msgstr "Zamówienie"
+
+#: .\templates\cookster\orders-waiter.html:56
+#: .\templates\cookster\orders-waiter.html:95
+msgid "table"
+msgstr "Stolik"
+
+#: .\templates\cookster\orders-waiter.html:58
+msgid "date"
+msgstr "Zaktualizuj"
+
+#: .\templates\cookster\orders-waiter.html:89
+msgid "provider"
+msgstr "Zaopatrzeniowiec"
+
+#: .\templates\cookster\orders-waiter.html:92
+msgid "created-date"
+msgstr "Data utworzenia"
+
+#: .\templates\cookster\orders-waiter.html:93
+msgid "updated-date"
+msgstr "Data aktualizacji"
+
+#: .\templates\cookster\orders-waiter.html:97
+msgid "status"
+msgstr "Status"
+
+#: .\templates\cookster\orders-waiter.html:107
+msgid "paid price"
+msgstr "Cena zaksięgowana"
+
+#: .\templates\cookster\orders-waiter.html:109
+msgid "comment"
+msgstr "Komentarz"
+
+#: .\templates\cookster\orders.html:13
+msgid "choose-ordertype"
+msgstr "Wybierz rodzaj zamówień"
+
+#: .\templates\cookster\orders.html:17
+msgid "for providers"
+msgstr "Zaopatrzenie"
+
+#: .\templates\cookster\orders.html:22
+msgid "for cooks"
+msgstr "Restauracja"
 
 #: .\templates\cookster\products.html:16
-msgid "Products"
+msgid "products-title"
 msgstr "Produkty"
 
-#: .\templates\cookster\products.html:18
-msgid "Mozesz dodawać nowe elementy oraz je modyfikować."
-msgstr "Mozesz dodawać nowe elementy oraz je modyfikować."
+#: .\templates\cookster\products.html:17
+msgid "products-desc"
+msgstr "Opis podstrony"

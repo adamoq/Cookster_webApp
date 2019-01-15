@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -14,21 +15,21 @@
 <br>
 <div>	
 	
-  <input type="submit" value="Log in" />
+  <input type="submit" value='{% trans "log-in"%}' />
   <input type="hidden" name="next" value="{{ next }}" />
 </div>
 </form>
 {% if form.errors %}
 <div class="login-wrapper-info"> 
 
-<p>Twoje dane nie są poprawne. Spróbuj ponownie.</p>
+<p>{% trans "invalid-data"%}</p>
 {% endif %}
 
 {% if next %}
     {% if user.is_authenticated %}
-    <p>Nie masz dostępu do tej części serwisu.</p>
+    <p>{% trans "no-access"%}</p>
     {% else %}
-    <p>Zaloguj się.</p>
+    <p>{% trans "log-in"%}</p>
     {% endif %}
 
 </div>

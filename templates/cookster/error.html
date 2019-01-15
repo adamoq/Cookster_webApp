@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>
-Błędne dane
-</h1>
+ <h1>{% trans "error-title"%}</h1>
+<p>{% trans "error-desc"%}</p>
 <div class="container">
   {% if errorText %}
 	<h2> errorText </h2>

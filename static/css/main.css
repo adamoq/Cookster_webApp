@@ -426,58 +426,6 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 }
 
 
-.dish-container{
-	width: 98%;
-	margin: 1%;
-	height: 90%;
-	padding: 0 20px;
-	overflow-y: scroll;	
-}
-#id_products{
-	height: 300px;
-
-    padding: 0 30px 0 20px;	
-}
-.dish-form label {
-	width: 130px;
-	border-right: 1px solid #ddd;
-	margin-right: 15px;
-	height: 30px;
-	font-weight: 100;
-	line-height: 30px;
-}
-
-.dish-form p{
-	border-bottom: 1px solid #ddd;
-	width: 100%;
-	padding-bottom: 15px;
-	padding-top: 15px;
-}
-.dish-form input,
-.dish-form select {
-	width: 350px;
-    height: 30px;
-    padding-left: 15px;
-    border: 0;
-    background-color: #eee;
-    outline: none;
-}
-
-#id_products option:checked{
-	background: #aaa linear-gradient(0deg, #888 0%, #aaa 100%);
-	border: 1px solid #ccc;
-	
-}
-
-#id_products option{
-	margin: 10px 0;
-	display: block;
-	text-align:center;
-	background: #ddd;
-	border-radius: 7px;
-	padding:5px 0;
-	width: 300px;
-}
 
 .category-container .form-group:first-of-type{
 	width: 50px!important;
@@ -670,7 +618,7 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 }
 .modal-body p input,
 .modal-body p select{
-	width: 300px;
+	width: 50%;
     height: 30px;
     padding-left: 15px;
     border: 0;
@@ -678,7 +626,7 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 	outline: none;
 }
 .modal-body p label{
-    width: 150px;
+    width: 25%;
     color: #aaa;
     text-align: left;
 	font-weight: 200;
@@ -715,6 +663,43 @@ table tbody tr .product-form .form-group:nth-of-type(4){
 form{
 	margin: 0;
 	font-size: 16px;
+}
+#id_products option:checked{
+	background: #aaa linear-gradient(0deg, #888 0%, #aaa 100%);
+	border: 1px solid #ccc;
+	
+}
+
+#id_products option{
+	margin: 10px 0;
+	display: block;
+	text-align:center;
+	background: #ddd;
+	border-radius: 7px;
+	padding:5px 0;
+	width: 300px;
+}
+.trans-form.update-form label{
+	border-top: 1px solid #ddd;
+	display: block;
+}
+.trans-form.update-form p label{
+	border: 0;
+	display: inline-block;
+	width: 28%;
+}
+.trans-form.update-form button{
+	margin: 0;
+	width: 8%;
+	background:none;
+	display: inline-block;
+}
+.trans-form.update-form img{
+	height: 25px;
+}
+.trans-form.update-form p{
+	width: 90%;
+	display: inline-block;
 }
 @media screen and (max-width: 1300px) {
 .orders-container .block img{

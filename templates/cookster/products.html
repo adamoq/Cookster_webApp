@@ -13,9 +13,8 @@
 {% csrf_token %}
 <span id="products-flag" style="display: none;" ></span>  
 <div class="results-container">
-  <h1>{% blocktrans %}Products{% endblocktrans %}</h1>
- <p>{% blocktrans %}Składniki, z których składają się Twoje dania.{% endblocktrans %}</p>    
- <p>{% blocktrans %}Mozesz dodawać nowe elementy oraz je modyfikować.{% endblocktrans %}</p>   
+<h1>{% trans "products-title"%}</h1>
+<p>{% trans "products-desc"%}</p>
  <br>
 
 	

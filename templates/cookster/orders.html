@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/orders.css' %}">
@@ -9,16 +10,16 @@
 </script>
 
 <div class="orders-container">
-<h2> Wybierz rodzaj zamówień </h2>
+<h2>{% trans "choose-ordertype"%}</h2>
 <a href="/orders-cook">
 <div class="block block--delivery">
 <img src="{% static 'img/delivery-icon.png' %}">
-<p>Zasobowe</p>
+<p>{% trans "for providers"%}</p>
 </div>
 </a>
 <a href="/orders-waiter">
 <div class="block block--orders">
-<p>Kelnerskie</p>
+<p>{% trans "for cooks"%}</p>
 <img src="{% static 'img/waiter-icon.png' %}">
 
 </div>

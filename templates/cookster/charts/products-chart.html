@@ -18,7 +18,7 @@
 </script>
   <span id="employers-flag" style="display: none;" ></span>  
 <div class="results-container">
-  <h1>RAPORTY</h1>
+  <h1>{%trans "reports"%}</h1>
 
  <br>
  
@@ -35,15 +35,12 @@
 			{% if chart_type %}
 			var chart_type = '{{chart_type}}';
 			{% endif%}
-                var ctx = $("#big-chart1").get(0).getContext("2d");				
-				data.datasets[0]['backgroundColor'] = backgroundColors;
+                var ctx = $("#big-chart1").get(0).getContext("2d");	
                 new Chart(ctx, {
                     type: chart_type , data: data,
 					options: {
-						backgroundColor: backgroundColors,
 						legend: {
 							display: true,
-							backgroundColor: backgroundColors,
 							position: 'bottom',
 							labels: {
 								fontSize: 17,

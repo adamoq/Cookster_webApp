@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
 {% load render_table from django_tables2 %}
 {% load staticfiles %}
@@ -10,8 +11,8 @@
 {% csrf_token %}
 <span  style="display: none;" ></span>
 <div class="results-container category-container">
-<h1>Kategorie potraw</h1>
-<p>Edytuj swoje kategorie, dodawaj nowe, oraz sprawdź jakie dania do nich należą.</p>
+<h1>{% trans "menu-title"%}</h1>
+<p>{% trans "menu-desc"%}</p>
   
 
 {% for  category, table in categoryList.items %}

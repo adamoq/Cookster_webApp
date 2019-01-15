@@ -2,12 +2,13 @@ from datetime import timedelta, date
 import datetime
 
 from cook.models import Product, Employee, Dish, Category, WaiterTask, CookTask, CookOrder, WaiterOrder, Currency, WaiterOrderDetails, DishTranslation
-from cook.models import DishPrice, ProductTranslation, CategoryTranslation, Language, Notification
+from cook.models import DishPrice, ProductTranslation, CategoryTranslation, Language, Notification, DishProduct
 from tastypie.authorization import Authorization
 from tastypie.authentication import Authentication
 from tastypie import fields
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from itertools import chain
+
 
 
 
@@ -60,6 +61,7 @@ class DishResource(ModelResource):
 	def dehydrate(self, bundle):
 		bundle.data['trans'] = list(chain(DishTranslation.objects.filter(dish = bundle.data['id']).values('name', 'description', 'lang__name', )))
 		bundle.data['currencies'] = list(chain(DishPrice.objects.filter(dish = bundle.data['id']).values('price', 'currency__id', )))
+		bundle.data['dishproducts'] = list(chain(DishProduct.objects.filter(dish = bundle.data['id']).values('count', 'product__name','product__unit', )))
 		return bundle
 
 class EmployeeResource(ModelResource):
@@ -72,7 +74,15 @@ class EmployeeResource(ModelResource):
 		filtering = {
             'position': ALL,
         }
-
+class DishProductResource(ModelResource):
+	dish = fields.ForeignKey(DishResource, 'dish')
+	product = fields.ForeignKey(ProductResource, 'product')
+	class Meta:
+		queryset = DishProduct.objects.all()
+		resource_name = 'dishproducts'
+		authentication = Authentication()
+		authorization = Authorization()
+		allowed_methods = ['get','put', 'post', 'delete']
 class CookTaskResource(ModelResource):
 	provider = fields.ForeignKey(EmployeeResource, 'provider',full=True)
 	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
@@ -96,6 +106,11 @@ class CookTaskResource(ModelResource):
 		orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
 		employee = Employee.objects.filter(pk = obj.cook.id).first()
 		Notification.objects.create(employee=employee, title = "Zmiana statusu zamówienia", desc = orderDesc)
+		if obj.status == '2':
+			for order in CookOrder.objects.filter(task = obj):
+				product = order.product
+				product.stock =+ order.count
+				product.save()
 		return super(CookTaskResource, self).obj_update(bundle, **kwargs)
 
 	class Meta:
@@ -310,7 +325,7 @@ class CategoryTranslationResource(ModelResource):
 	lang = fields.ForeignKey(LanguageResource, 'lang',full=True)
 	category = fields.ForeignKey(CategoryResource, 'category',full=True)
 	class Meta:
-		queryset = DishTranslation.objects.all()
+		queryset = CategoryTranslation.objects.all()
 		resource_name = 'categorytranslation'
 		authentication = Authentication()
 		authorization = Authorization()

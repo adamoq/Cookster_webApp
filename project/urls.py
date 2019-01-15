@@ -17,13 +17,13 @@ from django.conf.urls import include, url
 from . import settings
 from django.conf import settings
 from django.conf.urls.static import static
-from cook.views import main, products, administration, employers, menu, orders, login_user, category, dish, orders_waiter, login_mobile
-from cook.views import changepassword,resetpassword,changephone, changeproduct, login_mobile_status, product_chart, trans, currencies, checknotif
+from cook.views import main, products, administration, employers, menu, orders, login_user, dish, orders_waiter, login_mobile
+from cook.views import changepassword,resetpassword,changephone, changeproduct, login_mobile_status, menu_chart, checknotif
 from cook.views import orders_cook, cookorders_chart, waiterorders_chart, products_chart
 from cook.charts import category_chart_json,category_chart_json2, dish_chart_json,category_chart_json1, cookorders_chart_json, cookorders_chart_json2, cookorders_chart_json3, cookorders_chart_json4
 from cook.charts import waiterorders_chart_json, waiterorders_chart_json2, waiterorders_chart_json3, waiterorders_chart_json4, products_chart_json, products_chart_json2
 from django.contrib import admin
-from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource, DishPriceResource, LanguageResource
+from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource, DishPriceResource, LanguageResource, DishProductResource
 from cook.api import ProductranslationResource, DishTranslationResource, CategoryTranslationResource, WaiterOrderDetailsResource, WaiterCookResource, OrderResourceGet,OrderResourceGet1,OrderResourceGet2, CurrencyResource
 from django.contrib.auth import views as auth_views
 
@@ -39,12 +39,9 @@ urlpatterns = [
 	url(r'^administration/$', administration, name = 'administration'),
 	url(r'^employers/$', employers, name = 'employers'),
 	url(r'^menu/$', menu, name = 'menu'),
-	url(r'^trans/$', trans, name = 'trans'),
 	url(r'^orders-waiter/$', orders_waiter),
 	url(r'^orders/$', orders, name = 'orders'),
 	url(r'^orders-cook/$', orders_cook, name = 'orderscook'),
-	url(r'^currencies/$', currencies, name = 'currencies'),
-	url(r'^category/$', category),
 	url(r'^dish/$', dish),
 	url(r'^api/', include(ProductResource().urls)),
 	url(r'^api/', include(EmployeeResource().urls)),
@@ -65,6 +62,8 @@ urlpatterns = [
 
 	url(r'^api/', include(OrderResourceGet2().urls)),
 	url(r'^api/', include(CurrencyResource().urls)),
+	url(r'^api/', include(DishProductResource().urls)),
+	
 	url(r'^mobileapi/$', login_mobile),
 	url(r'^mobileapistatus/$', login_mobile_status),
 	url(r'^mobilereset/password/$', changepassword),
@@ -74,7 +73,7 @@ urlpatterns = [
 	url(r'^mobileapi/notif/$', checknotif),
 
 #raporty - menu
-	url(r'^menu/raport/$', product_chart, name='product_chart'),
+	url(r'^menu/raport/$', menu_chart, name='menu_chart'),
 	url(r'^products/raport-json/$', dish_chart_json, name='dish_chart_json'),
 	url(r'^category/raport-json/$', category_chart_json, name='category_chart_json'),
 	url(r'^category/raport-json1/$', category_chart_json1, name='category_chart_json1'),

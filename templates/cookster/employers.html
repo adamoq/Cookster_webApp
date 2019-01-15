@@ -10,9 +10,8 @@
 </script>
   <span id="employers-flag" style="display: none;" ></span>  
 <div class="results-container">
-  <h1>{% blocktrans %}Pracownicy{% endblocktrans %}</h1>
- <p>{% blocktrans %}Użytkownicy, którzy korzystają z aplikacji CookSter.{% endblocktrans %}</p>    
- <p>{% blocktrans %}Mozesz dodawać nowych pracowników oraz modyfikować ich dane.{% endblocktrans %}</p>   
+ <h1>{% trans "employees-title"%}</h1>
+<p>{% trans "employees-desc"%}</p>
  <br>
  {% render_table employesList %}
 

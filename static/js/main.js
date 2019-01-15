@@ -72,8 +72,8 @@
         var returnArray = {};
         for (var i = 0; i < formArray.length; i++) returnArray[formArray[i]['name']] = formArray[i]['value'];
         return returnArray;
-    }
-$('.nav-bar.left a').on('click', function(e) {
+    };
+$('a').on('click', function(e) {
 	
     $("#overlay").toggleClass('hidden');
 
@@ -104,36 +104,75 @@ $('.nav-bar.left a').on('click', function(e) {
 				}
 			})
 	});
-	
+
 	$('form.update-form').submit( function(e) {
 		e.preventDefault();
 		var id = $(this).attr('id');
-		if( id.charAt(0) == 'c' || id.charAt(0) == 'p' || id.charAt(0) == 'd')
-			{
-			 id = id.substr(1);
-			}		
-			
-		var url;
-		if (typeof $(this).attr('data-target') !== 'undefined' ) url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+id+'/';
-		else url = window.location.protocol + "//" + window.location.host + "/menu/";
-		
+        var isTranslation = false;
+        var url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target');
+        if ($(this).hasClass('trans-form')) isTranslation = true;
+        if (id != null){
+		if( id.charAt(0) == 'c' || id.charAt(0) == 'p' || id.charAt(0) == 'd' || isTranslation || $(this).hasClass('dishproduct-form'))			
+			 id = id.substr(1);			
+		console.log('ok'+isTranslation);
+
+		if (typeof $(this).attr('data-target') !== 'undefined' ) url = url+id+'/';
+		}
 		var data = objectifyForm($(this).serializeArray())
-		data['id'] = id;
-		delete data['product'];delete data['dish'];
+		var type = 'POST';
+        if($(this).hasClass('dishproduct-form')){
+            data['dish'] = '/api/resdishes/'+data['dish']+'/';
+            data['product'] = '/api/products/'+data['product']+'/';
+            isTranslation = true;
+            if (id != null)type = 'PUT';
+        }else 
+		if (id != null){
+            data['id'] = id;
+            delete data['product'];
+            delete data['dish'];
+            type = 'PUT'}
+
 		data = JSON.stringify(data);
 		console.log('data'+data);
 		
 		console.log(id);
+        if(isTranslation) var submitbutton = $(this).find("button[type=submit]");
 		$.ajax({
 			url:url,
-			type: 'PUT',
+			type: type,
 			contentType: 'application/json',
 			data: data,
 			success: function() {
-					location.reload();
+
+					if(isTranslation){
+                        submitbutton.attr("disabled", "disabled");
+}
+                       if(! $("#overlay").hasClass('hidden')) $("#overlay").toggleClass('hidden');
+
 				}
 			})
 	});
+   $('.save-button').on('click', function() { 
+       
+        $("#overlay").toggleClass('hidden');
+        var id = $(this).attr('id');
+        id = 'form#'+id;
+        //$('#'+id).submit();
+        //$('form#'+id).submit();
+
+        console.log('submitting form22 id:'+id);
+        $(this).parent().parent().find(id).submit();
+        id = '.modal'+$(this).attr('id');        
+        $(id).modal('hide');
+ 
+    });
+  $('.save-button-post').on('click', function() { 
+       
+        $("#overlay").toggleClass('hidden');   
+        $("#cookmodal").modal('hide');
+ 
+    });
+
 	$('.button-remove').on('click', function() { //usunięcie obiektu
 	
 		var id = $(this).attr('id');

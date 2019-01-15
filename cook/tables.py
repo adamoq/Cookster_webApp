@@ -20,26 +20,26 @@ def renderMediumAv():
 def renderLargeAv():
 	return '<div class="large av-ico choosen"></div>'
 def renderEdit(value):
-	return format_html('<img class="edit" src="/static/img/edit-icon.png" />',value)
+	return format_html('<img src="/static/img/edit-icon.png" />',value)
 def renderGps():
 	return '<img class="gps-ico" src="/static/img/gps.png" />'
 class LanguageTransTable(tables.Table):
-	name = tables.Column(verbose_name = _('Name'), attrs={'td': {'class': 'name'},'th': {'class': 'name'}})
+	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'name'},'th': {'class': 'name'}})
 	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
 
 	def render_edit(self, value):
 		return renderEdit(value)	
 class CurrencyTable(tables.Table):
-	name = tables.Column(verbose_name = _('Name'), attrs={'td': {'class': 'name'},'th': {'class': 'name'}})
+	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'name'},'th': {'class': 'name'}})
 	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
 
 	def render_edit(self, value):
 		return renderEdit(value)	
 class ProductTransTable(tables.Table):
 	product = tables.Column( verbose_name='',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	name = tables.Column(verbose_name = _('Name'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
+	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
-	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'size22'}})
+	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'size22'}})
 	def render_edit(self, value):
 		return renderEdit(value)
 	def render_id(self, value):
@@ -48,7 +48,7 @@ class CategoryTransTable(tables.Table):
 	category = tables.Column( verbose_name='',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	name = tables.Column( verbose_name='',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})	
-	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'size22'}})
+	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'size22'}})
 
 	def render_id(self, value):
 		return format_html("c"+str(value),value)
@@ -57,33 +57,35 @@ class CategoryTransTable(tables.Table):
 		return renderEdit(value)
 class DishTransTable(tables.Table):
 	dish = tables.Column( verbose_name='',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	name = tables.Column(verbose_name = _('Name'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	description = tables.Column(verbose_name = _('Name'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
-	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
+	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
+	description = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
+	edit = tables.Column(empty_values=(), verbose_name=_('edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
+	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
 	def render_edit(self, value):
 		return renderEdit(value)
 	def render_id(self, value):
 		return format_html("d"+str(value),value)
 class ProductTable(tables.Table):
-	id = tables.Column(verbose_name =_('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
+	id = tables.Column(verbose_name =_('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
 	av = tables.Column( verbose_name='',attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
-	name = tables.Column(verbose_name = _('Name'), attrs={'td': {'class': 'name'},'th': {'class': 'name'}})
-
-	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
+	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'name'},'th': {'class': 'name'}})
+	stock = tables.Column( verbose_name='',attrs={'td': {'class': 'small22'},'th': {'class': 'small22'}})
+	edit = tables.Column(empty_values=(), verbose_name=_('edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
 
 	def render_edit(self, value):
 		return renderEdit(value)
 	def render_av(self, value):
-		return render_av(value)
+		return render_av(value)	
+	def render_stock(self, value, record):
+		return format_html(str(value)+str(record.unit),value)
 
 class EmployeeTable(tables.Table):
-	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
+	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
 	status = tables.Column(verbose_name='', attrs={'td': {'class': 'small-status'},'th': {'class': 'small-status'}})
-	name = tables.Column(verbose_name = _('Imię'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	surname = tables.Column( verbose_name=_('Nazwisko'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	position = tables.Column( verbose_name=_('Pozycja'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	phonenumber = tables.Column( verbose_name=_('Numer telefonu'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
+	name = tables.Column(verbose_name = _('fname'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
+	surname = tables.Column( verbose_name=_('surname'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
+	position = tables.Column( verbose_name=_('position'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
+	phonenumber = tables.Column( verbose_name=_('phonenumber'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	reset = tables.Column(empty_values=(),verbose_name='', attrs={'td': {'class': 'status'},'th': {'class': 'status'}})
 	edit = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
 
@@ -95,10 +97,8 @@ class EmployeeTable(tables.Table):
 		if record.status == "0" : return format_html('<a id="reset" href="/reset/password/?login='+str(record.login)+'&passwordOld='+str(record.password)+'"><div class="notactive reset">resetuj hasło</div></a>',value)
 		elif record.status == "1" : return format_html(renderGps(),value)
 		elif record.status == "2" : return format_html(renderGps(),value)
-
-	def render_gps(self, value):
-		return format_html('<img src="/static/img/gps.png" />',value)
-
+	def render_position(self, value):
+		return format_html(_(value),value)
 	def render_status(self, value, record):
 		if record.active == '1':
 			return format_html('<div class="small av-ico choosen">',value)
@@ -108,14 +108,13 @@ class EmployeeTable(tables.Table):
 
 class CategoryTable(tables.Table):
 
-	category_name = tables.Column(verbose_name = _('Nazwa'), attrs={'td': {'class': 'categoryname'},'th': {'class': 'size22'}})
+	category_name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'categoryname'},'th': {'class': 'size22'}})
 	edit = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
-	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
+	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
 
 	def render_edit(self, value):
 		return renderEdit(value)
-	def render_id(self, value):
-		return format_html("c"+str(value),value)
+
 class DishTable(tables.Table):
 	#currency = RestaurantDetail.objects.all().first().default_currency.name
 
@@ -127,16 +126,16 @@ class DishTable(tables.Table):
 			self.currency = str(x)
 
 
-	av = tables.Column( verbose_name=_('Dostępność'),attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
-	name = tables.Column(verbose_name = _('Nazwa'), attrs={'td': {'class': 'dishname'},'th': {'class': 'dishname'}})
-	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
-	products = tables.Column( verbose_name=_('Produkty'))
+	av = tables.Column( verbose_name=_('av'),attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'dishname'},'th': {'class': 'dishname'}})
+	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
+	products = tables.Column( verbose_name=_('products'))
 	price = tables.Column( verbose_name=_('price'),attrs={'td': {'class': 'status'},'th': {'class': 'status'}})
 
-	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
+	edit = tables.Column(empty_values=(), verbose_name=_('edit'), attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
 
 	def render_edit(self, value, record):
-		return format_html('<a href="/dish/?d='+str(record.id)+'"><img class="edit" src="/static/img/edit-icon.png" /></a>',value)
+		return format_html('<a href="/dish/?d='+str(record.id)+'"><img src="/static/img/edit-icon.png" /></a>',value)
 
 	def render_av(self, value):
 		if value == "not available":
@@ -165,13 +164,13 @@ class DishCurrTable(tables.Table):
 			self.id = str(x)
 
 
-	av = tables.Column( verbose_name=_('Dostępność'),attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
-	name = tables.Column(verbose_name = _('Nazwa'), attrs={'td': {'class': 'dishname'},'th': {'class': 'dishname'}})
-	id = tables.Column(verbose_name = _('Id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
-	products = tables.Column( verbose_name=_('Produkty'))
+	av = tables.Column( verbose_name=_('av'),attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'dishname'},'th': {'class': 'dishname'}})
+	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
+	products = tables.Column( verbose_name=_('products'))
 	price = tables.Column( verbose_name=_('price'),attrs={'td': {'class': 'status'},'th': {'class': 'status'}})
 
-	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
+	edit = tables.Column(empty_values=(), verbose_name=_('edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
 
 	def render_edit(self, value, record):
 		return format_html('<a href="/dish/?d='+str(record.id)+'"><img class="edit" src="/static/img/edit-icon.png" /></a>',value)

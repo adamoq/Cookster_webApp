@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/orders.css' %}">
@@ -42,7 +43,7 @@
 </script>
 <span id="orders-waiter-flag" style="display: none;"></span>  
 <div class="orders-container">
-<h2> Zamówienia kucharzy </h2>
+<h2> {% trans "orders"%} </h2>
 {% if tasks %}
 <h3> Założone </h3><h3> Gotowe </h3><h3> Zrealizowane</h3>
 <div class = "col-md-4">
@@ -50,12 +51,12 @@
 	{%for task in tasks%}
 	<div class="col-md-6 orderdrag" id = "{{task.id}}.{{task.state}}" draggable="true" ondragstart="drag(event)" >
 	  <div class="order" id = {{task.id}} > 
-		<p> Zamówienie {{task.id}} </p>
+		<p> {% trans "order"%} {{task.id}} </p>
 		{% if task.table2 %}
-		<p> Stół: {{task.table}} </p>
+		<p> {% trans "table"%}: {{task.table}} </p>
 		{% endif %}
-		<p> Data: {{task.created_at}} </p>
-		<p> Kucharz: {{task.cook}}</p>
+		<p> {% trans "date"%}: {{task.created_at}} </p>
+		<p> {% trans "cook"%}: {{task.cook}}</p>
 		
 	  </div>
 	</div>
@@ -77,41 +78,41 @@
 		      <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close modal-close" id = {{task.id}}>&times;</button>
-          <h4 class="modal-title">Zamówienie #{{ task.id }}</h4>
+          <h4 class="modal-title">{% trans "order"%} {{ task.id }}</h4>
         </div>
 	
         <div class="modal-body">
          {% if task.waiter|length %}
-		<p><label> Kelner </label> {{task.waiter}} </p>
+		<p><label> {% trans "waiter"%} </label> {{task.waiter}} </p>
 		{% endif %}   
 		{% if task.provider|length %}
-		<p><label> Dostawca: </label> {{task.provider}} </p>
+		<p><label> {% trans "provider"%}: </label> {{task.provider}} </p>
 		{% endif %}        
-		<p><label> Kucharz </label> {{task.cook}} </p>
-		<p><label> Data utworzenia </label> {{task.created_at}} </p>
-		<p><label> Data zmiany statusu </label> {{task.updated_at}} </p>
+		<p><label> {% trans "cook"%} </label> {{task.cook}} </p>
+		<p><label> {% trans "created-date"%} </label> {{task.created_at}} </p>
+		<p><label> {% trans "updated-date"%} </label> {{task.updated_at}} </p>
 		{% if task.table|length %}
-		<p><label> Stół </label> {{task.table}} </p>
+		<p><label> {% trans "table"%} </label> {{task.table}} </p>
 		{% endif %}		
-		<p><label> Status </label> {{task.state}} </p>
+		<p><label> {% trans "status"%} </label> {{task.state}} </p>
 		{% if task.dishes|length %}
-		<p><label> Dania </label></p><p class="dishesList"><pre>{{task.dishes}}</pre></p>
+		<p><label> {% trans "dishes"%} </label></p><p class="dishesList"><pre>{{task.dishes}}</pre></p>
 		{% endif %}	
 		{% if task.products|length %}
-		<p><label> Produkty </label></p><p class="dishesList"><pre>{{task.products}}</pre></p>
+		<p><label> {% trans "products"%} </label></p><p class="dishesList"><pre>{{task.products}}</pre></p>
 		{% endif %}			
 		{% if task.price_default|length %}
-		<p><label> Cena </label> {{task.price_default}} </p>
+		<p><label> {% trans "price"%} </label> {{task.price_default}} </p>
 		{% if task.price|length %}
-		<p><label> Cena zaksięgowana</label> {{task.price}} </p>
+		<p><label> {% trans "paid price"%}</label> {{task.price}} </p>
 		{% endif %} {% endif %} 
-		<p><label> Komentarz </label>{{task.comment}} </p>
+		<p><label> {% trans "comment"%} </label>{{task.comment}} </p>
 		        
    
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default modal-close" id = {{task.id}}>Wróć</button>
-		  <button type="button" class="btn btn-default button-remove" id = {{task.id}}>Usuń</button>
+          <button type="button" class="btn btn-default modal-close" id = {{task.id}}>{% trans "delete"%}</button>
+		  <button type="button" class="btn btn-default button-remove" id = {{task.id}}>{% trans "back"%}</button>
         </div>
 	
       </div>

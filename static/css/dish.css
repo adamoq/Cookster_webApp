@@ -1,0 +1,142 @@
+
+.dish-container{
+	width: 98%;
+	margin: 1%;
+	height: 90%;
+	padding: 0 20px;
+	overflow-y: scroll;	
+}
+.dish-half {
+	width: 49%;
+	float: left;
+	display: inline-block;
+	padding: 0 2%;
+}
+#id_products{
+	height: 300px;
+
+    padding: 0 30px 0 20px;	
+}
+.dishproduct-form.update-form p:nth-child(2) label{
+	display: inline-block;
+	border: 0;
+	text-align: center;
+    width: 29%;
+}
+.dishproduct-form.update-form p label,
+.dishproduct-form.update-form p:nth-child(3){
+	display: none;
+}
+.trans-form.update-form p button {
+	float: right;
+}
+.dishproduct-form.update-form p:first-of-type{
+	width: 20%;
+}
+.dishproduct-form.update-form p input{
+	width: 100%;
+}
+
+.dishproduct-form.update-form p select{
+	width: 70%;
+}
+.dishproduct-form.update-form button,
+.trans-form.update-form button{
+	margin: 0;
+	width: 5%;
+	background:none;
+	display: inline-block;
+}
+.dishproduct-form.update-form button img,
+.trans-form.update-form img{
+	height: 25px;
+}
+.trans-form.update-form p{
+	justify-content: left;
+}
+.dishproduct-form.update-form p{
+	display: inline-block;
+	width: 73%;
+}
+.dish-form label {
+	width: 29%;
+	margin: 0 1% 0 0;
+	border-right: 1px solid #eee;
+	height: 30px;
+	font-weight: 100;
+	line-height: 30px;
+	float: left;
+}
+.dish-form p span{
+	line-height: 30px;
+	width: 90%;
+	font-weight: 400;
+}
+.dish-form p{
+	width: 100%;
+	padding: 5px 0;
+	line-height: 30px;
+	margin: 0;
+}
+
+.dish-form input,
+.dish-form select,
+.dish-form textarea {
+	width: 69%;
+    height: 30px;
+    padding-left: 15px;
+    border: 0;
+    background-color: #eee;
+    outline: none;
+}
+.dish-form textarea{
+	height: 70px;
+	resize: none;
+}
+.dish-form p label[for=id_description]{
+	height: 70px;
+	float: left;
+}
+.save.btn{
+	height: 30px;
+    display: block;
+    padding: 0 30px;
+    font-size: 18px;
+    margin: 5px auto;
+    outline: none;
+}
+
+
+.dish-form.invisible{
+	opacity: 0;
+height: 0;
+}
+
+.dish-form{
+	height: auto;
+	  opacity: 1;
+  transition: all 1s ease-in-out;
+}
+button:disabled{
+	 -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+}
+button{
+
+  transition: all 1s ease-in-out;
+	 -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(0%);
+}
+.add-btn {
+	background: transparent;
+    border: 0;
+    float: right;
+    margin-top: 20px;
+    margin-right: -2%;
+    outline: none;
+
+}
+.add-btn img{
+	height: 30px;
+}
+}
