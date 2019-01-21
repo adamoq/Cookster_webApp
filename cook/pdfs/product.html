@@ -1,0 +1,26 @@
+{% load i18n %}
+{% load staticfiles %}
+
+{% load render_table from django_tables2 %}
+<html>
+<head>
+<title>Cookster - A.F.</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,500&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/raport.css' %}">
+</head>
+
+<body>
+
+		{{user.restaurant.name}} {{user.get_restaurant_name}} - {{user.get_full_name}}
+	{% trans "generate-raport"%}
+	 {% if productTable %}
+{% render_table productTable %}
+
+  {% endif %}
+
+
+
+</body>
+
+</html>

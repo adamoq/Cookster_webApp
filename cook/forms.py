@@ -8,6 +8,7 @@ class ProductForm(forms.ModelForm):
 		('1', _('small')),
 		('2', _('high')),
 	)
+	av = forms.ChoiceField(choices=avs)
 	class Meta:
 		model = Product
 		fields = ('name', 'av','unit',)
@@ -18,6 +19,7 @@ class ProductForm(forms.ModelForm):
         }
 
 class DishProductForm(forms.ModelForm):
+	product = forms.ModelChoiceField(queryset=Product.objects, empty_label=None)
 	class Meta:
 		model = DishProduct
 		fields = ('count', 'product','dish')
@@ -82,7 +84,26 @@ class DishTransForm(forms.ModelForm):
             'name': _('translation'),
             'description': _('description'),
         }
-
+class RestaurantDetailForm(forms.ModelForm):
+	default_lang = forms.ModelChoiceField(queryset=Language.objects, empty_label=None)
+	default_currency = forms.ModelChoiceField(queryset=Currency.objects, empty_label=None)
+	STATES = (
+		('0', _('active')),
+		('1', _('notactive')),
+	)
+	#CHOICES = (('Option 1', 'Option 1'),('Option 2', 'Option 2'),)
+	autoorder = forms.ChoiceField(choices=STATES)
+	class Meta:
+		from .models import RestaurantDetail
+		model = RestaurantDetail
+		fields = ('name', 'default_currency', 'default_lang', 'takeaway','autoorder')
+		labels = {
+            'name': _('name'),
+            'default_currency': _('default_currency'),
+            'default_lang': _('default_lang'), 
+            'takeaway': _('takeaway'),
+            'autoorder': _('autoorder')
+        }
 
 
 class DishForm(forms.ModelForm):
@@ -92,6 +113,7 @@ class DishForm(forms.ModelForm):
 	)
 	#CHOICES = (('Option 1', 'Option 1'),('Option 2', 'Option 2'),)
 	av = forms.ChoiceField(choices=STATES)
+	category = forms.ModelChoiceField(queryset=Category.objects, empty_label=None)
 	description = forms.CharField( widget=forms.Textarea )
 	class Meta:
 		model = Dish
@@ -111,6 +133,7 @@ class EmployeeForm(forms.ModelForm):
 		('0', _('waiter')),
 		('1', _('cook')),
 		('2', _('provaider')),
+		('3', _('supplier'))
 	)
 	ACTIVES = (
 		('0', _('active')),
@@ -128,6 +151,7 @@ class EmployeeForm(forms.ModelForm):
 			'position': _('position'),
 			'phonenumber': _('phonenumber'),
 			'login': _('login'),
-			'password': _('password')
+			'password': _('password'),
+			'active': _('active'),
         }
 		

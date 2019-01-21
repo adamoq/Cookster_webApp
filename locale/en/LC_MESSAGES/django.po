@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-14 23:08+0100\n"
+"POT-Creation-Date: 2019-01-20 17:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\cook\forms.py:7 .\cook\forms.py:90
+#: .\cook\forms.py:7 .\cook\forms.py:104
 msgid "not available"
 msgstr ""
 
@@ -29,106 +29,114 @@ msgstr ""
 msgid "high"
 msgstr ""
 
-#: .\cook\forms.py:15 .\cook\forms.py:32 .\cook\forms.py:41 .\cook\forms.py:66
-#: .\cook\forms.py:99 .\cook\tables.py:27 .\cook\tables.py:33
-#: .\cook\tables.py:40 .\cook\tables.py:60 .\cook\tables.py:61
-#: .\cook\tables.py:71 .\cook\tables.py:109 .\cook\tables.py:128
-#: .\cook\tables.py:166
+#: .\cook\forms.py:16 .\cook\forms.py:34 .\cook\forms.py:43 .\cook\forms.py:68
+#: .\cook\forms.py:95 .\cook\forms.py:114 .\cook\tables.py:27
+#: .\cook\tables.py:33 .\cook\tables.py:40 .\cook\tables.py:60
+#: .\cook\tables.py:61 .\cook\tables.py:71 .\cook\tables.py:111
+#: .\cook\tables.py:130 .\cook\tables.py:168
 msgid "name"
 msgstr ""
 
-#: .\cook\forms.py:16 .\cook\forms.py:101 .\cook\tables.py:127
-#: .\cook\tables.py:165
+#: .\cook\forms.py:17 .\cook\forms.py:116 .\cook\tables.py:129
+#: .\cook\tables.py:167
 msgid "av"
 msgstr ""
 
-#: .\cook\forms.py:17
+#: .\cook\forms.py:18
 msgid "unit"
 msgstr ""
 
-#: .\cook\forms.py:25
+#: .\cook\forms.py:27
 #, fuzzy
 #| msgid "Produkty"
 msgid "product"
 msgstr "Products"
 
-#: .\cook\forms.py:33
+#: .\cook\forms.py:35
 msgid "sequence"
 msgstr ""
 
-#: .\cook\forms.py:42
+#: .\cook\forms.py:44
 msgid "ab"
 msgstr ""
 
-#: .\cook\forms.py:43
+#: .\cook\forms.py:45
 msgid "value"
 msgstr ""
 
-#: .\cook\forms.py:51 .\cook\forms.py:102 .\cook\tables.py:131
-#: .\cook\tables.py:169 .\templates\cookster\orders-waiter.html:105
+#: .\cook\forms.py:53 .\cook\forms.py:117 .\cook\tables.py:133
+#: .\cook\tables.py:171 .\templates\cookster\orders-waiter.html:105
 msgid "price"
 msgstr ""
 
-#: .\cook\forms.py:59 .\cook\forms.py:74 .\cook\forms.py:81
+#: .\cook\forms.py:61 .\cook\forms.py:76 .\cook\forms.py:84
 msgid "translation"
 msgstr ""
 
-#: .\cook\forms.py:82
+#: .\cook\forms.py:85
 msgid "description"
 msgstr ""
 
-#: .\cook\forms.py:89
+#: .\cook\forms.py:96
+msgid "default_currency"
+msgstr ""
+
+#: .\cook\forms.py:97
+msgid "default_lang"
+msgstr ""
+
+#: .\cook\forms.py:103
 msgid "available"
 msgstr ""
 
-#: .\cook\forms.py:100
+#: .\cook\forms.py:115
 #, fuzzy
 #| msgid "Kategoria"
 msgid "category"
 msgstr "Category"
 
-#: .\cook\forms.py:110 .\templates\cookster\orders-waiter.html:86
+#: .\cook\forms.py:125 .\templates\cookster\orders-waiter.html:86
 msgid "waiter"
 msgstr ""
 
-#: .\cook\forms.py:111 .\templates\cookster\orders-waiter.html:59
+#: .\cook\forms.py:126 .\templates\cookster\orders-waiter.html:59
 #: .\templates\cookster\orders-waiter.html:91
 msgid "cook"
 msgstr ""
 
-#: .\cook\forms.py:112
+#: .\cook\forms.py:127
 msgid "provaider"
 msgstr ""
 
-#: .\cook\forms.py:115
+#: .\cook\forms.py:130 .\cook\forms.py:146
 msgid "active"
 msgstr ""
 
-#: .\cook\forms.py:116
+#: .\cook\forms.py:131
 msgid "notactive"
 msgstr ""
 
-#: .\cook\forms.py:125 .\cook\tables.py:83
+#: .\cook\forms.py:140 .\cook\tables.py:85
 msgid "fname"
 msgstr ""
 
-#: .\cook\forms.py:126 .\cook\tables.py:84
+#: .\cook\forms.py:141 .\cook\tables.py:86
 msgid "surname"
 msgstr ""
 
-#: .\cook\forms.py:127 .\cook\tables.py:85
+#: .\cook\forms.py:142 .\cook\tables.py:87
 msgid "position"
 msgstr ""
 
-#: .\cook\forms.py:128 .\cook\tables.py:86
+#: .\cook\forms.py:143 .\cook\tables.py:88
 msgid "phonenumber"
 msgstr ""
 
-#: .\cook\forms.py:129
+#: .\cook\forms.py:144
 msgid "login"
 msgstr ""
 
-#: .\cook\forms.py:130
+#: .\cook\forms.py:145
 msgid "password"
 msgstr ""
 
@@ -138,27 +146,28 @@ msgid "Edit"
 msgstr ""
 
 #: .\cook\tables.py:42 .\cook\tables.py:51 .\cook\tables.py:63
-#: .\cook\tables.py:69 .\cook\tables.py:81 .\cook\tables.py:111
-#: .\cook\tables.py:129 .\cook\tables.py:167
+#: .\cook\tables.py:69 .\cook\tables.py:83 .\cook\tables.py:113
+#: .\cook\tables.py:131 .\cook\tables.py:169
 msgid "id"
 msgstr ""
 
-#: .\cook\tables.py:62 .\cook\tables.py:73 .\cook\tables.py:133
-#: .\cook\tables.py:171
+#: .\cook\tables.py:62 .\cook\tables.py:73 .\cook\tables.py:135
+#: .\cook\tables.py:173
 msgid "edit"
 msgstr ""
 
-#: .\cook\tables.py:130 .\cook\tables.py:168 .\templates\cookster\base.html:43
-#: .\templates\cookster\dish.html:33
+#: .\cook\tables.py:132 .\cook\tables.py:170
+#: .\templates\cookster\administration.html:88
+#: .\templates\cookster\base.html:43 .\templates\cookster\dish.html:33
 #: .\templates\cookster\orders-waiter.html:102
 #, fuzzy
 #| msgid "Produkty"
 msgid "products"
 msgstr "Products"
 
-#: .\cook\views.py:34 .\cook\views.py:58 .\cook\views.py:136
-#: .\cook\views.py:172 .\cook\views.py:176 .\cook\views.py:237
-#: .\cook\views.py:289
+#: .\cook\views.py:34 .\cook\views.py:58 .\cook\views.py:174
+#: .\cook\views.py:210 .\cook\views.py:214 .\cook\views.py:275
+#: .\cook\views.py:327
 msgid "data-invalid"
 msgstr ""
 
@@ -174,119 +183,119 @@ msgstr ""
 msgid "edit-product"
 msgstr ""
 
-#: .\cook\views.py:151
+#: .\cook\views.py:189
 msgid "add-employee-form"
 msgstr ""
 
-#: .\cook\views.py:153
+#: .\cook\views.py:191
 msgid "add-employee"
 msgstr ""
 
-#: .\cook\views.py:154
+#: .\cook\views.py:192
 msgid "edit-employee"
 msgstr ""
 
-#: .\cook\views.py:221
+#: .\cook\views.py:259
 msgid "edit-category"
 msgstr ""
 
-#: .\cook\views.py:222
+#: .\cook\views.py:260
 msgid "add-category"
 msgstr ""
 
-#: .\cook\views.py:223
+#: .\cook\views.py:261
 msgid "add-category-form"
 msgstr ""
 
-#: .\cook\views.py:224 .\cook\views.py:269 .\cook\views.py:296
+#: .\cook\views.py:262 .\cook\views.py:307 .\cook\views.py:334
 msgid "add-dish"
 msgstr ""
 
-#: .\cook\views.py:264
+#: .\cook\views.py:302
 msgid "edit-currency-form"
 msgstr ""
 
-#: .\cook\views.py:265
+#: .\cook\views.py:303
 msgid "add-currency-form"
 msgstr ""
 
-#: .\cook\views.py:266
+#: .\cook\views.py:304
 msgid "add-currency"
 msgstr ""
 
-#: .\cook\views.py:311
+#: .\cook\views.py:349
 msgid "language"
 msgstr ""
 
-#: .\cook\views.py:540
+#: .\cook\views.py:578
 msgid "product-chart-1"
 msgstr ""
 
-#: .\cook\views.py:541
+#: .\cook\views.py:579
 msgid "product-chart-2"
 msgstr ""
 
-#: .\cook\views.py:542
+#: .\cook\views.py:580
 msgid "product-chart-3"
 msgstr ""
 
-#: .\cook\views.py:543
+#: .\cook\views.py:581
 msgid "product-chart-4"
 msgstr ""
 
-#: .\cook\views.py:556
+#: .\cook\views.py:594
 msgid "cookorders-chart\""
 msgstr ""
 
-#: .\cook\views.py:557
+#: .\cook\views.py:595
 msgid "cookorders-chart-1\""
 msgstr ""
 
-#: .\cook\views.py:558
+#: .\cook\views.py:596
 msgid "cookorders-chart-2"
 msgstr ""
 
-#: .\cook\views.py:559
+#: .\cook\views.py:597
 msgid "cookorders-chart-3"
 msgstr ""
 
-#: .\cook\views.py:578
+#: .\cook\views.py:616
 msgid "waiterorders-chart"
 msgstr ""
 
-#: .\cook\views.py:579
+#: .\cook\views.py:617
 msgid "waiterorders-chart-1"
 msgstr ""
 
-#: .\cook\views.py:580
+#: .\cook\views.py:618
 msgid "waiterorders-chart-2"
 msgstr ""
 
-#: .\cook\views.py:581
+#: .\cook\views.py:619
 msgid "waiterorders-chart-3"
 msgstr ""
 
-#: .\cook\views.py:597
+#: .\cook\views.py:635
 msgid "products-chart"
 msgstr ""
 
-#: .\cook\views.py:598
+#: .\cook\views.py:636
 msgid "products-chart-1"
 msgstr ""
 
-#: .\cook\views.py:609
+#: .\cook\views.py:647
 msgid "employee-chart"
 msgstr ""
 
-#: .\cook\views.py:610
+#: .\cook\views.py:648
 msgid "employee-chart-1"
 msgstr ""
 
-#: .\cook\views.py:611
+#: .\cook\views.py:649
 msgid "employee-chart-2"
 msgstr ""
 
-#: .\cook\views.py:612
+#: .\cook\views.py:650
 msgid "employee-chart-3"
 msgstr ""
 
@@ -306,12 +315,36 @@ msgstr ""
 msgid "small-screen-desc"
 msgstr ""
 
+#: .\templates\cookster\administration.html:46
 #: .\templates\cookster\base.html:41 .\templates\cookster\orders-waiter.html:99
 msgid "dishes"
 msgstr ""
 
+#: .\templates\cookster\administration.html:49
+#: .\templates\cookster\administration.html:69
+#: .\templates\cookster\administration.html:91
+msgid "all"
+msgstr ""
+
+#: .\templates\cookster\administration.html:66
 #: .\templates\cookster\base.html:42
 msgid "employees"
+msgstr ""
+
+#: .\templates\cookster\administration.html:113
+msgid "restaurant-details"
+msgstr ""
+
+#: .\templates\cookster\administration.html:125
+msgid "currencies"
+msgstr ""
+
+#: .\templates\cookster\administration.html:156
+msgid "new-currency"
+msgstr ""
+
+#: .\templates\cookster\administration.html:229
+msgid "languages"
 msgstr ""
 
 #: .\templates\cookster\base.html:44

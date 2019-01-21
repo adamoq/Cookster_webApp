@@ -26,6 +26,16 @@ class LanguageResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
+	def obj_create(self, bundle, **kwargs):
+		bundle = super(LanguageResource, self).obj_create(bundle)
+		lang = Language.objects.filter(name = bundle.data.get('name')).first()
+		for object in Dish.objects.all():
+			trans = DishTranslation.objects.create(dish_id = object.id, lang_id = lang.id)
+		for object in Product.objects.all():
+			trans = ProductTranslation.objects.create(product_id = object.id, lang_id = lang.id)
+		for object in Category.objects.all():
+			trans = CategoryTranslation.objects.create(category_id = object.id, lang_id = lang.id)
+		return bundle
 
 
 
@@ -157,8 +167,26 @@ class CurrencyResource(ModelResource):
 		authorization = Authorization()
 		allowed_methods = ['get','put', 'post', 'delete']
 
+	def obj_create(self, bundle, **kwargs):
+		bundle = super(CurrencyResource, self).obj_create(bundle)
+		cur = Currency.objects.filter(name = bundle.data.get('name')).first()
+		value = cur.value
+		for object in Dish.objects.all():
+			trans = DishPrice.objects.create(dish_id = object.id, currency_id = cur.id, price =  object.price/value)
+		return bundle
+	
 
 
+class RestaurantDetailResource(ModelResource):
+	default_currency = fields.ForeignKey(CurrencyResource, 'default_currency',full=True)
+	default_lang = fields.ForeignKey(LanguageResource, 'default_lang',full=True)
+	class Meta:
+		from .models import RestaurantDetail
+		queryset = RestaurantDetail.objects.all()
+		resource_name = 'resdet'
+		authentication = Authentication()
+		authorization = Authorization()
+		allowed_methods = ['put']
 
 
 class OrderResource(ModelResource):

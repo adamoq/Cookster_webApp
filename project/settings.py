@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'cook',
 	'tastypie',
 	'chartjs',
-	'django_tables2'
+	'django_tables2',
+    'wkhtmltopdf',
 ]
 
 MIDDLEWARE = [

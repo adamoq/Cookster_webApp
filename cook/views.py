@@ -58,24 +58,13 @@ def products(request):
 			showError(request,_('data-invalid'))
 		else:
 			form.save()
-			id = form.cleaned_data['name']
-			state = form.cleaned_data['av']
-	
-			product = allProducts.filter(namea = id)
-			#product.update(av=state)
-			if product is not None:
-				dishes = Dish.objects.all().filter(products = product)
-				if dishes[0]:
-					if state == "small":
-						dishes.update(av='1')
-					elif state == "medium" or state == "large":
-						dishes.update(av='0')
-						for i in range(len(dishes)):
-							for product in dishes[i].products.all():
-								if product.av == '0':
-									dishes[i].av='1'
-									dishes[i].save()
-									break
+			name = form.cleaned_data['name']	
+			product = allProducts.filter(name = name).first()
+			deflang = RestaurantDetail.objects.all().first().default_lang.id
+			for lang in Language.objects.all():
+				if deflang != lang.id: 
+					ProductTranslation.objects.create(product_id = product.id, lang_id = lang.id)
+		
 	template = loader.get_template('products.html')
 	
 	table = ProductTable(allProducts)
@@ -118,10 +107,48 @@ def products(request):
 @login_required
 @csrf_exempt
 def administration(request):
-	employesList = Employee.objects.all()
+	from .forms import RestaurantDetailForm
 	template = loader.get_template('administration.html')
+	langforms = []
+	restaurant = RestaurantDetail.objects.all().first()
+	for lang in Language.objects.all():		
+		langmap = {}
+		langmap['id'] = lang.id
+		langmap['form'] = LanguageForm(instance = lang)
+		if restaurant.default_lang.id == lang.id: 
+			langmap['isNotDefault'] = False
+			langforms.insert(0, langmap)
+		else : 
+			langmap['isNotDefault'] = True
+			langforms.append(langmap)
+		#langforms.append(langmap)
+	currencyforms = []
+	for lang in Currency.objects.all():
+		
+		langmap = {}
+		langmap['id'] = lang.id		
+		langmap['name'] = lang.name
+		langmap['form'] = CurrencyForm(instance = lang)
+		if restaurant.default_currency.id == lang.id: 
+			langmap['isNotDefault'] = False
+			currencyforms.insert(0, langmap)
+		else : 
+			langmap['isNotDefault'] = True
+			currencyforms.append(langmap)
+		
+
 	context = {
-		'employesList': employesList,
+		'employesList': Employee.objects.all(),
+		'productList': Product.objects.all(),
+		'dishList': Dish.objects.all(),
+		'data_target': 'api/lang/',
+		'langforms' : langforms,
+		'langform'  : LanguageForm(),
+		'currencyforms' : currencyforms,
+		'currencyform'  : CurrencyForm(),
+		'data_target2': 'api/currency/',
+		'restaurantform' : {'form':RestaurantDetailForm(instance = restaurant), 'id' : restaurant.id},
+		'data_target3' : 'api/resdet/'
 	}
 	return HttpResponse(template.render(context, request))
 
@@ -176,6 +203,11 @@ def menu(request):
 			showError(request,_("data-invalid"))
 		else:
 			categoryform.save()
+			cat = Category.objects.filter(category_name = categoryform.cleaned_data['category_name']).first()
+			default_lang = RestaurantDetail.objects.all().first().default_lang.id
+			for object in Language.objects.all():
+				if default_lang != object.id:
+					CategoryTranslation.objects.create(category_id = cat.id, lang_id = object.id)
 			#Category.objects.create(category_name=categoryform.cleaned_data['category_name'],order=categoryform.cleaned_data['order'])
 	template = loader.get_template('menu.html')
 
@@ -284,12 +316,21 @@ def dish(request):
 	if request.method == 'POST':
 		if dish: 
 			dishForm = DishForm(request.POST, instance = dish)
-		else: dishForm = DishForm(request.POST)
-		if not dishForm.is_valid():
-			showError(request,_("data-invalid"))
-		else:
-			dishForm.save()
-			return redirect("/menu")
+		else: 
+			dishForm = DishForm(request.POST)
+			if dishForm.is_valid():
+				dishForm.save()
+				dish = Dish.objects.filter(name = dishForm.cleaned_data['name']).first()
+				default_lang = RestaurantDetail.objects.all().first().default_lang.id
+				for object in Language.objects.all():
+					if default_lang != object.id:
+						DishTranslation.objects.create(dish_id = dish.id, lang_id = object.id)
+				return redirect("/menu")
+			else:
+				return showError(request,_("data-invalid"))
+
+			
+			
 		context = {
 			'dish':dishForm,
 			'dishId':request.POST.get('id'),
@@ -438,7 +479,7 @@ def login_mobile(request):
 					user.update(status = "2")
 					LoginLog.objects.create(employee=user.first(),status="2")
 				
-					return HttpResponse(serializers.serialize("json", [user[0], RestaurantDetail.objects.first()]))
+					return HttpResponse(serializers.serialize("json", [user[0], RestaurantDetail.objects.values(default_lang__name, default_currency)]))
 	return HttpResponse("False")
 
 

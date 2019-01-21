@@ -6,9 +6,13 @@ from django.core.validators import RegexValidator
 class Currency(models.Model):
 	name = models.CharField(max_length=50, unique = True)
 	ab = models.CharField(max_length=10, null = True)
-	value = models.DecimalField(decimal_places=2,max_digits=5)
+	value = models.DecimalField(decimal_places=2,max_digits=5)	
+	def __str__(self):
+		return str(self.name)
 class Language(models.Model):
-	name = models.CharField(max_length=50, unique = True)
+	name = models.CharField(max_length=50, unique = True)	
+	def __str__(self):
+		return str(self.name)
 
 class Category(models.Model):
 	category_name = models.CharField(max_length=50, validators=[RegexValidator(regex='^[a-zA-Z]*$', message='Category name must be Alphanumeric', code='invalid_category_name' ),])
@@ -17,16 +21,23 @@ class Category(models.Model):
 		return str(self.category_name)
 
 class RestaurantDetail(models.Model):
+	activities = (
+		('0', 'active'),
+		('1', 'notactive')
+	)
 	name = models.CharField(max_length=50, unique = True)
 	users = models.OneToOneField(User, null = True)
 	default_currency = models.OneToOneField(Currency)
 	default_lang = models.OneToOneField(Language)
+	takeaway = models.DecimalField(decimal_places=2,max_digits=5)
+	autoorder = models.CharField(max_length=1, choices=activities, default = '0')
 
 class Employee(models.Model):
 	POSITIONS = (
 		('0', 'waiter'),
 		('1', 'cook'),
 		('2', 'provaider'),
+		('3', 'supplier')
 	)
 	statuses = (
 		('0', 'offline'),
@@ -73,7 +84,7 @@ class Product(models.Model):
 		ordering = ['name']
 
 class Dish(models.Model):
-	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+	category = models.ForeignKey(Category, on_delete=models.CASCADE, null = False)
 	STATES = (
 		('0', 'available'),
 		('1', 'not available'),
@@ -83,7 +94,7 @@ class Dish(models.Model):
 	price = models.DecimalField(decimal_places=2,max_digits=6)
 	tax = models.DecimalField(decimal_places=2,max_digits=4)
 	products = models.ManyToManyField(Product)
-	description = models.CharField(max_length=300, default = "...")
+	description = models.CharField(max_length=300, default = "...", null = True)
 	def __str__(self):
 		return str(self.name)
 	class Meta:
@@ -107,6 +118,10 @@ class DishProduct(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
 	count = models.DecimalField(decimal_places=3,max_digits=7)
 class WaiterTask(models.Model):
+	aties = (
+		('0', 'no'),
+		('1', 'yes'),
+	)
 	STATES = (
 		('0', 'started'),
 		('1', 'done'),
@@ -116,12 +131,14 @@ class WaiterTask(models.Model):
 	currency = models.ForeignKey(Currency)
 	price = models.DecimalField(decimal_places=2,max_digits=7, null = True)
 	price_default = models.DecimalField(decimal_places=2,max_digits=7, null = True)
-	table = models.IntegerField()
+	table = models.CharField(max_length=200, null = True)
 	state = models.CharField(max_length=1, choices=STATES, default = '0')
 	comment = models.CharField(max_length=200, null = True)
 	levels = models.DecimalField(decimal_places=0,max_digits=2)
-	created_at = models.DateTimeField(auto_now_add=True)
-	#updated_at = models.DateTimeField(auto_now=True, auto_now_add=True)
+	created_at = models.DateTimeField(auto_now_add=True)	
+	istakeaway = models.CharField(max_length=1, default = '0', choices=aties)
+
+	updated_at = models.DateTimeField(auto_now=True)
 
 class WaiterOrderDetails(models.Model):
 	STATES = (

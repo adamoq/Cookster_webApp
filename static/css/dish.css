@@ -19,7 +19,7 @@
 }
 .dishproduct-form.update-form p:nth-child(2) label{
 	display: inline-block;
-	border: 0;
+	border-top: 0;
 	text-align: center;
     width: 29%;
 }
@@ -53,6 +53,8 @@
 }
 .trans-form.update-form p{
 	justify-content: left;
+    text-align: left;
+    width: 100%;
 }
 .dishproduct-form.update-form p{
 	display: inline-block;
@@ -138,5 +140,4 @@ button{
 }
 .add-btn img{
 	height: 30px;
-}
 }

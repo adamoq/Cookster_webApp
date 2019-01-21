@@ -1,0 +1,258 @@
+
+.container--right,
+.container--left{
+	text-align:center!important;
+	height: 100vh!important;
+}
+.container--left{
+	border-right: 1px solid #ddd;
+}
+.administration-container .box {
+	min-height: 50px;	
+	font-size: 20px;
+	color: #fff;
+	padding: 5px 0;
+	font-weight: 100;
+	height: auto;
+}
+.administration-container{
+	text-align: center;
+	overflow-y: auto;	
+	height: 100vh;
+}
+.administration-container h3{
+	font-size: 22px;
+	color: #000;
+	width: 100%;
+	margin: 25px 0;
+	font-weight: 100;
+    display: inline-block;
+}
+.administration-container .col-sm-4 img {
+	height: 80px;
+	margin: 5px auto;
+	display: block;
+}
+
+.administration-container .col-sm-4:nth-of-type(1){
+	background-color: var(--colorAccent1);
+}
+.administration-container .col-sm-4:nth-of-type(2){
+	background-color: var(--colorAccent2);
+}
+.administration-container .col-sm-4:nth-of-type(3){
+	background-color: var(--colorAccent3);
+}
+.administration-container .col-sm-4:nth-of-type(4){
+	background-color: var(--colorAccent3);
+}
+
+.administration-container .col-sm-4:hover{
+	background-color: var(--colorAccent5);
+    transition: background-color .4s linear;
+}
+.administration-container .col-sm-4 span{
+	text-shadow: 0 0 18px rgba(0,0,0,0.7);
+}
+
+.administration-container .color{
+	width: 20%;
+	display:inline;
+	height: 35px;
+	float: left;
+}
+.administration-container .changeColor{
+	opacity: .4;
+	margin: 5px 0;
+	height: 35px;
+    transition: all .5s ease-in-out;
+    cursor: pointer;
+}
+.administration-container .changeColor:hover{
+	opacity: 1;	
+	height: 45px;
+    transition: all 1s ease-in-out;
+}
+.administration-container .changeColor:hover .color{
+	height: 45px;
+    transition: all 1s ease-in-out;
+}
+.administration-container .col-sm-12.admin-box{
+	background: #444;
+	color: #fff;
+	font-size: 19px;
+}
+.administration-container .col-sm-12 img{
+	margin-right: 15%;
+}
+.administration-container .admin-desc{
+	opacity: 0;
+	display: inline;
+	font-size: 14px;
+	position: absolute;
+    top: 85px;
+	right: -50px;
+	width: 50%;
+}
+.administration-container .col-sm-12:hover{
+	background-color: #555;
+	transition: background-color 1s ease-in-out;
+
+}
+.administration-container .col-sm-12:hover .admin-desc{
+	opacity: 1;
+	right: 50px;
+	transition: right 1s ease-in-out;
+}
+.palletes {
+	height: 215px;
+}
+.administration-container .palette1 .color:nth-child(1){
+	background: #307E4A;
+}
+.administration-container .palette1 .color:nth-child(2){
+	background: #922429;
+}
+.administration-container .palette1 .color:nth-child(3){
+	background: #C98E1C;
+}
+.administration-container .palette1 .color:nth-child(4){
+	background: #5D5952;
+}
+.administration-container .palette1 .color:nth-child(5){
+	background: #513552;
+}
+.administration-container .palette2 .color:nth-child(1){
+	background: #FF3826;
+}
+.administration-container .palette2 .color:nth-child(2){
+	background: #B5271B;
+}
+.administration-container .palette2 .color:nth-child(3){
+	background: #00AEE8;
+}
+.administration-container .palette2 .color:nth-child(4){
+	background: #C1C1C1;
+}
+.administration-container .palette2 .color:nth-child(5){
+	background: #3A3535;
+}
+.administration-container .palette3 .color:nth-child(1){
+	background: #5BC0EB;
+}
+.administration-container .palette3 .color:nth-child(2){
+	background: #FDE74C;
+}
+.administration-container .palette3 .color:nth-child(3){
+	background: #9BC53D;
+}
+.administration-container .palette3 .color:nth-child(4){
+	background: #E55934;
+}
+.administration-container .palette3 .color:nth-child(5){
+	background: #FA7921;
+}
+.administration-container .palette4 .color:nth-child(1){
+	background: #011627;
+}
+.administration-container .palette4 .color:nth-child(2){
+	background: #9BC53D;
+}
+.administration-container .palette4 .color:nth-child(3){
+	background: #2EC4B6;
+}
+.administration-container .palette4 .color:nth-child(4){
+	background: #E71D36;
+}
+.administration-container .palette4 .color:nth-child(5){
+	background: #FF9F1C;
+}
+.col-sm-6.raport{
+	color: #000;
+}
+.col-sm-6.raport:nth-of-type(4){
+	border-right: 1px solid #ccc;
+}
+.col-sm-12:hover{
+	background-color: white;
+}
+
+.dish-form {
+	text-align: left;
+}
+
+
+
+.dishproduct-form.update-form p label {
+    display: inline;
+}
+.dishproduct-form.update-form p:first-of-type {
+    width: 90%;
+    float: left;
+    text-align: left;
+}
+.add-btn {
+    display: inline-block;
+    text-align: right;
+    width: 100%;
+    padding-right: 0;
+    margin-right: 0;
+}
+.dishproduct-form.update-form p input {
+    width: 70%;
+}
+.trans-form.update-form p label{
+	text-align: left;
+	border-right: 1px solid #eee;
+}
+
+.dishproduct-form.update-form button{
+	float: right;
+}
+
+
+
+.raports {
+	display: block;
+	width: 100%;
+}
+.raport {
+	width: 100%;
+	height: 150px;
+	display: block;
+	width: 100%;
+    transition: all 1s ease-in-out;
+ transition-delay: 1s;
+}
+.raport p{
+	width: 50%;
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	float: left;
+}
+.raport p label,.raport p input,.raport p select{
+	width: 90%;
+	margin: 0 5%;
+	padding: 0;
+	height: 30px;
+	font-weight: 100;
+	display: block;
+
+}
+.raport p input,.raport p select,.raport p option{
+		border: 0;
+    background-color: #eee;
+    outline: none;
+	padding-left: 20px;
+	text-align: left;
+}
+.raport:not(.invisible) {
+}
+.raport.invisible {
+
+
+    transition: all 1s ease-in-out;
+    	height: 0;
+	width: 0;
+}

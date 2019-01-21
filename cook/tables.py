@@ -77,7 +77,7 @@ class ProductTable(tables.Table):
 	def render_av(self, value):
 		return render_av(value)	
 	def render_stock(self, value, record):
-		return format_html(str(value)+str(record.unit),value)
+		return format_html(str(value)+' '+str(record.unit),value)
 
 class EmployeeTable(tables.Table):
 	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})

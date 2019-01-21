@@ -2,18 +2,6 @@
     //szablon
 	
 
-    function createCookie(name, value, days) {
-        var expires;
-
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toGMTString();
-        } else {
-            expires = "";
-        }
-        document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
-    }
 
     function readCookie(name) {
         var nameEQ = encodeURIComponent(name) + "=";
@@ -28,9 +16,7 @@
         return null;
     }
 
-    function eraseCookie(name) {
-        createCookie(name, "", -1);
-    }
+
     if (readCookie('template')) {
         var id = readCookie('template');
         switch (id) {
@@ -132,6 +118,13 @@ $('a').on('click', function(e) {
             delete data['dish'];
             type = 'PUT'}
 
+        //restaurant details
+        if(data['default_currency'] != null) {
+            data['default_currency'] = '/api/currency/'+data['default_currency']+'/';
+            data['default_lang'] = '/api/lang/'+data['default_lang']+'/';
+            //isTranslation = True;
+            //delete data['id'];
+        }
 		data = JSON.stringify(data);
 		console.log('data'+data);
 		
@@ -318,47 +311,6 @@ $('a').on('click', function(e) {
 		});	
     } else if ($("#administration-flag").length > 0) {
 
-        $('.changeColor').on('click', function(e) {
-            if (confirm('Jesteś pewien, że chcesz zmienić szablon serwisu?')) {
-                if (readCookie('template')) eraseCookie('template');
-                createCookie('template', this.id, 30);
-            }
-        });
-    } else if ($("#orders-waiter-flag").length > 0) {
-		//przyporzadkowywanie taskow
-		$('.orderdrag').each(function(){
-			var str = $(this).attr('id');
-			var pos = str.indexOf('.');
-			var state = str.slice(pos+1);
-			if (state == 1 ) $('#stage--step1').append($(this));
-			if (state == 2 ) $('#stage--step2').append($(this));
-		});
-		
-		//drag and drop
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
 
-        function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-        }
-
-        function drop(ev) {
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
-        }
-		
-		//modal
-		$('.order').on('click', function(){
-			var id = '.ordermodal'+$(this).attr('id');
-			
-			$(id).addClass('in');
-		});
-		$('.modal-close').on('click', function(){
-			var id = '.ordermodal'+$(this).attr('id');
-			
-			$(id).removeClass('in');
-		});
-    }
+    } 
 })(jQuery);

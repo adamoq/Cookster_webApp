@@ -22,8 +22,9 @@ from cook.views import changepassword,resetpassword,changephone, changeproduct, 
 from cook.views import orders_cook, cookorders_chart, waiterorders_chart, products_chart
 from cook.charts import category_chart_json,category_chart_json2, dish_chart_json,category_chart_json1, cookorders_chart_json, cookorders_chart_json2, cookorders_chart_json3, cookorders_chart_json4
 from cook.charts import waiterorders_chart_json, waiterorders_chart_json2, waiterorders_chart_json3, waiterorders_chart_json4, products_chart_json, products_chart_json2
+from cook.pdfs import ProductPDF
 from django.contrib import admin
-from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource, DishPriceResource, LanguageResource, DishProductResource
+from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource, DishPriceResource, LanguageResource, DishProductResource, RestaurantDetailResource
 from cook.api import ProductranslationResource, DishTranslationResource, CategoryTranslationResource, WaiterOrderDetailsResource, WaiterCookResource, OrderResourceGet,OrderResourceGet1,OrderResourceGet2, CurrencyResource
 from django.contrib.auth import views as auth_views
 
@@ -59,6 +60,8 @@ urlpatterns = [
 	url(r'^api/', include(CategoryTranslationResource().urls)),
 	url(r'^api/', include(DishPriceResource().urls)),
 	url(r'^api/', include(LanguageResource().urls)),
+	url(r'^api/', include(RestaurantDetailResource().urls)),
+	url(r'^pdf/product/$', ProductPDF.as_view(template_name='/pdfs/product.html'), name="pdf"),
 
 	url(r'^api/', include(OrderResourceGet2().urls)),
 	url(r'^api/', include(CurrencyResource().urls)),

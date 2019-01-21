@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block content %}
 {% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/dish.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/administration.css' %}">
 <script>
 (function($){
 	$('.nav-bar.left a:nth-child(4) li').addClass('active');
@@ -13,33 +16,54 @@
 
 <h3>Generowanie raportów</h3>
 
-
-<div class="col-sm-4 box">
+<div class="col-sm-4 box raport-linker" id="raport1">
 <img src="{% static 'img/menu-icon.png' %}">
-Raport dań
+<span>Raport dań</span>
 </div>
-<div class="col-sm-4 box">
+<div class="col-sm-4 box raport-linker" id="raport2">
 <img src="{% static 'img/waiter-icon.png' %}">
-Raport pracowników
+<span>Raport pracowników</span>
 </div>
-<div class="col-sm-4 box">
+<div class="col-sm-4 box raport-linker" id="raport3">
 <img src="{% static 'img/products-icon.png' %}">
-Raport produktów
+<span>Raport produktów</span>
 </div>
 
 <h3>
 Generuj raport okresowy
 </h3>
+<div class="raports">
 
-<div class = "col-sm-6 raport">
-
+<div class = "raport raport1">
+<p>
 <label>Data rozpoczecia</label>
 <input id="date" type="date">
+</p>
+	<p>
 <label>Data zakończenia</label>
 <input id="date" type="date">
+<p>
+<label>{%trans 'dishes'%}</label>
+{% if dishList %}
+<select>
+	<option value="all">{%trans 'all'%} </>
+	{% for employee in dishList %}
+	<option value="{{employee.id}}">{{employee.name}}</>
+	{%endfor%}
+</select>
+{%endif%}
 </div>
-<div class = "col-sm-6 raport">
-<label>Pracownik</label>
+
+<div class = "raport raport2 invisible">
+<p>
+<label>Data rozpoczecia</label>
+<input id="date" type="date">
+</p>
+	<p>
+<label>Data zakończenia</label>
+<input id="date" type="date">
+<p>
+<label>{%trans 'employees'%}</label>
 {% if employesList %}
 <select>
 	{% for employee in employesList %}
@@ -49,10 +73,118 @@ Generuj raport okresowy
 {%endif%}
 </div>
 
+
+
+<div class = "raport raport3 invisible">
+<p>
+<label>Data rozpoczecia</label>
+<input id="date" type="date">
+</p>
+	<p>
+<label>Data zakończenia</label>
+<input id="date" type="date">
+<p>
+<label>{%trans 'products'%}</label>
+{% if productList %}
+<select>
+	<option value="all">{%trans 'all'%} </>
+	{% for employee in productList %}
+	<option value="{{employee.id}}">{{employee.name}} </>
+	{%endfor%}
+</select>
+{%endif%}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+{% if restaurantform %}
+          <form method="PUT" data-target="{{data_target3}}" id="t{{restaurantform.id}}" class="update-form trans-form dish-form">
+          	<p><span>{% trans "restaurant-details"%}</span> <button type="submit" class="btn" disabled="disabled">
+                    <img src="{% static 'img/accept-icon.png' %}">
+                  </button>
+                 </p>
+{{ restaurantform.form.as_p }}
+
+            </form>
+
+{% endif %}
+
+
+
+        <h3>{% trans "currencies"%}</h3>
+
+
+{% if currencyforms %}
+{% for lang in currencyforms  %}
+         <form method="PUT" data-target="{{data_target2}}" class="update-form trans-form dish-form" id = "d{{ lang.id }}">  
+              <p><span>{{lang.name}}</span> 
+              	<button type="submit" class="btn" id = "{{ lang.id }}" disabled="disabled">
+                    <img src="{% static 'img/accept-icon.png' %}">
+                  </button>
+{% if lang.isNotDefault %}
+               <button type="button" class="btn button-remove" id = "{{ lang.id }}" data-target="{{data_target2}}">
+              <img src="{% static 'img/rubbish-icon.png' %}">
+              </button>
+{% endif %}
+
+
+
+
+ 
+                 </p>
+{{lang.form.as_p}}
+
+          </form>
+{% endfor %}
+{% endif %}
+
+
+{% if currencyform %}
+{% for i in "xxxxx" %} 
+          <form method="POST" data-target="{{data_target2}}" class="update-form trans-form dish-form invisible">
+          	<p><span>{% trans "new-currency"%}</span> <button type="submit" class="btn" disabled="disabled">
+                    <img src="{% static 'img/accept-icon.png' %}">
+                  </button>
+                 </p>
+{{ currencyform.as_p }}
+
+            </form>
+{% endfor %}
+
+
+<button class="add-btn2 add-btn" >
+                    <img src="{% static 'img/add-icon.png' %}">
+                  </button>
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 <div class="container--right col-sm-6">
 
 <h3>Wybór szablonu </h3>
+<div class = "palletes">
 <div class="changeColor palette1" id = "0">
 	<div class="color">&nbsp;</div>
 	<div class="color">&nbsp;</div>
@@ -81,6 +213,14 @@ Generuj raport okresowy
 	<div class="color">&nbsp;</div>
 	<div class="color">&nbsp;</div>
 </div>
+<div class="changeColor palette4" id = "3">
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+	<div class="color">&nbsp;</div>
+</div>
+</div>
 <a href="/admin">
 	<div class="col-sm-12 box admin-box">
 	<img src="{% static 'img/admin-icon.png' %}">
@@ -90,10 +230,53 @@ Generuj raport okresowy
 		</p>
 	</div>
 </a>
+
+
+
+
+        <h3>{% trans "languages"%}</h3>
+
+{% if langforms %}
+{% for lang in langforms  %}
+         <form method="PUT" data-target="{{data_target}}" class="dishproduct-form update-form dish-form" id = "p{{ lang.id }}">  
+{{lang.form.as_p}}
+{% if lang.isNotDefault %}
+               <button type="button" class="btn button-remove" id = "{{ lang.id }}" data-target="{{data_target}}">
+              <img src="{% static 'img/rubbish-icon.png' %}">
+              </button>
+{% endif %}
+          <button type="submit" class="btn" id = "{{ lang.id }}" disabled="disabled">
+            <img src="{% static 'img/accept-icon.png' %}">
+            </button>
+          </form>
+{% endfor %}
+{% endif %}
+
+
+{% if langform %}
+{% for i in "xxxxx" %} 
+          <form method="POST" data-target="{{data_target}}" class="dishproduct-form update-form dish-form invisible">
+{{ langform.as_p }}
+
+
+            <button type="submit" class="btn" disabled="disabled">
+              <img src="{% static 'img/accept-icon.png' %}">
+              </button>
+            </form>
+{% endfor %}
+
+<button class="add-btn add-btn1" >
+                    <img src="{% static 'img/add-icon.png' %}">
+                  </button>
+
+{% endif %}
+
+
+
 </div>
 
-
 </div>
 
+<script src="{% static 'js/administration.js' %}"></script>
 
 {% endblock %}
