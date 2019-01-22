@@ -174,7 +174,7 @@ class CurrencyResource(ModelResource):
 		for object in Dish.objects.all():
 			trans = DishPrice.objects.create(dish_id = object.id, currency_id = cur.id, price =  object.price/value)
 		return bundle
-	
+
 
 
 class RestaurantDetailResource(ModelResource):
@@ -192,6 +192,7 @@ class RestaurantDetailResource(ModelResource):
 class OrderResource(ModelResource):
 	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)
 	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
+	supplier = fields.ForeignKey(EmployeeResource, 'supplier',full=True,null=True)
 	currency = fields.ForeignKey(CurrencyResource, 'currency',full=True)
 	def obj_create(self, bundle, **kwargs):
 
@@ -199,6 +200,9 @@ class OrderResource(ModelResource):
 		orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
 		employee = Employee.objects.filter(pk = bundle.data.get('cook').rsplit('/')[3]).first()
 		Notification.objects.create(employee=employee, title = "Dostales nowe zamowienie", desc = orderDesc)
+		if bundle.data.get('supplier'):
+			employee = Employee.objects.filter(pk = bundle.data.get('supplier').rsplit('/')[3]).first()
+			Notification.objects.create(employee=employee, title = "Dostales nowe zamowienie", desc = orderDesc)
 		return super(OrderResource, self).obj_create(bundle, **kwargs)
 	class Meta:
 		always_return_data = True
