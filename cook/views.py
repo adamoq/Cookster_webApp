@@ -36,7 +36,7 @@ def products(request):
 			form.save()
 			id = form.cleaned_data['id']
 			state = form.cleaned_data['av']
-	
+
 			product = allProducts.filter(pk = id)
 			#product.update(av=state)
 			if product is not None:
@@ -58,15 +58,15 @@ def products(request):
 			showError(request,_('data-invalid'))
 		else:
 			form.save()
-			name = form.cleaned_data['name']	
+			name = form.cleaned_data['name']
 			product = allProducts.filter(name = name).first()
 			deflang = RestaurantDetail.objects.all().first().default_lang.id
 			for lang in Language.objects.all():
-				if deflang != lang.id: 
+				if deflang != lang.id:
 					ProductTranslation.objects.create(product_id = product.id, lang_id = lang.id)
-		
+
 	template = loader.get_template('products.html')
-	
+
 	table = ProductTable(allProducts)
 	RequestConfig(request,paginate={'per_page': 15}).configure(table)
 	forms = {}
@@ -88,7 +88,7 @@ def products(request):
 			transmap['id'] = object.id
 			transmap['data_target'] = 'api/producttranslation/'
 			translits.append(transmap)
-		map['trans'] = translits			
+		map['trans'] = translits
 		map['productForm'] = ProductForm(instance=product)
 		forms[product.id]=map
 	context = {
@@ -111,31 +111,31 @@ def administration(request):
 	template = loader.get_template('administration.html')
 	langforms = []
 	restaurant = RestaurantDetail.objects.all().first()
-	for lang in Language.objects.all():		
+	for lang in Language.objects.all():
 		langmap = {}
 		langmap['id'] = lang.id
 		langmap['form'] = LanguageForm(instance = lang)
-		if restaurant.default_lang.id == lang.id: 
+		if restaurant.default_lang.id == lang.id:
 			langmap['isNotDefault'] = False
 			langforms.insert(0, langmap)
-		else : 
+		else :
 			langmap['isNotDefault'] = True
 			langforms.append(langmap)
 		#langforms.append(langmap)
 	currencyforms = []
 	for lang in Currency.objects.all():
-		
+
 		langmap = {}
-		langmap['id'] = lang.id		
+		langmap['id'] = lang.id
 		langmap['name'] = lang.name
 		langmap['form'] = CurrencyForm(instance = lang)
-		if restaurant.default_currency.id == lang.id: 
+		if restaurant.default_currency.id == lang.id:
 			langmap['isNotDefault'] = False
 			currencyforms.insert(0, langmap)
-		else : 
+		else :
 			langmap['isNotDefault'] = True
 			currencyforms.append(langmap)
-		
+
 
 	context = {
 		'employesList': Employee.objects.all(),
@@ -217,7 +217,7 @@ def menu(request):
 	categories = CategoryTranslation.objects.all()
 	cattrans = categories.values('id','lang__name')
 
-	
+
 
 	dishes = Dish.objects.all()
 	for category in Category.objects.all().order_by('order'):
@@ -236,11 +236,11 @@ def menu(request):
 			for categorytrans in cattrans:
 				if categorytrans['id'] == object.id:
 					transmap['lang'] = categorytrans['lang__name']
-					break			
+					break
 			transmap['id'] = object.id
 			transmap['data_target'] = 'api/categorytranslation/'
 			translits.append(transmap)
-		formmap['trans'] = translits			
+		formmap['trans'] = translits
 		formmap['productForm'] = CategoryForm(instance=category)
 		forms[category.id]=formmap
 
@@ -311,12 +311,12 @@ def currencies(request):
 def dish(request):
 	template = loader.get_template('dish.html')
 	dish = None
-	if request.GET.get('d'): 
+	if request.GET.get('d'):
 		dish = Dish.objects.get(pk = request.GET.get('d'))
 	if request.method == 'POST':
-		if dish: 
+		if dish:
 			dishForm = DishForm(request.POST, instance = dish)
-		else: 
+		else:
 			dishForm = DishForm(request.POST)
 			if dishForm.is_valid():
 				dishForm.save()
@@ -329,8 +329,8 @@ def dish(request):
 			else:
 				return showError(request,_("data-invalid"))
 
-			
-			
+
+
 		context = {
 			'dish':dishForm,
 			'dishId':request.POST.get('id'),
@@ -338,7 +338,7 @@ def dish(request):
 		}
 		return HttpResponse(template.render(context, request))
 
-	forms = []	
+	forms = []
 	for object in DishPrice.objects.filter(dish = dish):
 		transmap = {}
 		transmap['form'] = DishPriceForm(instance=object)
@@ -354,7 +354,7 @@ def dish(request):
 		transmap['data_target'] = 'api/dishtranslation/'
 		forms.append(transmap)
 
-	dishproductforms = []	
+	dishproductforms = []
 	for object in DishProduct.objects.filter(dish = dish):
 		transmap = {}
 		transmap['form'] = DishProductForm(instance=object)
@@ -396,7 +396,7 @@ def orders_waiter(request):
 
 			if (status is "0" or "1") and (order.state is "1" or order.state is "2") : status = order.state
 			for orderdetail in WaiterOrder.objects.all().filter(task = order):
-				
+
 				dishesList += str(orderdetail.count) + " x " + orderdetail.dish.name + " - " + str(orderdetail.price_default) + currency +"\n"
 
 		orderMap = {}
@@ -427,7 +427,7 @@ def orders_cook(request):
 	tasks = []
 	dishesList = ""
 	for task in waitertasks:
-		for order in CookOrder.objects.all().filter(task = task):				
+		for order in CookOrder.objects.all().filter(task = task):
 			dishesList += str(order.count) + " x " + order.product.name + "\n"
 			orderMap = {}
 			orderMap["id"] = task.id
@@ -478,8 +478,8 @@ def login_mobile(request):
 				if user[0].password == password:
 					user.update(status = "2")
 					LoginLog.objects.create(employee=user.first(),status="2")
-				
-					return HttpResponse(serializers.serialize("json", [user[0], RestaurantDetail.objects.values(default_lang__name, default_currency)]))
+
+					return HttpResponse(serializers.serialize("json", [user[0], RestaurantDetail.objects.all()[0]]))
 	return HttpResponse("False")
 
 
@@ -576,7 +576,7 @@ def menu_chart(request):
 			'chart_type2':'doughnut',
 			'url_json':'dish_chart_json',
 			'url_json1':'category_chart_json1',
-			'url_json2':'category_chart_json',			
+			'url_json2':'category_chart_json',
 			'url_json3':'category_chart_json2',
 			'charttitle' : '"'+_("product-chart-1")+'"',#'"Ilość zamówionych dań"',
 			'charttitle1' :'"'+ _("product-chart-2")+'"',#'"Ilość zamówionych dań"',
@@ -592,7 +592,7 @@ def cookorders_chart(request):
 			'chart_type2':'doughnut',
 			'url_json':'cookorders_chart_json',
 			'url_json1':'cookorders_chart_json2',
-			'url_json2':'cookorders_chart_json3',			
+			'url_json2':'cookorders_chart_json3',
 			'url_json3':'cookorders_chart_json4',
 			'charttitle' : '"'+_("cookorders-chart"+'"'),#''"Ilość złożonych zamówień każdego dnia"',
 			'charttitle1' : '"'+ _("cookorders-chart-1"+'"'),#'"Ilość złożonych zamówień przez kucharzy"',
@@ -614,7 +614,7 @@ def waiterorders_chart(request):
 			'chart_type2':'doughnut',
 			'url_json':'waiterorders_chart_json',
 			'url_json1':'waiterorders_chart_json2',
-			'url_json2':'waiterorders_chart_json3',			
+			'url_json2':'waiterorders_chart_json3',
 			'url_json3':'waiterorders_chart_json4',
 			'charttitle' : '"'+ _("waiterorders-chart")+'"',#'"Ilość złożonych zamówień każdego dnia"',
 			'charttitle1' : '"'+ _("waiterorders-chart-1")+'"',#'"Ilość złożonych zamówień przez danego kelnera"',
