@@ -30,6 +30,7 @@ class RestaurantDetail(models.Model):
 	default_currency = models.OneToOneField(Currency)
 	default_lang = models.OneToOneField(Language)
 	takeaway = models.DecimalField(decimal_places=2,max_digits=5)
+	supply = models.DecimalField(decimal_places=2,max_digits=5)
 	autoorder = models.CharField(max_length=1, choices=activities, default = '0')
 
 class Employee(models.Model):
@@ -128,6 +129,7 @@ class WaiterTask(models.Model):
 	)
 	waiter = models.ForeignKey(Employee, null = True, related_name='waiter')
 	cook = models.ForeignKey(Employee)
+	supplier = models.ForeignKey(Employee, null = True, related_name='supplier')
 	currency = models.ForeignKey(Currency)
 	price = models.DecimalField(decimal_places=2,max_digits=7, null = True)
 	price_default = models.DecimalField(decimal_places=2,max_digits=7, null = True)
@@ -135,8 +137,9 @@ class WaiterTask(models.Model):
 	state = models.CharField(max_length=1, choices=STATES, default = '0')
 	comment = models.CharField(max_length=200, null = True)
 	levels = models.DecimalField(decimal_places=0,max_digits=2)
-	created_at = models.DateTimeField(auto_now_add=True)	
+	created_at = models.DateTimeField(auto_now_add=True)
 	istakeaway = models.CharField(max_length=1, default = '0', choices=aties)
+	suply = models.CharField(max_length=1, default = '0', choices=aties)
 
 	updated_at = models.DateTimeField(auto_now=True)
 
