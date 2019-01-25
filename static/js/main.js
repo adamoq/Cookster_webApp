@@ -61,7 +61,7 @@
     };
 $('a').on('click', function(e) {
 
-    $("#overlay").toggleClass('hidden');
+    $("#overlay").toggleClass('overlay-hidden');
 
 });
 $('.nav-bar.left a').on('click', function(e) {
@@ -147,14 +147,14 @@ $('.nav-bar.left a').on('click', function(e) {
 					if(isTranslation){
                         submitbutton.attr("disabled", "disabled");
 }
-                       if(! $("#overlay").hasClass('hidden')) $("#overlay").toggleClass('hidden');
+                       if(! $("#overlay").hasClass('overlay-hidden')) $("#overlay").toggleClass('overlay-hidden');
 
 				}
 			})
 	});
    $('.save-button').on('click', function() {
 
-        $("#overlay").toggleClass('hidden');
+        $("#overlay").toggleClass('overlay-hidden');
         var id = $(this).attr('id');
         id = 'form#'+id;
         //$('#'+id).submit();
@@ -168,7 +168,7 @@ $('.nav-bar.left a').on('click', function(e) {
     });
   $('.save-button-post').on('click', function() {
 
-        $("#overlay").toggleClass('hidden');
+        $("#overlay").toggleClass('overlay-hidden');
         $("#cookmodal").modal('hide');
 
     });
@@ -259,7 +259,7 @@ $('.nav-bar.left a').on('click', function(e) {
         //update kategorii
         $(document).on('submit', 'form.category-form', function() {
             event.preventDefault();
-			 $("#overlay").toggleClass('hidden');
+			 $("#overlay").toggleClass('overlay-hidden');
             var data = objectifyForm(this);
             var id = data['id'];
             data = JSON.stringify(data);
@@ -271,7 +271,7 @@ $('.nav-bar.left a').on('click', function(e) {
                 dataType: 'json',
                 processData: false,
 				success: function() {
-                        $("#overlay").toggleClass('hidden');
+                        $("#overlay").toggleClass('overlay-hidden');
                     }
             })
         });

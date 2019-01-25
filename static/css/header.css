@@ -167,15 +167,12 @@ table input {
 	height: 15px;
     margin-right: 10px;
 }
+
+
+#overlay.overlay-hidden .loader{
+   display:none!important;
 }
 
-#overlay.hidden{
-   background:rgba(0,0,0,0.0);
-   display:block!important;
-}
-#overlay.hidden .loader{
-   display:none;
-}
 #overlay  {
 	position:fixed;
     top:0;
@@ -185,7 +182,12 @@ table input {
     width:100%;
     height:100%;
     display:block;
-	transition: all 1s;
+	transition: background 1s;
+}
+body .overlay-hidden{
+	transition: all 1s ease-in-out!important;
+   background:rgba(0,0,0,0.0)!important;
+   width: 0!important;
 }
 .loader {
     border-top: 16px solid blue;
@@ -193,8 +195,9 @@ table input {
 	border-bottom: 16px solid var(--colorAccent2);
 	border-left: 16px solid var(--colorAccent3);
     border-radius: 20%;
-	font-size: 9px;
+	font-size: 10px;
     width: 80px;
+    color: #ddd;
     height: 80px;
     animation: spin 2s linear infinite;
 	position:fixed;

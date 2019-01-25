@@ -140,7 +140,7 @@ class WaiterTask(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	istakeaway = models.CharField(max_length=1, default = '0', choices=aties)
 	suply = models.CharField(max_length=1, default = '0', choices=aties)
-
+	reservation = models.DateTimeField(null=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
 class WaiterOrderDetails(models.Model):
@@ -184,6 +184,7 @@ class CookTask(models.Model):
 	priority = models.CharField(max_length=1, choices=PRIORITIES, default = '0')
 	comment = models.CharField(max_length=300, null = True)
 	created_at = models.DateTimeField(auto_now_add=True)
+	reservation = models.DateTimeField(null=True)
 
 class CookOrder(models.Model):
 	product = models.ForeignKey(Product, related_name='product')
@@ -191,7 +192,7 @@ class CookOrder(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	task = models.ForeignKey(CookTask, related_name='task')
 	def __str__(self):
-		return str(self.product.name) + ", " + self.count + ", " + self.created_at
+		return str(self.product.name) + ", " + str(self.count) + ", " + str(self.created_at)
 
 
 class DishPrice(models.Model):

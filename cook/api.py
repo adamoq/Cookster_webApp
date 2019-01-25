@@ -30,11 +30,11 @@ class LanguageResource(ModelResource):
 		bundle = super(LanguageResource, self).obj_create(bundle)
 		lang = Language.objects.filter(name = bundle.data.get('name')).first()
 		for object in Dish.objects.all():
-			DishTranslation.objects.create(dish_id = object.id, lang_id = lang.id)
+			DishTranslation.objects.create(dish_id = object.id, lang_id = lang.id, name = object.name + lang.name, description = object.description + lang.name)
 		for object in Product.objects.all():
-			ProductTranslation.objects.create(product_id = object.id, lang_id = lang.id)
+			ProductTranslation.objects.create(product_id = object.id, lang_id = lang.id, name = object.name + lang.name)
 		for object in Category.objects.all():
-			CategoryTranslation.objects.create(category_id = object.id, lang_id = lang.id)
+			CategoryTranslation.objects.create(category_id = object.id, lang_id = lang.id, name = object.category_name + lang.name)
 		return bundle
 
 
@@ -211,6 +211,45 @@ class RestaurantDetailResource(ModelResource):
 		authentication = Authentication()
 		authorization = Authorization()
 		allowed_methods = ['put']
+	def obj_update(self, bundle, **kwargs):
+		from .models import RestaurantDetail
+# update an existing row
+		olddefault_lang = RestaurantDetail.objects.all().first().default_lang
+		bundle = super(RestaurantDetailResource, self).obj_update(bundle, **kwargs)
+		newdefault_lang = RestaurantDetail.objects.all().first().default_lang
+		if newdefault_lang.id != olddefault_lang.id:
+			dishtrans = DishTranslation.objects.filter(lang = newdefault_lang)
+			for dish in Dish.objects.all():
+				trans = dishtrans.get(dish = dish)
+				dishname = dish.name
+				dishdesc = dish.description
+				dish.name = trans.name
+				dish.description = trans.description
+				trans.name = dishname
+				trans.description = dishdesc
+				trans.lang = olddefault_lang
+				trans.save()
+				dish.save()
+			producttrans = ProductTranslation.objects.filter(lang = newdefault_lang)
+			for product in Product.objects.all():
+				trans = producttrans.get(product = product)
+				productname = product.name
+				product.name = trans.name
+				trans.name = productname
+				trans.lang = olddefault_lang
+				trans.save()
+				product.save()
+			ctrans = CategoryTranslation.objects.filter(lang = newdefault_lang)
+			for cat in Category.objects.all():
+				trans = ctrans.get(category = cat)
+				productname = cat.category_name
+				cat.category_name = trans.name
+				trans.lang = olddefault_lang
+				trans.name = productname
+				trans.save()
+				cat.save()
+
+		return bundle
 
 
 class OrderResource(ModelResource):
