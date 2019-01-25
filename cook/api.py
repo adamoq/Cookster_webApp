@@ -30,11 +30,11 @@ class LanguageResource(ModelResource):
 		bundle = super(LanguageResource, self).obj_create(bundle)
 		lang = Language.objects.filter(name = bundle.data.get('name')).first()
 		for object in Dish.objects.all():
-			trans = DishTranslation.objects.create(dish_id = object.id, lang_id = lang.id)
+			DishTranslation.objects.create(dish_id = object.id, lang_id = lang.id)
 		for object in Product.objects.all():
-			trans = ProductTranslation.objects.create(product_id = object.id, lang_id = lang.id)
+			ProductTranslation.objects.create(product_id = object.id, lang_id = lang.id)
 		for object in Category.objects.all():
-			trans = CategoryTranslation.objects.create(category_id = object.id, lang_id = lang.id)
+			CategoryTranslation.objects.create(category_id = object.id, lang_id = lang.id)
 		return bundle
 
 
@@ -107,21 +107,38 @@ class CookTaskResource(ModelResource):
 
 	def obj_update(self, bundle, **kwargs):
 # update an existing row
+		id = int(kwargs['pk'])
+		obj = CookTask.objects.filter(pk = id).first()
+		if obj.state == "1":
+			employee = Employee.objects.filter(pk = obj.provider.id).first()
+			orderDesc = "Zamówienie od: " + obj.provider.name+" "+ obj.provider.surname
+			employee = Employee.objects.filter(pk = obj.cook.id).first()
+			Notification.objects.create(employee=employee, title = "status-changed", desc = orderDesc)
+		elif obj.state == '2':
+			for order in CookOrder.objects.filter(task = obj):
+				product = order.product
+				product.stock =+ order.count
+				product.state = '2'
+				product.save()
+				dishes = Dish.objects.all().filter(products = product)
+				if dishes[0]:
+					dishes.update(av='0')
+					for i in range(len(dishes)):
+						for product in dishes[i].products.all():
+							if product.av == '0':
+								dishes[i].av='1'
+								dishes[i].save()
+								break
+		return super(CookTaskResource, self).obj_update(bundle, **kwargs)
+	def obj_delete(self, bundle, **kwargs):
 		pk = int(kwargs['pk'])
-
-
 		obj = CookTask.objects.filter(pk = pk).first()
 
 		employee = Employee.objects.filter(pk = obj.provider.id).first()
 		orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
 		employee = Employee.objects.filter(pk = obj.cook.id).first()
-		Notification.objects.create(employee=employee, title = "Zmiana statusu zamówienia", desc = orderDesc)
-		if obj.status == '2':
-			for order in CookOrder.objects.filter(task = obj):
-				product = order.product
-				product.stock =+ order.count
-				product.save()
-		return super(CookTaskResource, self).obj_update(bundle, **kwargs)
+		Notification.objects.create(employee=employee, title = "status-deleted", desc = orderDesc)
+		return super(CookTaskResource, self).obj_delete(bundle, **kwargs)
 
 	class Meta:
 		always_return_data = True
@@ -141,7 +158,7 @@ class CookTaskResource(ModelResource):
 			'provider':ALL_WITH_RELATIONS
         }
 	def dehydrate(self, bundle):
-		bundle.data['orders'] = list(CookOrder.objects.filter(task = bundle.data['id']).values('count', 'product__name', 'product__unit'))
+		bundle.data['orders'] = list(CookOrder.objects.filter(task = bundle.data['id']).values('count', 'product__name', 'product__unit', 'id'))
 		bundle.data['created_at'] = bundle.data['created_at'].strftime("%H:%M")
 		return bundle
 
@@ -157,7 +174,14 @@ class OrderCookResource(ModelResource):
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
-
+	def obj_delete(self, bundle, **kwargs):
+		pk = int(kwargs['pk'])
+		obj = CookOrder.objects.filter(pk = pk).first()
+		task = CookTask.objects.filter(pk = obj.task.id).first()
+		bundle = super(OrderCookResource, self).obj_delete(bundle, **kwargs)
+		if(not CookOrder.objects.filter(task = task)) :
+			task.delete()
+		return bundle
 
 class CurrencyResource(ModelResource):
 	class Meta:
@@ -172,7 +196,7 @@ class CurrencyResource(ModelResource):
 		cur = Currency.objects.filter(name = bundle.data.get('name')).first()
 		value = cur.value
 		for object in Dish.objects.all():
-			trans = DishPrice.objects.create(dish_id = object.id, currency_id = cur.id, price =  object.price/value)
+			DishPrice.objects.create(dish_id = object.id, currency_id = cur.id, price =  object.price/value)
 		return bundle
 
 
@@ -238,7 +262,7 @@ class OrderResourceGet(ModelResource):
 		order = WaiterOrderDetails.objects.filter(task = bundle.data['id'], state = 0)
 		orders = []
 		for ord in order:
-			orders = list(chain(orders, WaiterOrder.objects.filter(task = ord).values('count', 'dish__name', 'comment', 'level', 'task__id')))
+			orders = list(chain(orders, WaiterOrder.objects.filter(task = ord).values('count', 'dish__name','id', 'comment', 'level', 'task__id')))
 		bundle.data['orders'] = orders
 		bundle.data['created_at'] = bundle.data['created_at'].strftime("%H:%M")
 		return bundle
@@ -252,7 +276,7 @@ class OrderResourceGet1(ModelResource):
 		always_return_data = True
 		limit = 0
 		today_min = datetime.date.today() + datetime.timedelta(days = 1)
-		today_minm = datetime.datetime.now() - datetime.timedelta(days = 1)
+		today_minm = datetime.datetime.now() - datetime.timedelta(days = 2)
 		today_mind = datetime.date.today().strftime("%d")
 		queryset1 = []
 		for task in WaiterOrderDetails.objects.filter(state = "1"):
@@ -271,7 +295,7 @@ class OrderResourceGet1(ModelResource):
 		order = WaiterOrderDetails.objects.filter(task = bundle.data['id'], state = 1)
 		orders = []
 		for ord in order:
-			orders = list(chain(orders, WaiterOrder.objects.filter(task = ord).values('count', 'dish__name', 'comment', 'level', 'task__id', 'task__state')))
+			orders = list(chain(orders, WaiterOrder.objects.filter(task = ord).values('count', 'dish__name', 'comment', 'level', 'task__id','id', 'task__state')))
 		bundle.data['orders'] = orders
 		bundle.data['created_at'] = bundle.data['created_at'].strftime("%H:%M")
 		return bundle
@@ -285,7 +309,7 @@ class OrderResourceGet2(ModelResource):
 		always_return_data = True
 		limit = 0
 		today_min = datetime.date.today() + datetime.timedelta(days = 1)
-		today_minm = datetime.datetime.now() - datetime.timedelta(days = 1)
+		today_minm = datetime.datetime.now() - datetime.timedelta(days = 2)
 		today_mind = datetime.date.today().strftime("%d")
 		queryset1 = []
 		for task in WaiterOrderDetails.objects.filter(state = "2"):
@@ -306,7 +330,7 @@ class OrderResourceGet2(ModelResource):
 		order = WaiterOrderDetails.objects.filter(task = bundle.data['id'], state = 2)
 		orders = []
 		for ord in order:
-			orders = list(chain(orders, WaiterOrder.objects.filter(task = ord).values('count', 'dish__name', 'comment', 'level', 'task__id', 'task__state')))
+			orders = list(chain(orders, WaiterOrder.objects.filter(task = ord).values('count', 'dish__name', 'comment','id', 'level', 'task__id', 'task__state')))
 		bundle.data['orders'] = orders
 		bundle.data['created_at'] = bundle.data['created_at'].strftime("%H:%M")
 		return bundle
@@ -321,6 +345,41 @@ class WaiterOrderDetailsResource(ModelResource):
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
+	def obj_update(self, bundle, **kwargs):
+# update an existing row
+		pk = int(kwargs['pk'])
+		obj = WaiterOrderDetails.objects.filter(pk = pk).first()
+		if obj.state == '1':
+			task = WaiterTask.objects.filter(pk = obj.task.id).first()
+			employee = Employee.objects.filter(pk = task.cook.id).first()
+			orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
+			employee = Employee.objects.filter(pk = task.waiter.id).first()
+			Notification.objects.create(employee=employee, title = "status-ready", desc = orderDesc)
+			for order in WaiterOrder.objects.filter(task = obj):
+				dish = order.dish
+				count = order.count
+				for dishproduct in DishProduct.objects.filter(dish = dish):
+					product = dishproduct.product
+					product_count = dishproduct.count
+					product.stock =- product_count * count
+					product.save()
+					if product.stock < 0 :
+					    Dish.objects.all().filter(products = product).update(av='1')
+
+		return super(WaiterOrderDetailsResource, self).obj_update(bundle, **kwargs)
+	def obj_delete(self, bundle, **kwargs):
+		pk = int(kwargs['pk'])
+		obj = WaiterOrderDetails.objects.filter(pk = pk).first()
+		taskid = obj.task.id
+		task = WaiterTask.objects.filter(pk = taskid).first()
+		bundle = super(WaiterOrderDetailsResource, self).obj_delete(bundle, **kwargs)
+		if(not WaiterOrderDetails.objects.filter(task = task)) :
+			employee = Employee.objects.filter(pk = task.waiter.id).first()
+			orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
+			employee = Employee.objects.filter(pk = task.cook.id).first()
+			Notification.objects.create(employee=employee, title = "status-deleted", desc = orderDesc)
+			task.delete()
+		return bundle
 
 
 
@@ -335,6 +394,31 @@ class WaiterCookResource(ModelResource):
 		allowed_methods = ['get','put', 'post', 'delete']
 		authentication = Authentication()
 		authorization = Authorization()
+	def obj_update(self, bundle, **kwargs):
+# update an existing row
+		pk = int(kwargs['pk'])
+
+		obj = WaiterOrder.objects.filter(pk = pk).first()
+		task = WaiterTask.objects.filter(pk = obj.task.task.id).first()
+
+		employee = Employee.objects.filter(pk = task.waiter.id).first()
+		orderDesc = "Zamówienie od: " + employee.name+" "+ employee.surname
+		employee = Employee.objects.filter(pk = task.cook.id).first()
+		#Notification.objects.create(employee=employee, title = "Zmiana statusu zamówienia", desc = orderDesc)
+		if 'count' in bundle.data:
+			Notification.objects.create(employee=employee, title = "Zamówienie zostało edytowane", desc = orderDesc)
+			from decimal import Decimal
+			diff = Decimal(bundle.data['count']) / obj.count
+			newprice = diff * obj.price
+			newdefprice = diff * obj.price_default
+			task.price = task.price + (newprice - obj.price)
+			task.price_default = task.price_default + (newdefprice - obj.price)
+			obj.price = newprice
+			obj.price_default = newdefprice
+			obj.save()
+			task.save()
+		return super(WaiterCookResource, self).obj_update(bundle, **kwargs)
+
 class DishTranslationResource(ModelResource):
 	lang = fields.ForeignKey(LanguageResource, 'lang',full=True)
 	dish = fields.ForeignKey(DishResource, 'dish',full=True)

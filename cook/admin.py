@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Dish, Product, Employee, WaiterTask, CookTask, Category, DishPrice, Currency, RestaurantDetail,LoginLog,WaiterOrder, CookOrder
+from .models import Dish, Product, Employee, WaiterTask, CookTask, Category, DishPrice, Currency, RestaurantDetail,LoginLog,WaiterOrder,WaiterOrderDetails, CookOrder
 from .models import Language, DishTranslation, ProductTranslation, CategoryTranslation, Notification, DishProduct
 admin.site.register(Category)
 admin.site.register(Dish)
@@ -19,5 +19,6 @@ admin.site.register(ProductTranslation)
 admin.site.register(DishTranslation)
 admin.site.register(Notification)
 admin.site.register(DishProduct)
+admin.site.register(WaiterOrderDetails)
 
 

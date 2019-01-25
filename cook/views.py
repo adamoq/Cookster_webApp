@@ -389,6 +389,7 @@ def orders_waiter(request):
 	order_currency = currency
 	for task in waitertasks:
 		status = "0"
+		dishesList = ""
 		order_currency = currency
 		if task.currency.ab is not order_currency:
 			order_currency = task.currency.ab

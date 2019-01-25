@@ -1,6 +1,6 @@
 (function() {
     //szablon
-	
+
 
 
     function readCookie(name) {
@@ -60,25 +60,32 @@
         return returnArray;
     };
 $('a').on('click', function(e) {
-	
+
     $("#overlay").toggleClass('hidden');
+
+});
+$('.nav-bar.left a').on('click', function(e) {
+    $( ".nav-bar.left li" ).each(function( index ) {
+  if($( this ).hasClass('active')) $( this ).toggleClass('active');
+});
+    $(this).children('li').addClass('active');
 
 });
 
 
-	
+
 	//FORMULARZE!!!!!!!!!!
 		$('form.form2').submit( function(e) {
 		e.preventDefault();
 		var url;
 		if (typeof $(this).attr('data-target') !== 'undefined' ) url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target');
 
-		
+
 		var data = objectifyForm($(this).serializeArray())
 
 		data = JSON.stringify(data);
 		console.log('data'+data);
-		
+
 		console.log(id);
 		$.ajax({
 			url:url,
@@ -98,8 +105,8 @@ $('a').on('click', function(e) {
         var url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target');
         if ($(this).hasClass('trans-form')) isTranslation = true;
         if (id != null){
-		if( id.charAt(0) == 'c' || id.charAt(0) == 'p' || id.charAt(0) == 'd' || isTranslation || $(this).hasClass('dishproduct-form'))			
-			 id = id.substr(1);			
+		if( id.charAt(0) == 'c' || id.charAt(0) == 'p' || id.charAt(0) == 'd' || isTranslation || $(this).hasClass('dishproduct-form'))
+			 id = id.substr(1);
 		console.log('ok'+isTranslation);
 
 		if (typeof $(this).attr('data-target') !== 'undefined' ) url = url+id+'/';
@@ -111,7 +118,7 @@ $('a').on('click', function(e) {
             data['product'] = '/api/products/'+data['product']+'/';
             isTranslation = true;
             if (id != null)type = 'PUT';
-        }else 
+        }else
 		if (id != null){
             data['id'] = id;
             delete data['product'];
@@ -127,7 +134,7 @@ $('a').on('click', function(e) {
         }
 		data = JSON.stringify(data);
 		console.log('data'+data);
-		
+
 		console.log(id);
         if(isTranslation) var submitbutton = $(this).find("button[type=submit]");
 		$.ajax({
@@ -145,8 +152,8 @@ $('a').on('click', function(e) {
 				}
 			})
 	});
-   $('.save-button').on('click', function() { 
-       
+   $('.save-button').on('click', function() {
+
         $("#overlay").toggleClass('hidden');
         var id = $(this).attr('id');
         id = 'form#'+id;
@@ -155,19 +162,19 @@ $('a').on('click', function(e) {
 
         console.log('submitting form22 id:'+id);
         $(this).parent().parent().find(id).submit();
-        id = '.modal'+$(this).attr('id');        
+        id = '.modal'+$(this).attr('id');
         $(id).modal('hide');
- 
+
     });
-  $('.save-button-post').on('click', function() { 
-       
-        $("#overlay").toggleClass('hidden');   
+  $('.save-button-post').on('click', function() {
+
+        $("#overlay").toggleClass('hidden');
         $("#cookmodal").modal('hide');
- 
+
     });
 
 	$('.button-remove').on('click', function() { //usunięcie obiektu
-	
+
 		var id = $(this).attr('id');
 		if( id.charAt(0) == 'c')
 			{
@@ -176,8 +183,8 @@ $('a').on('click', function(e) {
 		var url;
 		if ($(this).attr('data-target') != 'undefined' ) url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+id+'/';
 		else url = window.location.protocol + "//" + window.location.host + "/menu/";
-		
-			
+
+
 		if (confirm('Jesteś pewien, że chcesz usunać pracownika z bazy?')) {
 			$.ajax({
 				url: url,
@@ -203,8 +210,8 @@ $('a').on('click', function(e) {
 		var url;
 		if ($(this).attr('data-target') != 'undefined' ) url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+id+'/';
 		else url = window.location.protocol + "//" + window.location.host + id;
-		
-			
+
+
 		if (confirm('Jesteś pewien, że chcesz zresetować hasło pracownika?')) {
 					location.reload();
 		} else {
@@ -212,18 +219,18 @@ $('a').on('click', function(e) {
 		}
 	})
 	$('.edit').on('click',function(e){
-		
+
 		parentEl = $(this).parent().find('.id');
 		var id = parentEl.html();console.log('ok'+id);
 		id = '.modal'+id;console.log('ok'+id);
 		$(id).modal('show');
-	});				
+	});
 
 	$('.modal-close').on('click', function(e){
-		var id = '.modal'+$(this).attr('id');			
+		var id = '.modal'+$(this).attr('id');
 		$(id).modal('hide');
 	});
-	
+
 
     //DANIA
 
@@ -231,7 +238,7 @@ $('a').on('click', function(e) {
 		console.log('XDDDDD');
         //usuniecie kategorii z bazy
         $('.category-remove').on('click', function(e) { //usunięcie obiektu
-			
+
             e.preventDefault();
             var id = $(this).val();
             if (confirm('Jesteś pewien, że chcesz tą usunać kategorię z bazy?')) {
@@ -282,7 +289,7 @@ $('a').on('click', function(e) {
     }
     //PRACOWNICY
     else if ($("#employers-flag").length > 0) {
-				
+
     } else if ($("#category-flag").length > 0) {
         $('.remove-icon').on('click', function(e) {
             var form = $(this).parent().parent().find('form').first()[0];
@@ -302,15 +309,15 @@ $('a').on('click', function(e) {
                 });
             };
         });
-		
+
 		$('.edit').on('click',function(e){
-		
+
 			parentEl = $(this).parent().parent().find('.id');
 			var id = parentEl.html();console.log('ok'+id);
 			window.location = '/dish/?d='+id;
-		});	
+		});
     } else if ($("#administration-flag").length > 0) {
 
 
-    } 
+    }
 })(jQuery);
