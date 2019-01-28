@@ -287,7 +287,7 @@ class OrderResourceGet(ModelResource):
 		today_min = datetime.date.today() + datetime.timedelta(days = 2)
 		today_minm = datetime.datetime.now() - datetime.timedelta(days = 1)
 		today_mind = datetime.date.today().strftime("%d")
-		queryset = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0)
+		queryset = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0, reservation__isnull = True) | WaiterTask.objects.filter(reservation__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0)
 		resource_name = 'waitertasksget'
 		allowed_methods = ['get',]
 		filtering = {
@@ -305,7 +305,30 @@ class OrderResourceGet(ModelResource):
 		bundle.data['orders'] = orders
 		bundle.data['created_at'] = bundle.data['created_at'].strftime("%H:%M")
 		return bundle
-
+class ReservationResourceGet(ModelResource):
+	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)
+	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
+	currency = fields.ForeignKey(CurrencyResource, 'currency',full=True)
+#	created_at = fields.DateTimeField( 'creaded_at',full=True)
+	class Meta:
+		always_return_data = True
+		limit = 0
+		today_min = datetime.date.today() + datetime.timedelta(days = 2)
+		today_minm = datetime.datetime.now() - datetime.timedelta(days = 31)
+		today_mind = datetime.date.today().strftime("%d")
+		queryset = WaiterTask.objects.filter(reservation__isnull=False, state = 0)
+		resource_name = 'reservations'
+		allowed_methods = ['get',]
+		authentication = Authentication()
+		authorization = Authorization()
+	def dehydrate(self, bundle):
+		order = WaiterOrderDetails.objects.filter(task = bundle.data['id'], state = 0)
+		orders = []
+		for ord in order:
+			orders = list(chain(orders, WaiterOrder.objects.filter(task = ord).values('count', 'dish__name', 'comment', 'level', 'task__id','id', 'task__state')))
+		bundle.data['orders'] = orders
+		bundle.data['created_at'] = bundle.data['created_at'].strftime("%H:%M")
+		return bundle
 class OrderResourceGet1(ModelResource):
 	waiter = fields.ForeignKey(EmployeeResource, 'waiter',full=True)
 	cook = fields.ForeignKey(EmployeeResource, 'cook',full=True)
@@ -320,7 +343,9 @@ class OrderResourceGet1(ModelResource):
 		queryset1 = []
 		for task in WaiterOrderDetails.objects.filter(state = "1"):
 			queryset1.append(task.task.id)
-		queryset = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0,id__in=queryset1)
+		queryset = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], reservation__isnull = True, state = 0,id__in=queryset1)
+		queryset1 = WaiterTask.objects.filter(reservation__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0,id__in=queryset1)
+		queryset = queryset|queryset1
 		resource_name = 'waitertasksget1'
 		allowed_methods = ['get',]
 		filtering = {
@@ -350,12 +375,13 @@ class OrderResourceGet2(ModelResource):
 		today_min = datetime.date.today() + datetime.timedelta(days = 1)
 		today_minm = datetime.datetime.now() - datetime.timedelta(days = 2)
 		today_mind = datetime.date.today().strftime("%d")
-		queryset1 = []
+		queryset0 = []
 		for task in WaiterOrderDetails.objects.filter(state = "2"):
-			queryset1.append(task.task.id)
-		queryset1 = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0,id__in=queryset1)
+			queryset0.append(task.task.id)
+		queryset1 = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], reservation__isnull = True, state = 0,id__in=queryset0)
 		queryset2 = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 1)[:5]
-		queryset = queryset1|queryset2
+		queryset3 = WaiterTask.objects.filter(reservation__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0,id__in=queryset0)
+		queryset = queryset1|queryset2|queryset3
 		resource_name = 'waitertasksget2'
 		allowed_methods = ['get',]
 		filtering = {

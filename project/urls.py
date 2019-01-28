@@ -25,7 +25,7 @@ from cook.charts import waiterorders_chart_json, waiterorders_chart_json2, waite
 from cook.pdfs import ProductPDF
 from django.contrib import admin
 from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource, DishPriceResource, LanguageResource, DishProductResource, RestaurantDetailResource
-from cook.api import ProductranslationResource, DishTranslationResource, CategoryTranslationResource, WaiterOrderDetailsResource, WaiterCookResource, OrderResourceGet,OrderResourceGet1,OrderResourceGet2, CurrencyResource
+from cook.api import ProductranslationResource, DishTranslationResource, CategoryTranslationResource, WaiterOrderDetailsResource, WaiterCookResource, OrderResourceGet,OrderResourceGet1,OrderResourceGet2, CurrencyResource, ReservationResourceGet
 from django.contrib.auth import views as auth_views
 
 
@@ -60,13 +60,14 @@ urlpatterns = [
 	url(r'^api/', include(CategoryTranslationResource().urls)),
 	url(r'^api/', include(DishPriceResource().urls)),
 	url(r'^api/', include(LanguageResource().urls)),
+	url(r'^api/', include(ReservationResourceGet().urls)),
 	url(r'^api/', include(RestaurantDetailResource().urls)),
 	url(r'^pdf/product/$', ProductPDF.as_view(template_name='/pdfs/product.html'), name="pdf"),
 
 	url(r'^api/', include(OrderResourceGet2().urls)),
 	url(r'^api/', include(CurrencyResource().urls)),
 	url(r'^api/', include(DishProductResource().urls)),
-	
+
 	url(r'^mobileapi/$', login_mobile),
 	url(r'^mobileapistatus/$', login_mobile_status),
 	url(r'^mobilereset/password/$', changepassword),
