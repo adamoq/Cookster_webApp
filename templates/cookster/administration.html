@@ -37,11 +37,11 @@ Generuj raport okresowy
 <div class = "raport raport1">
 <p>
 <label>Data rozpoczecia</label>
-<input id="date" type="date">
+<input id="date" type="date" class = "date1">
 </p>
 	<p>
 <label>Data zakończenia</label>
-<input id="date" type="date">
+<input id="date" type="date" class = "date2">
 <p>
 <label>{%trans 'dishes'%}</label>
 {% if dishList %}
@@ -52,16 +52,17 @@ Generuj raport okresowy
 	{%endfor%}
 </select>
 {%endif%}
+<button class="raport-btn" id = "1"/>
 </div>
 
 <div class = "raport raport2 invisible">
 <p>
 <label>Data rozpoczecia</label>
-<input id="date" type="date">
+<input id="date" type="date" class = "date1">
 </p>
 	<p>
 <label>Data zakończenia</label>
-<input id="date" type="date">
+<input id="date" type="date" class = "date2">
 <p>
 <label>{%trans 'employees'%}</label>
 {% if employesList %}
@@ -71,6 +72,7 @@ Generuj raport okresowy
 	{%endfor%}
 </select>
 {%endif%}
+<button class="raport-btn" id = "2"/>
 </div>
 
 
@@ -93,6 +95,7 @@ Generuj raport okresowy
 	{%endfor%}
 </select>
 {%endif%}
+<button class="raport-btn" id = "3"/>
 </div>
 
 

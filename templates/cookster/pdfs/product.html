@@ -3,22 +3,78 @@
 
 {% load render_table from django_tables2 %}
 <html>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <head>
 <title>Cookster - A.F.</title>
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,500&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="{% static 'css/raport.css' %}">
+
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;font-size: 36pt;font-family: Arial;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;font-size: 36pt;font-family: Arial;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;font-family: Arial;
+        }
+        @font-face { 
+        	font-family: Arial;
+     	}
+
+    }
+    .td{
+      color:blue;
+    } 
+    .td .tr {
+      width: 30%; color: green; display: inline-block; float: right;
+    }
+    body{
+         font-size: 16pt;
+         font-style: Arial;
+     	}
+</style>
 </head>
 
 <body>
+óąćśćąśśćó
 
-		{{user.restaurant.name}} {{user.get_restaurant_name}} - {{user.get_full_name}}
+<div id="header_content">Lyrics-R-Us <pdf:pagenumber> of <pdf:pagecount> </div>
+
+<br>
+
+    <!-- HTML Content -->
+    To PDF or not to PDF
 	{% trans "generate-raport"%}
+
+
 	 {% if productTable %}
 {% render_table productTable %}
-
+{% render_table productTable %}
   {% endif %}
 
+
+  {% if logs %}
+{% for log in logs  %}
+<div class="td">
+<div class="tr">
+{{log.employee.name}} {{log.employee.surname}} 
+</div>
+<div class="tr">
+{% if log.status == '0' %} {% trans "active" %}  {% endif %} 
+{% if log.status == '1' %} {% trans "online" %}  {% endif %} 
+{% if log.status == '2' %} {% trans "offline" %}  {% endif %} 
+</div>
+<div class="tr">
+{{log.time}}
+</div>
+</div>
+<br>
+{% endfor %}
+{% endif %}
 
 
 </body>

@@ -3,6 +3,7 @@
 {% load render_table from django_tables2 %}
 {% block content %}
 {% load staticfiles %}
+# -*- coding: utf-8 -*-
 <link rel="stylesheet" type="text/css" href="{% static 'css/charts.css' %}">
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
@@ -50,7 +51,7 @@
 						title: {
 							display: true,
 							text: {{charttitle}},
-							fontSize: 19,
+							fontSize: 21,
 							fontFamily: 'Roboto',
 							fontStyle: 'normal',
 						}
@@ -60,43 +61,6 @@
 </script>
 </div>
 
-
-  <div class="big-chart">
-<canvas id="big-chart11"></canvas>
-
-
-        <script type="text/javascript">
-            $.get('{% url url_json1 %}?d={{prodId}}', function(data) {
-			{% if chart_type %}
-			var chart_type = '{{chart_type2}}';
-			{% endif%}
-                var ctx = $("#big-chart11").get(0).getContext("2d");				
-				data.datasets[0]['backgroundColor'] = backgroundColors;
-                new Chart(ctx, {
-                    type: chart_type , data: data,
-					options: {
-						backgroundColor: backgroundColors,
-						legend: {
-							display: true,
-							backgroundColor: backgroundColors,
-							position: 'bottom',
-							labels: {
-								fontSize: 17,
-								fontFamily: 'Roboto',
-							}							
-						},
-						title: {
-							display: true,
-							text: {{charttitle}},
-							fontSize: 19,
-							fontFamily: 'Roboto',
-							fontStyle: 'normal',
-						}
-					}
-                });
-            });
-</script>
-</div>
 
 
 

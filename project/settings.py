@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 	'tastypie',
 	'chartjs',
 	'django_tables2',
-    'wkhtmltopdf',
+    
 ]
 
 MIDDLEWARE = [

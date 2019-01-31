@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/dish.css' %}">
+  <script>
+(function($){
+  $('.nav-bar.left a:nth-child(1) li').addClass('active');
+   })(jQuery); 
+</script>
+{% csrf_token %}
+
+  <span id="dish-flag" style="display: none;" ></span>
+  <div class="dish-container">
+    <h1>{% trans "dish-title"%}</h1>
+    <p>{% trans "dish-desc"%}</p>
+    <div class="dish-half">
+ {% if dish %}
+  
+      <form class="dish-form" method="POST">{% csrf_token %}
+        <button type="submit" class="save btn btn-default">{% trans "save"%}</button>
+        {{ dish.as_p }}
+    {% if dishId %}
+    
+        <input type="text" class="hidden" name = "id" value = "{{dishId}}" >
+        
+    {% endif %}    
+    </form>    
+{% endif %}
+
+
+          </div>
+          </div>
+
+<script src="{% static 'js/dish.js' %}"></script>
+{% endblock %}
+

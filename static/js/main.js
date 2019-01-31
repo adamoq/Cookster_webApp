@@ -269,7 +269,7 @@ $('.nav-bar.left a').on('click', function(e) {
                 contentType: 'application/json',
                 data: data,
                 dataType: 'json',
-                processData: false,
+                processData: true,
 				success: function() {
                         $("#overlay").toggleClass('overlay-hidden');
                     }

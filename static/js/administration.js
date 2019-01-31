@@ -29,6 +29,21 @@
 		
 		$(id).addClass('in');
 	});
+    $('button.raport-btn').on('click', function(){
+         $("#overlay").toggleClass('overlay-hidden');
+        console.log('okokoko raport');
+        var id = '.raport'+$(this).attr('id');
+        var select = $(id+' select').val();
+        var date1 = $(id+' input.date1').val();
+        var date2 = $(id+' .date2').val();
+        console.log('okokoko raport12 '+ id + select+date1+date2);
+         var url = window.location.protocol + "//" + window.location.host + '/pdf/product/?id=' + select + '&date1='+ date1 + '&date2='+date2;
+         window.open(url, '_blank');
+
+         $("#overlay").toggleClass('overlay-hidden');
+
+        
+    });
 	$('.modal-close').on('click', function(){
 		var id = '.ordermodal'+$(this).attr('id');
 		

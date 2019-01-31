@@ -19,10 +19,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from cook.views import main, products, administration, employers, menu, orders, login_user, dish, orders_waiter, login_mobile
 from cook.views import changepassword,resetpassword,changephone, changeproduct, login_mobile_status, menu_chart, checknotif
-from cook.views import orders_cook, cookorders_chart, waiterorders_chart, products_chart
+from cook.views import orders_cook, cookorders_chart, waiterorders_chart, products_chart, employers_chart
 from cook.charts import category_chart_json,category_chart_json2, dish_chart_json,category_chart_json1, cookorders_chart_json, cookorders_chart_json2, cookorders_chart_json3, cookorders_chart_json4
 from cook.charts import waiterorders_chart_json, waiterorders_chart_json2, waiterorders_chart_json3, waiterorders_chart_json4, products_chart_json, products_chart_json2
-from cook.pdfs import ProductPDF
+from cook.charts import employers_chart_json
+from cook.pdfs import Pdf, render_pdf_view
 from django.contrib import admin
 from cook.api import ProductResource, EmployeeResource, DishResource, CategoryResource, OrderResource, OrderCookResource, CookTaskResource, DishPriceResource, LanguageResource, DishProductResource, RestaurantDetailResource
 from cook.api import ProductranslationResource, DishTranslationResource, CategoryTranslationResource, WaiterOrderDetailsResource, WaiterCookResource, OrderResourceGet,OrderResourceGet1,OrderResourceGet2, CurrencyResource, ReservationResourceGet
@@ -44,6 +45,11 @@ urlpatterns = [
 	url(r'^orders/$', orders, name = 'orders'),
 	url(r'^orders-cook/$', orders_cook, name = 'orderscook'),
 	url(r'^dish/$', dish),
+	#pdf
+	url(r'^render_pdf_view/$', render_pdf_view),
+	
+	url(r'^pdf/product/$', Pdf.as_view()),
+	#api
 	url(r'^api/', include(ProductResource().urls)),
 	url(r'^api/', include(EmployeeResource().urls)),
 	url(r'^api/', include(DishResource().urls)),
@@ -62,7 +68,6 @@ urlpatterns = [
 	url(r'^api/', include(LanguageResource().urls)),
 	url(r'^api/', include(ReservationResourceGet().urls)),
 	url(r'^api/', include(RestaurantDetailResource().urls)),
-	url(r'^pdf/product/$', ProductPDF.as_view(template_name='/pdfs/product.html'), name="pdf"),
 
 	url(r'^api/', include(OrderResourceGet2().urls)),
 	url(r'^api/', include(CurrencyResource().urls)),
@@ -99,7 +104,9 @@ urlpatterns = [
 	url(r'^products/raport/$', products_chart, name='products_chart'),
 	url(r'^products1/raport-json/$', products_chart_json, name='products_chart_json'),
 	url(r'^products2/raport-json/$', products_chart_json2, name='products_chart_json2'),
-
+#raporty - pracownicy
+	url(r'^employers/raport/$', employers_chart, name='employers_chart'),
+	url(r'^employers/raport-json/$', employers_chart_json, name='employers_chart_json'),
 
 
 
