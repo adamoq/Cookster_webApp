@@ -61,12 +61,23 @@ class CategoryTransForm(forms.ModelForm):
             'name': _('translation'),
         }
 class LanguageForm(forms.ModelForm):
+	STATES = (
+		('en-US', 'en-US'),
+		('en-GB', 'en-GB'),
+		('de-DE', 'de-DE'),
+		('fr-FR', 'fr-FR'),
+		('pl-PL', 'pl-PL'),
+	)
+	ab = forms.ChoiceField(choices=STATES)
 	class Meta:
 		model = ProductTranslation
-		fields = ('name',)
+		fields = ('name','ab')
 		labels = {
             'name': _('name'),
+            'ab': _('ab'),
         }
+
+
 	
 class ProductTransForm(forms.ModelForm):
 	class Meta:

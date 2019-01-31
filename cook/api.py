@@ -286,7 +286,6 @@ class OrderResourceGet(ModelResource):
 		limit = 0
 		today_min = datetime.date.today() + datetime.timedelta(days = 2)
 		today_minm = datetime.datetime.now() - datetime.timedelta(days = 1)
-		today_mind = datetime.date.today().strftime("%d")
 		queryset = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0, reservation__isnull = True) | WaiterTask.objects.filter(reservation__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = 0)
 		resource_name = 'waitertasksget'
 		allowed_methods = ['get',]
@@ -425,10 +424,10 @@ class WaiterOrderDetailsResource(ModelResource):
 				count = order.count
 				for dishproduct in DishProduct.objects.filter(dish = dish):
 					product = dishproduct.product
-					product_count = dishproduct.count
-					product.stock =- product_count * count
+					product.stock =- dishproduct.count * count
+					if product.stock < 0 : product.stock = 0
 					product.save()
-					if product.stock < 0 :
+					if product.stock == 0 :
 					    Dish.objects.all().filter(products = product).update(av='1')
 
 		return super(WaiterOrderDetailsResource, self).obj_update(bundle, **kwargs)

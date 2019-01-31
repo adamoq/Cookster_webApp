@@ -35,43 +35,16 @@ class CurrencyTable(tables.Table):
 
 	def render_edit(self, value):
 		return renderEdit(value)	
-class ProductTransTable(tables.Table):
-	product = tables.Column( verbose_name='',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
-	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'size22'}})
-	def render_edit(self, value):
-		return renderEdit(value)
-	def render_id(self, value):
-		return format_html("p"+str(value),value)
-class CategoryTransTable(tables.Table):
-	category = tables.Column( verbose_name='',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	name = tables.Column( verbose_name='',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	edit = tables.Column(empty_values=(), verbose_name=_('Edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})	
-	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'size22'}})
 
-	def render_id(self, value):
-		return format_html("c"+str(value),value)
-
-	def render_edit(self, value):
-		return renderEdit(value)
-class DishTransTable(tables.Table):
-	dish = tables.Column( verbose_name='',attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	description = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	edit = tables.Column(empty_values=(), verbose_name=_('edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
-	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
-	def render_edit(self, value):
-		return renderEdit(value)
-	def render_id(self, value):
-		return format_html("d"+str(value),value)
 class ProductTable(tables.Table):
 	id = tables.Column(verbose_name =_('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
 	av = tables.Column( verbose_name='',attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
 	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'name'},'th': {'class': 'name'}})
-	stock = tables.Column( verbose_name='',attrs={'td': {'class': 'small22'},'th': {'class': 'small22'}})
-	edit = tables.Column(empty_values=(), verbose_name=_('edit'), attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
-
+	stock = tables.Column( verbose_name='',attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	raport = tables.Column(empty_values=(), verbose_name=_('small'), attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	edit = tables.Column(empty_values=(), verbose_name=_('edit'), attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	def render_raport(self, value, record):
+		return format_html('<a href="/products/raport/?d='+str(record.id)+'">RAPORT</a>',value)
 	def render_edit(self, value):
 		return renderEdit(value)
 	def render_av(self, value):
@@ -86,9 +59,11 @@ class EmployeeTable(tables.Table):
 	surname = tables.Column( verbose_name=_('surname'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	position = tables.Column( verbose_name=_('position'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	phonenumber = tables.Column( verbose_name=_('phonenumber'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
+	raport = tables.Column(empty_values=(), verbose_name=_('raport'), attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
 	reset = tables.Column(empty_values=(),verbose_name='', attrs={'td': {'class': 'status'},'th': {'class': 'status'}})
 	edit = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
-
+	def render_raport(self, value, record):
+		return format_html('<a href="/employers/raport/?p='+str(record.id)+'">RAPORT</a>',value)
 	def render_edit(self, value):
 		return renderEdit(value)
 	def render_reset(self, value, record):

@@ -13,7 +13,6 @@ from django.http import HttpResponseRedirect
 from .forms import ProductForm, CategoryForm, DishForm, EmployeeForm, ProductTransForm, CategoryTransForm, DishTransForm, LanguageForm, CurrencyForm, DishPriceForm, DishProductForm
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
-from cook.tables import ProductTable, EmployeeTable, CategoryTable, DishTable,  ProductTransTable, CategoryTransTable, DishTransTable
 from django_tables2   import RequestConfig
 from django.utils.translation import gettext as _
 
@@ -27,6 +26,7 @@ def main(request):
 @login_required
 @csrf_exempt
 def products(request):
+	from cook.tables import ProductTable
 	allProducts = Product.objects.all()
 	if request.method == 'PUT':
 		form = ProductForm(request.POST)
@@ -155,6 +155,7 @@ def administration(request):
 @login_required
 @csrf_exempt
 def employers(request):
+	from cook.tables import EmployeeTable
 	template = loader.get_template('employers.html')
 	if request.method == 'POST':
 		form = EmployeeForm(request.POST)
@@ -184,6 +185,7 @@ def employers(request):
 @login_required
 @csrf_exempt
 def menu(request):
+	from cook.tables import CategoryTable, DishTable
 
 	if request.method == 'PUT':
 		try:
@@ -259,52 +261,6 @@ def menu(request):
 	}
 	return HttpResponse(template.render(context, request))
 
-@login_required
-@csrf_exempt
-def currencies(request):
-
-	if request.method == 'POST':
-		categoryform = CurrencyForm(request.POST)
-		if not categoryform.is_valid():
-			showError(request,_("data-invalid"))
-		else:
-			cur = Currency.objects.create(name=categoryform.cleaned_data['name'],value=categoryform.cleaned_data['value'],ab=categoryform.cleaned_data['ab'])
-			cur.save()
-			value = cur.value
-			for object in Dish.objects.all():
-				trans = DishPrice.objects.create(dish_id = object.id, currency_id = cur.id, price =  object.price/value)
-	template = loader.get_template('currencies.html')
-
-	map = {}
-	forms = {}
-	currency = RestaurantDetail.objects.all().first().default_currency.name
-	currency = Currency.objects.get(pk = request.GET.get('d')).name
-	for category in Category.objects.all().order_by('order'):
-		list = []
-		list.append(Category.objects.get(pk = category.id))
-
-		#table.columns.price = "zł"
-		map[CategoryTable(list, currency)] = DishTable(Dish.objects.filter(category = category), currency)
-		forms["c"+str(category.id)]=CategoryForm(instance=category)
-
-
-	context = {
-		'categoryList': map,#Category.objects.all(),
-		'form':CurrencyForm(),
-		'update_forms':forms,
-		'data_target' : 'api/category/',
-		'edit_text' : _("edit-currency-form"),
-		'add_text' :  _("add-currency-form"),
-		'formText': _("add-currency"),#Category.objects.all(),
-
-		'form2':DishForm(),
-		'add_text2' :  _("add-dish")
-	}
-	return HttpResponse(template.render(context, request))
-
-
-
-
 
 @login_required
 @csrf_exempt
@@ -318,23 +274,51 @@ def dish(request):
 			dishForm = DishForm(request.POST, instance = dish)
 		else:
 			dishForm = DishForm(request.POST)
-			if dishForm.is_valid():
-				dishForm.save()
+		if dishForm.is_valid():
+			dishForm.save()
+			if dish is None:
 				dish = Dish.objects.filter(name = dishForm.cleaned_data['name']).first()
 				default_lang = RestaurantDetail.objects.all().first().default_lang.id
 				for object in Language.objects.all():
 					if default_lang != object.id:
 						DishTranslation.objects.create(dish_id = dish.id, lang_id = object.id)
+			else : 
 				return redirect("/menu")
-			else:
-				return showError(request,_("data-invalid"))
+		forms = []
+		for object in DishPrice.objects.filter(dish = dish):
+			transmap = {}
+			transmap['form'] = DishPriceForm(instance=object)
+			transmap['lang'] = object.currency.name
+			transmap['id'] = object.id
+			transmap['data_target'] = 'api/dishprice/'
+			forms.append(transmap)
+		for object in DishTranslation.objects.filter(dish = dish):
+			transmap = {}
+			transmap['form'] = DishTransForm(instance=object)
+			transmap['lang'] = _('language')+' '+object.lang.name
+			transmap['id'] = object.id
+			transmap['data_target'] = 'api/dishtranslation/'
+			forms.append(transmap)
+
+		dishproductforms = []
+		for object in DishProduct.objects.filter(dish = dish):
+			transmap = {}
+			transmap['form'] = DishProductForm(instance=object)
+			transmap['id'] = object.id
+			dishproductforms.append(transmap)
+
+
 
 
 
 		context = {
 			'dish':dishForm,
 			'dishId':request.POST.get('id'),
-			'add_text2' : _("add-dish"),
+			'add_text2' : _("add-dish"),			
+			'transforms' : forms,
+			'dishform': DishProductForm(initial={"dish":dish}),
+			'dishforms': dishproductforms,
+			'data_target':'api/dishproducts/'
 		}
 		return HttpResponse(template.render(context, request))
 
@@ -633,6 +617,7 @@ def products_chart(request):
 	template = loader.get_template('charts/products-chart.html')
 	context = {
 			'chart_type':'bar',
+			'prodId':request.GET.get('d'),
 			'chart_type2':'line',
 			'url_json':'products_chart_json',
 			'url_json1':'products_chart_json2',
@@ -641,17 +626,13 @@ def products_chart(request):
 
 			}
 	return HttpResponse(template.render(context, request))
-def employees_chart(request):
-	template = loader.get_template('charts/twocharts.html')
+def employers_chart(request):
+	template = loader.get_template('charts/employers-chart.html')
 	context = {
-			'url_json':'dish_chart_json',
 			'chart_type':'bar',
-			'url_json1':'category_chart_json1',
-			'chart_type2':'bar',
-			'charttitle' : '"'+ _("employee-chart")+'"',#'Ilość złożonych zamówień każdego dnia',
-			'charttitle1' : '"'+ _("employee-chart-1")+'"',#'Ilość złożonych zamówień przez kucharzy',
-			'charttitle2' : '"'+  _("employee-chart-2")+'"',#'Ilość zamówień przydzielonych do dostawców',
-			'charttitle3' : '"'+ _("employee-chart-3")+'"',#'Ilość złożonych zamówień każdego dnia',
+			'prodId':request.GET.get('p'),
+			'url_json':'employers_chart_json',
+			'charttitle' : '"'+ _("products-chart")+'"'#'Godziny aktywności',
 		}
 	return HttpResponse(template.render(context, request))
 

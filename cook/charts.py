@@ -344,15 +344,50 @@ waiterorders_chart_json4 = WaiterOrderChart4JSONView.as_view()
 
 #PRODUKTY
 class ProductChartJSONView(BaseLineChartView):
+	days = []
+	def get(self, request, *args, **kwargs):
+		from .models import Product, WaiterTask, WaiterOrderDetails, DishProduct
+		import datetime
+		self.product = Product.objects.all().get(pk=request.GET.get('d')) 
+		product = Product.objects.all().get(pk=request.GET.get('d')) 
+		prodmap = {}
+		data = []
+		queryste = []
+		maps = {}
+		dishes = []
+		dishMap = {}
+		today_min = datetime.date.today() + datetime.timedelta(days = 2)
+		today_minm = datetime.datetime.now() - datetime.timedelta(days = 28)
+		queryste = CookTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = '2', reservation__isnull = True) | CookTask.objects.filter(reservation__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = '2')
+		queryste1 = CookOrder.objects.filter(task__in = queryste, product = product)
+		for order in queryste1:
+			day = str(order.created_at.day)
+			month = str(order.created_at.month)
+			if len(day) == 1 : day = "0"+day
+			if len(month) == 1 : month = "0"+month
+			if day+"."+month in maps:
+				maps[day+"."+month]=+order.count 
+			else : maps[day+"."+month]=order.count 
+			
+		maps['14.01'] = 20
+		for dayas in range (28, -1, -1):
+			today_min = datetime.date.today() - datetime.timedelta(days = dayas)
+			
+			prodmap = {}
+			prodmap['date'] = str(today_min.strftime("%d"))+'.'+str(today_min.strftime("%m"))
+			if str(today_min.strftime("%d"))+'.'+str(today_min.strftime("%m")) in maps:
+				prodmap['count'] = maps[str(today_min.strftime("%d"))+'.'+str(today_min.strftime("%m"))]#str(today_min.strftime("%d"))+'.'+str(today_min.strftime("%m"))
+			else : prodmap['count'] = 0
+			data.append(prodmap)
 
-
+		self.days = data
+		return super(ProductChartJSONView, self).get(self, request, *args, **kwargs)
 	def get_providers(self):
 		import datetime
 		namesList = []
 
-		for dayas in range (28, -1, -1):
-			today_min = datetime.date.today() - datetime.timedelta(days = dayas)
-			namesList.append(str(today_min.strftime("%d"))+'.'+str(today_min.strftime("%m")))
+		for day in self.days:
+			namesList.append(day['date'])
 			
 		return namesList
 
@@ -364,31 +399,164 @@ class ProductChartJSONView(BaseLineChartView):
 		"""Return 3 datasets to plot."""
 		dishesList = []
 
-		for dayaaas in range (28, -1, -1):
-			today_min = datetime.date.today() - datetime.timedelta(days = dayaaas)			
-			queryste = WaiterTask.objects.filter(created_at__year = today_min.strftime("%Y"), created_at__month = today_min.strftime("%m"), created_at__day = today_min.strftime("%d")).count()
-			dishesList.append([100+dayaaas,])
-		return dishesList	
+		#for dayaaas in range (28, -1, -1):
+		#	today_min = datetime.date.today() - datetime.timedelta(days = dayaaas)			
+		#	queryste = WaiterTask.objects.filter(created_at__year = today_min.strftime("%Y"), created_at__month = today_min.strftime("%m"), created_at__day = today_min.strftime("%d")).count()
+		for day in self.days:
+			dishesList.append([day['count'],])
+		return dishesList
 from random import shuffle, randint
 class ProductChart2JSONView(BaseLineChartView):
+	days = []
+	product = ''
+	def get(self, request, *args, **kwargs):
+		from .models import Product, WaiterTask, WaiterOrderDetails, DishProduct
+		import datetime
+		self.product = Product.objects.all().get(pk=request.GET.get('d')) 
+		product = Product.objects.all().get(pk=request.GET.get('d')) 
+		prodmap = {}
+		data = []
+		queryste = []
+		maps = {}
+		dishes = []
+		dishMap = {}
+		dishprods = DishProduct.objects.all().filter(product = self.product)
+		for dishprod in dishprods:
+			dishes.append(dishprod.dish.id)
+			dishMap[dishprod.dish.id] = dishprod.count
+		today_min = datetime.date.today() + datetime.timedelta(days = 2)
+		today_minm = datetime.datetime.now() - datetime.timedelta(days = 28)
+		queryste = WaiterTask.objects.filter(created_at__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = '1', reservation__isnull = True) | WaiterTask.objects.filter(reservation__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')], state = '1')
+		queryste1 = WaiterOrderDetails.objects.filter(task__in = queryste)
+		queryste2 = WaiterOrder.objects.filter(task__in = queryste1,dish__in = dishes)
+		for order in queryste2:
+			day = str(order.created_at.day)
+			month = str(order.created_at.month)
+			if len(day) == 1 : day = "0"+day
+			if len(month) == 1 : month = "0"+month
+			if day+"."+month in maps:
+				maps[day+"."+month]=+order.count * dishMap[order.dish.id]
+			else : maps[day+"."+month]=order.count * dishMap[order.dish.id]
+			
+		maps['14.01'] = 20
+		for dayas in range (28, -1, -1):
+			today_min = datetime.date.today() - datetime.timedelta(days = dayas)
+			
+			prodmap = {}
+			prodmap['date'] = str(today_min.strftime("%d"))+'.'+str(today_min.strftime("%m"))
+			if str(today_min.strftime("%d"))+'.'+str(today_min.strftime("%m")) in maps:
+				prodmap['count'] = maps[str(today_min.strftime("%d"))+'.'+str(today_min.strftime("%m"))]#str(today_min.strftime("%d"))+'.'+str(today_min.strftime("%m"))
+			else : prodmap['count'] = 0
+			data.append(prodmap)
+
+		self.days = data
+		return super(ProductChart2JSONView, self).get(self, request, *args, **kwargs)
 
 
-    def get_providers(self):
-        """Return names of datasets."""
-        return ["Central", "Eastside", "Westside"]
+	def get_providers(self):
+		return ["Zużycie dzienne w "+self.product.unit,]
 
-    def get_labels(self):
-        """Return 7 labels."""
-        return ["January", "February", "March", "April", "May", "June", "July"]
+	def get_labels(self):
+		mylabels = []
+		for dish in self.days:
+			mylabels.append(dish['date'])
+		return mylabels#["January", "February", "March", "April", "May", "June", "July"]
 
-    def get_data(self):
-        """Return 3 random dataset to plot."""
-        def data():
-        	
-            """Return 7 randint between 0 and 100."""
-            return [randint(0, 100) for x in range(7)]
-
-        return [data() for x in range(3)]
+	def get_data(self):
+		def data():
+			return [randint(0, 100) for x in self.days]
+		lista = []
+		for dict in self.days:
+			lista.append(dict['count'])
+		return [lista,]
 
 products_chart_json = ProductChartJSONView.as_view()
 products_chart_json2 = ProductChart2JSONView.as_view()
+
+class EmployersChartJSONView(BaseLineChartView):
+	days = []
+	employee = ''
+	def get(self, request, *args, **kwargs):
+		from .models import Employee, LoginLog, WaiterOrderDetails, DishProduct
+		import datetime
+		today_min = datetime.date.today() + datetime.timedelta(days = 2)
+		today_minm = datetime.datetime.now() - datetime.timedelta(days = 28)
+		self.employee = Employee.objects.all().get(pk=request.GET.get('d')) 
+		logs = LoginLog.objects.all().filter(employee=self.employee, time__range=[today_minm.strftime('%Y-%m-%d %H:%S'), today_min.strftime('%Y-%m-%d %H:%S')]).order_by('time')
+		prodmap = {}
+		data = []
+		queryste = []
+		maps = {}
+		dishes = []
+		
+		for loginlog in logs:
+
+			day = str(loginlog.time.day)
+			month = str(loginlog.time.month)
+			if len(day) == 1 : day = "0"+day
+			if len(month) == 1 : month = "0"+month
+			if day+"."+month in maps:
+				prevlog = maps[day+"."+month]
+				if loginlog.status == '0':
+				
+					dif = loginlog.time - prevlog['date']
+					if 'count' in prevlog and 'date' in prevlog:
+						prevlog['count'] =+ (dif.seconds//3600) + ((dif.seconds//60)%60/60)
+					elif 'date' in prevlog:
+						prevlog['count'] = (dif.seconds//3600) + ((dif.seconds//60)%60/60)
+				maps[day+"."+month]=prevlog 
+			else : 
+				logmap = {}
+				logmap['date'] = loginlog.time
+				logmap['count'] = 0
+				if loginlog.status == '2':
+					maps[day+"."+month]=logmap 
+			
+		
+		for dayas in range (28, -1, -1):
+			today_min = datetime.date.today() - datetime.timedelta(days = dayas)
+			
+			prodmap = {}
+			datestr = str(today_min.strftime("%d"))+'.'+str(today_min.strftime("%m"))
+			prodmap['date'] = datestr
+			if datestr in maps:
+				if maps[datestr]['count'] == 0:
+					import pytz
+					if dayas == 0 : today_min =   datetime.datetime(today_min.year, today_min.month, today_min.day, int(today_min.strftime("%H")),int(today_min.strftime("%M"))).replace(tzinfo=pytz.utc)
+					else : today_min = datetime.datetime(today_min.year, today_min.month, today_min.day, 23, 59).replace(tzinfo=pytz.utc)
+					
+					dif = today_min - maps[datestr]['date']
+					prodmap['count'] = (dif.seconds//3600) + ((dif.seconds//60)%60/60)
+				else : prodmap['count'] = round(maps[datestr]['count'], 2)#str(today_min.strftime("%d"))+'.'+str(today_min.strftime("%m"))
+			else : prodmap['count'] = 0
+			data.append(prodmap)
+
+		self.days = data
+		return super(EmployersChartJSONView, self).get(self, request, *args, **kwargs)
+	def get_providers(self):
+		import datetime
+		namesList = []
+
+		for day in self.days:
+			namesList.append(day['date'])
+			
+		return namesList
+
+	def get_labels(self):
+		return [['',],]
+
+	def get_data(self):
+		import datetime
+		"""Return 3 datasets to plot."""
+		dishesList = []
+
+		#for dayaaas in range (28, -1, -1):
+		#	today_min = datetime.date.today() - datetime.timedelta(days = dayaaas)			
+		#	queryste = WaiterTask.objects.filter(created_at__year = today_min.strftime("%Y"), created_at__month = today_min.strftime("%m"), created_at__day = today_min.strftime("%d")).count()
+		for day in self.days:
+			dishesList.append([day['count'],])
+		return dishesList
+
+
+
+employers_chart_json = EmployersChartJSONView.as_view()
