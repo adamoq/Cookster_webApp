@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from wkhtmltopdf.views import PDFTemplateView
-
 from django.utils.html import format_html
 import django_tables2 as tables
 from .models import Product

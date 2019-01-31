@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+SECURE_SSL_REDIRECT = True
 ALLOWED_HOSTS = ['localhost','adamferchichi.pythonanywhere.com', '127.0.0.1', '[::1]']
 
 
