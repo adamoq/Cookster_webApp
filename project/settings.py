@@ -28,9 +28,6 @@ SECRET_KEY = os.getenv(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
-SECURE_SSL_REDIRECT = False
 DEBUG = True
 ALLOWED_HOSTS = ['localhost','adamferchichi.pythonanywhere.com', '127.0.0.1', '[::1]']
 
