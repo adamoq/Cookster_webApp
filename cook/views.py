@@ -528,6 +528,17 @@ def changephone(request):
 				return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
 
+def changeimg(request):
+	if request.method == 'GET':
+		login = request.GET.get('login')
+		image = request.GET.get('img')
+		if login and image:
+			user = Employee.objects.all().filter(login = login)
+			if user is not None:
+				user.update(avatar=image)
+				return HttpResponse(serializers.serialize("json", user))
+	return HttpResponse("False")
+
 def changeproduct(request):
 	if request.method == 'GET':
 		id = request.GET.get('id')

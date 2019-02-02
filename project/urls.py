@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from cook.views import main, products, administration, employers, menu, orders, login_user, dish, orders_waiter, login_mobile
 from cook.views import changepassword,resetpassword,changephone, changeproduct, login_mobile_status, menu_chart, checknotif
-from cook.views import orders_cook, cookorders_chart, waiterorders_chart, products_chart, employers_chart
+from cook.views import orders_cook, cookorders_chart, waiterorders_chart, products_chart, employers_chart, changeimg
 from cook.charts import category_chart_json,category_chart_json2, dish_chart_json,category_chart_json1, cookorders_chart_json, cookorders_chart_json2, cookorders_chart_json3, cookorders_chart_json4
 from cook.charts import waiterorders_chart_json, waiterorders_chart_json2, waiterorders_chart_json3, waiterorders_chart_json4, products_chart_json, products_chart_json2
 from cook.charts import employers_chart_json
@@ -72,13 +72,14 @@ urlpatterns = [
 	url(r'^api/', include(OrderResourceGet2().urls)),
 	url(r'^api/', include(CurrencyResource().urls)),
 	url(r'^api/', include(DishProductResource().urls)),
-
+# mobile interaction
 	url(r'^mobileapi/$', login_mobile),
 	url(r'^mobileapistatus/$', login_mobile_status),
 	url(r'^mobilereset/password/$', changepassword),
 	url(r'^reset/password/$', resetpassword),
 	url(r'^mobilereset/phone/$', changephone),
 	url(r'^mobilereset/product/$', changeproduct),
+	url(r'^mobileapi/img/$', changeimg),
 	url(r'^mobileapi/notif/$', checknotif),
 
 #raporty - menu
