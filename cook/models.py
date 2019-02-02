@@ -59,7 +59,7 @@ class Employee(models.Model):
 	status = models.CharField(max_length=1, choices=statuses, default = '0')
 	restaurant = models.ForeignKey(RestaurantDetail, null = True)
 	active = models.CharField(max_length=1, choices=activities, default = '0')
-	avatar = models.CharField(max_length=900, null = True)
+	avatar = models.TextField(max_length=2000, null = True)
 
 class LoginLog(models.Model):
 	statuses = (

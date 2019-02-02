@@ -530,8 +530,8 @@ def changephone(request):
 
 def changeimg(request):
 	import json
-	if request.method == 'GET' and request.is_ajax():
-		login = request.GET.get('login')
+	if request.method == 'POST' and request.is_ajax():
+		login = request.POST.get('login')
 		json_data = json.loads(request.body)
 		image = json_data['image']
 		if login and image:
