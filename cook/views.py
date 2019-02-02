@@ -528,6 +528,7 @@ def changephone(request):
 				return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
 
+@csrf_exempt
 def changeimg(request):
 	import json
 	if request.method == 'POST' and request.is_ajax():
