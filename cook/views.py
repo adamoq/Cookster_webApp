@@ -282,7 +282,7 @@ def dish(request):
 				for object in Language.objects.all():
 					if default_lang != object.id:
 						DishTranslation.objects.create(dish_id = dish.id, lang_id = object.id)
-			else : 
+			else :
 				return redirect("/menu")
 		forms = []
 		for object in DishPrice.objects.filter(dish = dish):
@@ -314,7 +314,7 @@ def dish(request):
 		context = {
 			'dish':dishForm,
 			'dishId':request.POST.get('id'),
-			'add_text2' : _("add-dish"),			
+			'add_text2' : _("add-dish"),
 			'transforms' : forms,
 			'dishform': DishProductForm(initial={"dish":dish}),
 			'dishforms': dishproductforms,
@@ -529,9 +529,11 @@ def changephone(request):
 	return HttpResponse("False")
 
 def changeimg(request):
-	if request.method == 'GET':
+	import json
+	if request.method == 'GET' and request.is_ajax():
 		login = request.GET.get('login')
-		image = request.GET.get('img')
+		json_data = json.loads(request.body)
+		image = json_data['image']
 		if login and image:
 			user = Employee.objects.all().filter(login = login)
 			if user is not None:
