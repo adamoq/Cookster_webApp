@@ -106,9 +106,9 @@
 	height: 30px;
     display: block;
     padding: 0 30px;
-    font-size: 18px;
     margin: 5px auto;
     outline: none;
+    font-weight: 100;
 }
 
 
