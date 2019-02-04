@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% block content %}
 {% load i18n %}
 {% load render_table from django_tables2 %}
-{% block content %}
+
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/charts.css' %}">
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
@@ -16,7 +17,6 @@
 	'rgba(153, 102, 255, 1)',
 	'rgba(255, 159, 64, 1)'];
 </script>
-  <span id="employers-flag" style="display: none;" ></span>  
 <div class="results-container">
   <h1>{%trans "reports"%}</h1>
 
