@@ -104,13 +104,15 @@ class DishTable(tables.Table):
 	av = tables.Column( verbose_name=_('av'),attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
 	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'dishname'},'th': {'class': 'dishname'}})
 	id = tables.Column(verbose_name = _('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
-	products = tables.Column( verbose_name=_('products'))
+	prods = tables.Column(empty_values=(),  verbose_name=_('products'))
 	price = tables.Column( verbose_name=_('price'),attrs={'td': {'class': 'status'},'th': {'class': 'status'}})
-
+	delete = tables.Column(empty_values=(), verbose_name=_('edit'), attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
 	edit = tables.Column(empty_values=(), verbose_name=_('edit'), attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
 
 	def render_edit(self, value, record):
-		return format_html('<a href="/dish/?d='+str(record.id)+'"><img src="/static/img/edit-icon.png" /></a>',value)
+		return format_html('<a href="/dish/?d='+str(record.id)+'"><img src="/static/img/edit-icon.png" /></a>',value)	
+	def render_delete(self, value, record):
+		return format_html('<img class = "button-remove" data-target = "api/resdishes/" id = "'+str(record.id)+'" src="/static/img/rubbish-icon-white.png" />',value)
 
 	def render_av(self, value):
 		if value == "not available":
@@ -118,9 +120,18 @@ class DishTable(tables.Table):
 		elif value == "available":
 			return format_html('<div class="large av-ico choosen"></div>',value)
 		else: return format_html(value,value)
-	def render_products(self, value):
-		if value is not None:
-			return ', '.join([category.name for category in value.all()])
+	def render_prods(self, value, record):
+		from .models import DishProduct
+		ret = ''
+		count = 0
+		for prod in DishProduct.objects.filter(dish = record):
+			if count == 0 : ret = prod.product.name
+			else : ret += ', '+prod.product.name
+			if count == 6: 
+				ret += '...'
+				break
+			count+=1
+		return ret
 	def render_price(self, value):
 		return format_html(str(value)+" "+self.currency,value)
 

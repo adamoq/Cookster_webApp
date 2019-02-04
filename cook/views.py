@@ -265,10 +265,11 @@ def menu(request):
 @login_required
 @csrf_exempt
 def dish(request):
-	template = loader.get_template('dish.html')
+	template = loader.get_template('dish-new.html')
 	dish = None
 	if request.GET.get('d'):
 		dish = Dish.objects.get(pk = request.GET.get('d'))
+		template = loader.get_template('dish.html')
 	if request.method == 'POST':
 		if dish:
 			dishForm = DishForm(request.POST, instance = dish)
@@ -279,48 +280,16 @@ def dish(request):
 			if dish is None:
 				dish = Dish.objects.filter(name = dishForm.cleaned_data['name']).first()
 				default_lang = RestaurantDetail.objects.all().first().default_lang.id
+				default_currency = RestaurantDetail.objects.all().first().default_currency.id
 				for object in Language.objects.all():
 					if default_lang != object.id:
 						DishTranslation.objects.create(dish_id = dish.id, lang_id = object.id)
-			else :
-				return redirect("/menu")
-		forms = []
-		for object in DishPrice.objects.filter(dish = dish):
-			transmap = {}
-			transmap['form'] = DishPriceForm(instance=object)
-			transmap['lang'] = object.currency.name
-			transmap['id'] = object.id
-			transmap['data_target'] = 'api/dishprice/'
-			forms.append(transmap)
-		for object in DishTranslation.objects.filter(dish = dish):
-			transmap = {}
-			transmap['form'] = DishTransForm(instance=object)
-			transmap['lang'] = _('language')+' '+object.lang.name
-			transmap['id'] = object.id
-			transmap['data_target'] = 'api/dishtranslation/'
-			forms.append(transmap)
+				for object in Currency.objects.all():
+					if default_currency != object.id:
+						DishPrice.objects.create(dish_id = dish.id, currency_id = object.id, price = dish.price/object.value)
+			
+			return redirect("/menu")
 
-		dishproductforms = []
-		for object in DishProduct.objects.filter(dish = dish):
-			transmap = {}
-			transmap['form'] = DishProductForm(instance=object)
-			transmap['id'] = object.id
-			dishproductforms.append(transmap)
-
-
-
-
-
-		context = {
-			'dish':dishForm,
-			'dishId':request.POST.get('id'),
-			'add_text2' : _("add-dish"),
-			'transforms' : forms,
-			'dishform': DishProductForm(initial={"dish":dish}),
-			'dishforms': dishproductforms,
-			'data_target':'api/dishproducts/'
-		}
-		return HttpResponse(template.render(context, request))
 
 	forms = []
 	for object in DishPrice.objects.filter(dish = dish):

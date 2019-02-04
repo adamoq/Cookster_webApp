@@ -175,30 +175,34 @@ $('.nav-bar.left a').on('click', function(e) {
 
 	$('.button-remove').on('click', function() { //usunięcie obiektu
 
-		var id = $(this).attr('id');
-		if( id.charAt(0) == 'c')
-			{
-			 id = id.substr(1);
-			}
-		var url;
-		if ($(this).attr('data-target') != 'undefined' ) url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+id+'/';
-		else url = window.location.protocol + "//" + window.location.host + "/menu/";
+        if($(this).parent().hasClass('new')) $(this).parent().remove();
+        else {
+            var id = $(this).attr('id');
+        if( id.charAt(0) == 'c')
+            {
+             id = id.substr(1);
+            }
+        var url;
+        if ($(this).attr('data-target') != 'undefined' ) url = window.location.protocol + "//" + window.location.host + "/" + $(this).attr('data-target')+id+'/';
+        else url = window.location.protocol + "//" + window.location.host + "/menu/";
 
 
-		if (confirm('Jesteś pewien, że chcesz usunać pracownika z bazy?')) {
-			$.ajax({
-				url: url,
-				type: 'DELETE',
-				contentType: 'application/json',
-				processData: false,
-				success: function() {
-					location.reload();
-				}
-			})
+        if (confirm('Jesteś pewien, że chcesz usunać pracownika z bazy?')) {
+            $.ajax({
+                url: url,
+                type: 'DELETE',
+                contentType: 'application/json',
+                processData: false,
+                success: function() {
+                    location.reload();
+                }
+            })
 
-		} else {
-			console.log('error while removing');
-		}
+        } else {
+            console.log('error while removing');
+        }
+        }
+		
 	})
 	$('a#reset').on('click', function() { //reset obiektu
 	console.log('xddd');

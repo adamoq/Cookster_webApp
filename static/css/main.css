@@ -81,7 +81,7 @@ table {
     text-align: left;
     display: flex;
 	font-family: 'Roboto', sans-serif;
-	font-size: 19px;
+	font-size: 1vw;
 	font-weight:200;
     flex-flow: column;
     height: auto;
@@ -122,15 +122,15 @@ table tbody tr {
 	padding: auto;	
 }*/
 table tbody tr {
-	height: 40px;
+	height: 2vw;
 }
 table tbody tr.odd {
 	background-color: #eee;
 }
 
 table tbody td.categoryname{
-	font-size: 20px;
-	font-weight: 200;
+	font-size: 1.2vw;
+	font-weight: 400;
 	padding-left: 20px;
 }
 table tbody td.dishname,th.dishname{
@@ -247,65 +247,7 @@ table tbody tr {
 .form-control-feedback {
 	visibility: hidden;
 }
-.login-wrapper{
-	height: 100%;
-	font-family: 'Roboto', sans-serif;
-	background: linear-gradient(45deg, rgba(153,0,0,1) 0%, rgba(0,128,128,1) 100%);
-	text-align: center;
 
-}
-.login-wrapper:before{
-	content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    background-image: url(/static/img/login-background.png);
-    filter: blur(2px);
-    opacity: .6;
-	background-position: bottom;
-}
-.login-wrapper form {
-	top: 20%;
-    background: rgba(255,255,255,.4);
-    width: 40%;
-    position: absolute;
-    padding:  20px 0;
-    left: 30%;
-	box-shadow: 0px 0px 45px black;
-	border-radius: 5px;
-}
-.login-wrapper p input,
-.login-wrapper input[type='submit'] {
-    background: rgba(255,255,255,.9);
-	border: 0;
-	
-}
-.login-wrapper input[type='submit'] {
-    font-size: 18px;
-    width: 100px;
-    height: 35px;
-}
-.login-wrapper input[type='submit']:focus,
-.login-wrapper  p input:focus {outline:0;}
-.login-wrapper label {
-	font-size: 18px;
-	width: 150px;
-}
-.login-wrapper form img{
-	opacity:.4;
-}
-.login-wrapper-info{
-	position:absolute;
-    background: rgba(255,255,255,.4);
-	top: 5%;
-	left: 30%;
-	width: 40%;
-    padding:  15px 0;
-	box-shadow: 0px 0px 15px grey;
-
-}
 .errorlist{
 	background: rgba(255,0,0,.1);
 }
@@ -386,6 +328,10 @@ table tbody tr {
 
 .radio-av:nth-of-type(3):checked + label {
     background: #2eb82e;
+}
+table img {
+	height: 16px;
+	width: 16px;
 }
 table tbody tr td{
 	padding: 0;
