@@ -2,14 +2,15 @@
 {% load i18n %}
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <div class = "login-wrapper">
-
-<form method="post">
-<h1 class="cookster" style="margin-bottom: 40px;font-size: 96px;"> CookSter </h1>
+<img src="{% static 'img/login/login-logo.png' %}" class="logo-img">
+<form method="post" class="form-hidden">
+	<!--<h2 class="cookster"> CookSter </h2> -->
 {% csrf_token %}
     {{ form.as_p }}
 <br>
@@ -37,4 +38,5 @@
 
 </div>
 </body>
+<script src="{% static 'js/login.js' %}"></script>
 </html>
