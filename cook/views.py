@@ -217,25 +217,36 @@ def menu(request):
 	map = {}
 	forms = {}
 	currency = RestaurantDetail.objects.all().first().default_currency.ab
-	categories = CategoryTranslation.objects.all()
-	cattrans = categories.values('id','lang__name')
+	categories = {}
+	cattrans = CategoryTranslation.objects.all().values('id','lang__name')
+	for category in CategoryTranslation.objects.all():
+		if category.id not in categories:
+			categories[category.category] = []
+		categories[category.category].append(category)
 
-
-	productMap = {}
-	for product in Product.objects.all():
-		productMap[product.id] = product.name
 	dishes = Dish.objects.all()
+
+	dishProductMap = {}
+	for prod in DishProduct.objects.all().values('dish__id', 'product__name'):
+		if prod['dish__id'] in dishProductMap : 
+			if dishProductMap[prod['dish__id']]['count'] < 6:
+				dishProductMap[prod['dish__id']]['text'] += ', ' + prod['product__name']
+				dishProductMap[prod['dish__id']]['count'] += 1
+		else : 
+			dishMap = {}
+			dishMap['text'] = prod['product__name']
+			dishMap['count'] = 1
+			dishProductMap[prod['dish__id']] = dishMap
+	
 	for category in Category.objects.all().order_by('order'):
-		list = []
-		list.append(category)
-		table = DishTable(dishes.filter(category = category), currency, productMap)
+		table = DishTable(dishes.filter(category = category), currency, dishProductMap)
 		#table.columns.price = "zł"
-		map[CategoryTable(list, currency)] = table
+		map[CategoryTable([category,], currency)] = table
 		#forms["c"+str(category.id)]=CategoryForm(instance=category)
 
 		formmap = {}
 		translits = []
-		for object in categories.filter(category_id = category.id):
+		for object in categories[category]:
 			transmap = {}
 			transmap['form'] = CategoryTransForm(instance=object)
 			for categorytrans in cattrans:

@@ -129,17 +129,7 @@ class DishTable(tables.Table):
 			return format_html('<div class="large av-ico choosen"></div>',value)
 		else: return format_html(value,value)
 	def render_prods(self, value, record):
-		from .models import DishProduct
-		ret = ''
-		count = 0
-		for prod in DishProduct.objects.filter(dish = record).values('product__id'):
-			if count == 0 : ret = self.productMap[prod['product__id']]
-			else : ret += ', '+self.productMap[prod['product__id']]
-			if count == 6: 
-				ret += '...'
-				break
-			count+=1
-		return ret
+		return self.productMap[record.id]['text'] if record.id in self.productMap else ''
 	def render_price(self, value):
 		return format_html(str(value)+" "+self.currency,value)
 
