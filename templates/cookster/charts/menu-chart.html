@@ -6,20 +6,24 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/charts.css' %}">
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
-<script>
 
+<script>
    var backgroundColors = [
-	'rgba(255, 99, 132, 1)',
-	'rgba(54, 162, 235, 1)',
-	'rgba(255, 206, 86, 1)',
-	'rgba(75, 192, 192, 1)',
-	'rgba(153, 102, 255, 1)',
-	'rgba(255, 159, 64, 1)',
-	'rgba(54, 162, 235, 1)',
-	'rgba(255, 206, 86, 1)',
-	'rgba(75, 192, 192, 1)',
-	'rgba(153, 102, 255, 1)',
-	'rgba(255, 159, 64, 1)'];
+	'rgba(188, 231, 132, 1)',
+	'rgba(93, 211, 158, 1)',
+	'rgba(52, 138, 167, 1)',
+	'rgba(82, 81, 116, 1)',
+	'rgba(81, 59, 86, 1)',
+	'rgba(28, 119, 195, 1)',
+	'rgba(57, 169, 219, 1)',
+	'rgba(64, 188, 216, 1)',
+	'rgba(243, 146, 55, 1)',
+	'rgba(214, 50, 48, 1)',
+	'rgba(145, 196, 242, 1)',
+	'rgba(140, 160, 215, 1)',
+	'rgba(157, 121, 188, 1)',
+	'rgba(126, 31, 134, 1)',
+	'rgba(161, 77, 160, 1)',];
 </script>
   <span id="employers-flag" style="display: none;" ></span>  
 <div class="results-container">
@@ -150,10 +154,18 @@
 			{% if chart_type %}
 			var chart_type = '{{chart_type}}';
 			{% endif%}
-                var ctx = $("#big-chart").get(0).getContext("2d");
+                var ctx = $("#big-chart").get(0).getContext("2d");		
+				data.datasets[0]['backgroundColor'] = backgroundColors;
                 new Chart(ctx, {
                     type: chart_type , data: data,
 					options: {
+						scales : {
+				            yAxes : [{
+				                ticks : {
+				                    beginAtZero : true
+				                }   
+				            }]
+				        },
 						legend: {
 							display: true,
 							position: 'bottom',

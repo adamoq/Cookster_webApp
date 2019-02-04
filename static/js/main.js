@@ -21,11 +21,11 @@
         var id = readCookie('template');
         switch (id) {
             case '0':
-                $(':root').css('--colorAccent1', '#307E4A');
-                $(':root').css('--colorAccent2', '#922429');
-                $(':root').css('--colorAccent3', '#C98E1C');
-                $(':root').css('--colorAccent4', '#5D5952');
-                $(':root').css('--colorAccent5', '#513552');
+                $(':root').css('--colorAccent1', 'rgb(48,126,74)');
+                $(':root').css('--colorAccent2', 'rgb(146,36,41)');
+                $(':root').css('--colorAccent3', 'rgb(201,142,28)');
+                $(':root').css('--colorAccent4', 'rgb(93,89,82)');
+                $(':root').css('--colorAccent5', 'rgb(81,53,82)');
                 break;
             case '1':
                 $(':root').css('--colorAccent1', '#FF3826');

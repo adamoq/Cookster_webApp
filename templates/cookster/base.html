@@ -5,12 +5,10 @@
 <head>
 <title>Cookster - A.F.</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
@@ -29,7 +27,7 @@
 </head>
 <div id="small-devices">Ekran zbyt mały <p>Spróbuj uruchumić system na innym urządzeniu</p></div>
 <div id = "overlay" class="">
-  <div class="loader">COOKSTER</div>
+  <div class="loader"></div>
 </div>
 <body>
 <div class = "nav-bar left">
@@ -112,7 +110,9 @@
       
 
           <div class="modal-body">
-
+            {% if forms.image %}
+            <img class="avatar" src="data:image/png;base64, {{forms.image}}" />
+            {% endif %}
   <form method="PUT" data-target="{{data_target}}" class="update-form" id = "{{ id }}">
 		{{forms.productForm.as_p}}
 

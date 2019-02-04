@@ -168,6 +168,7 @@ def employers(request):
 	for employee in Employee.objects.all():
 		transmap = {}
 		transmap['productForm'] = EmployeeForm(instance=employee)
+		transmap['image'] = employee.avatar
 		forms[employee.id]=transmap
 
 	table = EmployeeTable(Employee.objects.all())
@@ -220,12 +221,14 @@ def menu(request):
 	cattrans = categories.values('id','lang__name')
 
 
-
+	productMap = {}
+	for product in Product.objects.all():
+		productMap[product.id] = product.name
 	dishes = Dish.objects.all()
 	for category in Category.objects.all().order_by('order'):
 		list = []
 		list.append(category)
-		table = DishTable(dishes.filter(category = category), currency)
+		table = DishTable(dishes.filter(category = category), currency, productMap)
 		#table.columns.price = "zł"
 		map[CategoryTable(list, currency)] = table
 		#forms["c"+str(category.id)]=CategoryForm(instance=category)
@@ -256,6 +259,7 @@ def menu(request):
 		'add_text' :  _("add-category"),
 		'formText': _("add-category-form"),#Category.objects.all(),,
 		'add_text2' :  _("add-dish"),
+		'data_target2' : '/dish',
 		'charturl' : "/menu/raport",
 
 	}

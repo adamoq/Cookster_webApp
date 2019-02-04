@@ -19,6 +19,8 @@
 	text-align: center;
 	overflow-y: auto;	
 	height: 100vh;
+	
+    padding-left: 20px;
 }
 .administration-container h3{
 	font-size: 22px;
@@ -186,8 +188,20 @@
 .dishproduct-form.update-form p label {
     display: inline;
 }
-.dishproduct-form.update-form p:first-of-type {
+.dishproduct-form.update-form p:nth-of-type(2) {
     width: 90%;
+    float: left;
+    text-align: left;
+}
+.dishproduct-form.update-form p:nth-of-type(2) label {
+    width: 32%;
+    text-align: left;
+}
+.dishproduct-form.update-form p:nth-of-type(2) select {
+    width: 67%;
+}
+.dishproduct-form.update-form p:first-of-type {
+    width: 100%;
     float: left;
     text-align: left;
 }

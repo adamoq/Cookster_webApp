@@ -40,11 +40,11 @@ class ProductTable(tables.Table):
 	id = tables.Column(verbose_name =_('id'), attrs={'td': {'class': 'small id'},'th': {'class': 'small'}})
 	av = tables.Column( verbose_name='',attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
 	name = tables.Column(verbose_name = _('name'), attrs={'td': {'class': 'name'},'th': {'class': 'name'}})
-	stock = tables.Column( verbose_name='',attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
-	raport = tables.Column(empty_values=(), verbose_name=_('small'), attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
-	edit = tables.Column(empty_values=(), verbose_name=_('edit'), attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	stock = tables.Column( verbose_name='',attrs={'td': {'class': 'phone'},'th': {'class': 'phone'}})
+	raport = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'phone'},'th': {'class': 'phone'}})
+	edit = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
 	def render_raport(self, value, record):
-		return format_html('<a href="/products/raport/?d='+str(record.id)+'">RAPORT</a>',value)
+		return format_html('<a href="/products/raport/?d='+str(record.id)+'"><img src="/static/img/svg-icos/report.svg" /> RAPORT</a>',value)
 	def render_edit(self, value):
 		return renderEdit(value)
 	def render_av(self, value):
@@ -58,25 +58,29 @@ class EmployeeTable(tables.Table):
 	name = tables.Column(verbose_name = _('fname'), attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	surname = tables.Column( verbose_name=_('surname'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
 	position = tables.Column( verbose_name=_('position'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	phonenumber = tables.Column( verbose_name=_('phonenumber'),attrs={'td': {'class': 'size22'},'th': {'class': 'size22'}})
-	raport = tables.Column(empty_values=(), verbose_name=_('raport'), attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
+	phonenumber = tables.Column( verbose_name=_('phonenumber'),attrs={'td': {'class': 'phone'},'th': {'class': 'phone'}})
+	raport = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'status'},'th': {'class': 'status'}})
 	reset = tables.Column(empty_values=(),verbose_name='', attrs={'td': {'class': 'status'},'th': {'class': 'status'}})
 	edit = tables.Column(empty_values=(), verbose_name='', attrs={'td': {'class': 'edit'},'th': {'class': 'edit'}})
 	def render_raport(self, value, record):
-		return format_html('<a href="/employers/raport/?p='+str(record.id)+'">RAPORT</a>',value)
+		return format_html('<a href="/employers/raport/?p='+str(record.id)+'"><img src="/static/img/svg-icos/report.svg" /> RAPORT</a>',value)
 	def render_edit(self, value):
 		return renderEdit(value)
 	def render_reset(self, value, record):
 		if record.active == '1':
 			return format_html('<div class="notactive">notactive</div>',value)
 		if record.status == "0" : return format_html('<a id="reset" href="/reset/password/?login='+str(record.login)+'&passwordOld='+str(record.password)+'"><div class="notactive reset">resetuj hasło</div></a>',value)
-		elif record.status == "1" : return format_html(renderGps(),value)
-		elif record.status == "2" : return format_html(renderGps(),value)
+		elif record.status == "1" : return format_html('',value)
+		elif record.status == "2" : return format_html('',value)
 	def render_position(self, value):
 		return format_html(_(value),value)
 	def render_status(self, value, record):
-		if record.active == '1':
-			return format_html('<div class="small av-ico choosen">',value)
+		if record.avatar:
+			if record.active == '1': return format_html('<img class="avatar small" src="data:image/png;base64, '+str(record.avatar)+'"/>',value)
+			if value == "offline" : return format_html('<img class="avatar small" src="data:image/png;base64, '+str(record.avatar)+'"/>',value)
+			elif value == "notactive" : return format_html('<img class="avatar medium" src="data:image/png;base64, '+str(record.avatar)+'"/>',value)
+			elif value == "active" : return format_html('<img class="avatar large" src="data:image/png;base64, '+str(record.avatar)+'"/>',value)
+		if record.active == '1': return format_html('<div class="small av-ico choosen">',value)
 		if value == "offline" : return format_html('<div class="small av-ico choosen">',value)
 		elif value == "notactive" : return format_html('<div class="medium av-ico choosen"></div>',value)
 		elif value == "active" : return format_html('<div class="large av-ico choosen"></div>',value)
@@ -94,11 +98,15 @@ class DishTable(tables.Table):
 	#currency = RestaurantDetail.objects.all().first().default_currency.name
 
 	currency = " "
+	productMap = {}
+	dishproducts = []
 	def __init__(self, *args, **kwargs):
 		super(DishTable, self).__init__(*args, **kwargs)
-		x = args[1]
-		if x:
-			self.currency = str(x)
+		if args[1]:
+			self.currency = str(args[1])
+		if args[2]:
+			self.productMap = args[2]
+
 
 
 	av = tables.Column( verbose_name=_('av'),attrs={'td': {'class': 'small'},'th': {'class': 'small'}})
@@ -124,9 +132,9 @@ class DishTable(tables.Table):
 		from .models import DishProduct
 		ret = ''
 		count = 0
-		for prod in DishProduct.objects.filter(dish = record):
-			if count == 0 : ret = prod.product.name
-			else : ret += ', '+prod.product.name
+		for prod in DishProduct.objects.filter(dish = record).values('product__id'):
+			if count == 0 : ret = self.productMap[prod['product__id']]
+			else : ret += ', '+self.productMap[prod['product__id']]
 			if count == 6: 
 				ret += '...'
 				break

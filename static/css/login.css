@@ -1,5 +1,6 @@
 .login-wrapper{
 	height: 100%;
+	font-size: 1.8vh;
 	font-family: 'Roboto', sans-serif;
 	background: linear-gradient(45deg, rgba(153,0,0,1) 0%, rgba(0,128,128,1) 100%);
 	text-align: center;
@@ -21,7 +22,7 @@
     position: absolute;
     left: 2vw;
     opacity: 1;
-    transition: opacity 1.5s ease-out;
+    transition: opacity .5s ease-out;
     cursor: pointer;
    }
    .login-wrapper img.form-hidden {
@@ -32,17 +33,16 @@
 	}
 .login-wrapper form {
 	top: 40vh;
-    height: 20vh;
-    background: rgba(255,255,255,.7);
+    height: auto;
+    background: rgba(255,255,255,.85);
     width: 30vw;
     position: absolute;
     padding:  20px 0;
     left: -2vw;
-	box-shadow: 0px 0px 45px black;
 	display: block;
 	border-radius: 5px;
 	transition: left 1s ease-out;
-	transition-delay: 1.5s;
+	transition-delay: .5s;
 }
 .login-wrapper p{
 	margin: 10px auto;
@@ -54,18 +54,21 @@
     background: rgba(255,255,255,.9);
     height: 30px;
 	border: 0;
-	width: 250px;
-	display: inline-block;	
+	width: 230px;
+	display: inline-block;
 }
 .login-wrapper input[type='submit'] {
-    font-size: 18px;
-    width: 100px;
+    width: 130px;
     height: 35px;
+    cursor: pointer;
 }
+.login-wrapper  p input,
+.login-wrapper label {
+	padding-left: 20px;
+	}
 .login-wrapper input[type='submit']:focus,
 .login-wrapper  p input:focus {outline:0;}
 .login-wrapper label {
-	font-size: 18px;
 	width: 150px;
 	display: inline-block;
 	text-align: left;
@@ -73,16 +76,14 @@
 .login-wrapper form img{
 	opacity:.4;
 }
-.login-wrapper h2{
-	font-size: 50px;
-}
-.login-wrapper-info{
-	position:absolute;
-    background: rgba(255,255,255,.4);
-	top: 5%;
-	left: 30%;
-	width: 40%;
-    padding:  15px 0;
-	box-shadow: 0px 0px 15px grey;
 
+.login-wrapper-info{
+    position: absolute;
+    background: rgba(255,255,255,.9);
+    top: 5%;
+    left: 35%;
+    width: 30%;
+    border-radius: 10px;
+    padding: 15px 0;
+    box-shadow: 0px 0px 15px grey;
 }
