@@ -531,14 +531,19 @@ def changephone(request):
 @csrf_exempt
 def changeimg(request):
 	import json
-	if request.method == 'POST' and request.is_ajax():
-		login = request.POST.get('login')
+	print ("ELOELOELOE" + request.method)
+	if request.method == 'POST':
+		userlog = request.POST.get('login')
 		json_data = json.loads(request.body)
 		image = json_data['image']
-		if login and image:
-			user = Employee.objects.all().filter(login = login)
-			if user is not None:
+		userlog = json_data['login']
+		print ("ELOELOELOE" + image)
+		if userlog and image:
+			user = Employee.objects.all().filter(login = userlog)
+			if user:
 				user.update(avatar=image)
+				print ("ELOELOELOE" + image)
+				#user.save()
 				return HttpResponse(serializers.serialize("json", user))
 	return HttpResponse("False")
 
